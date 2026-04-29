@@ -1,5 +1,6 @@
 # WaffleBits
 https://wafflebits.github.io/WaffleBits/
+
 Cleared U.S. cyber operations specialist building security-minded AI infrastructure, mission decision systems, and performance-sensitive engineering projects.
 
 I am strongest where backend and platform engineering meet high-stakes operations: securing model-serving paths, measuring inference reliability, translating messy workflows into operational software, and building deterministic systems that can be tested under pressure.
