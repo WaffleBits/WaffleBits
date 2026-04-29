@@ -4,6 +4,8 @@ Cleared U.S. cyber operations specialist building security-minded AI infrastruct
 
 I am strongest where backend and platform engineering meet high-stakes operations: securing model-serving paths, measuring inference reliability, translating messy workflows into operational software, and building deterministic systems that can be tested under pressure.
 
+**Resume website:** [wafflebits.github.io/WaffleBits](https://wafflebits.github.io/WaffleBits/)
+
 ## Technical Focus
 
 - AI infrastructure / platform engineering: model-serving gateways, inference benchmarks, Docker/Kubernetes-oriented deployment thinking, observability, reliability, and GPU-aware system design.
