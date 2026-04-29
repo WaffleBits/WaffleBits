@@ -1,15 +1,29 @@
 # WaffleBits
 
-Cleared U.S. cyber operations specialist building security, AI infrastructure, and mission decision systems.
+Cleared U.S. cyber operations specialist building security-minded AI infrastructure, mission decision systems, and performance-sensitive engineering projects.
 
-I am focused on roles where software engineering meets high-stakes operations: mission platforms, security infrastructure, GPU inference systems, and data-driven decision tools.
+I am strongest where backend and platform engineering meet high-stakes operations: securing model-serving paths, measuring inference reliability, translating messy workflows into operational software, and building deterministic systems that can be tested under pressure.
 
-## Current Focus
+## Technical Focus
 
-- Security engineering: detection logic, access control, auditability, incident response workflows
-- AI infrastructure: inference gateways, benchmarking, model-serving reliability, GPU-aware systems
-- Mission software: operational analytics, readiness dashboards, workflow automation
-- Systems engineering: Python, TypeScript, Java, Linux, Docker, Kubernetes, CUDA, PyTorch
+- AI infrastructure / platform engineering: model-serving gateways, inference benchmarks, Docker/Kubernetes-oriented deployment thinking, observability, reliability, and GPU-aware system design.
+- Security infrastructure: authentication, authorization, RBAC, rate limits, audit trails, policy enforcement, threat modeling, and secure service boundaries.
+- Forward deployed / mission engineering: turning ambiguous operational data into working tools for root-cause analysis, what-if planning, and decision support.
+- Quantitative systems engineering: deterministic matching, market microstructure, latency measurement, correctness testing, and a C++/Rust systems roadmap.
+
+## Current Stack
+
+- Languages: Python, TypeScript, Java; actively building toward Rust/C++ for systems and quant work.
+- Backend/platform: FastAPI, REST APIs, Docker, Linux, CI, service boundaries, testable architecture.
+- AI infrastructure: Triton-style serving concepts, benchmarking, latency percentiles, throughput, failure accounting, and GPU-aware reliability.
+- Security: access control, policy enforcement, audit logging, rate limiting, public-safe threat modeling.
+- Product judgment: synthetic operational data modeling, command-facing workflows, explainable recommendations, and public-safe portfolio discipline.
+
+## Work Areas
+
+- AI infrastructure teams: distributed services, model-serving reliability, Kubernetes-oriented operations, observability, inference benchmarking, and security controls around AI workloads.
+- Mission and deployment engineering teams: operational workflows, synthetic mission data, root-cause analysis, and software that helps users act under uncertainty.
+- Quantitative systems teams: deterministic execution, market mechanics, performance measurement, strong CS fundamentals, and a path toward lower-level implementations.
 
 ## Featured Work
 
@@ -17,33 +31,32 @@ I am focused on roles where software engineering meets high-stakes operations: m
 
 Synthetic mission readiness platform that fuses sortie, maintenance, supply, personnel, and outage data into a command-facing decision surface.
 
-Signals: FastAPI, React/TypeScript, synthetic operational data modeling, root-cause scoring, what-if analysis, Docker, tests, public-safe mission framing.
+Covers operational data modeling, FastAPI service design, React/TypeScript workflow design, root-cause scoring, what-if analysis, Docker, tests, and public-safe mission framing.
 
 ### [Triton Inference Benchmark](https://github.com/WaffleBits/triton-inference-benchmark)
 
-Distributed inference benchmarking toolkit for NVIDIA Triton-style model-serving workflows.
+Distributed inference benchmarking toolkit for Triton-compatible model-serving workflows.
 
-Signals: Python, benchmark design, latency/throughput metrics, model-serving concepts, GPU infrastructure awareness.
+Covers Python load generation, configurable concurrency, retry-aware execution, p50/p95/p99 latency, throughput, success-rate reporting, JSON outputs, and a clean path from mock CI to live inference testing.
 
 ### [Secure GPU Inference Gateway](https://github.com/WaffleBits/secure-gpu-inference-gateway)
 
 Security-focused AI infrastructure project for authenticated model access, RBAC, rate limiting, audit logs, policy checks, and observability.
 
-Target signal: OpenAI, Anthropic, NVIDIA, and security infrastructure teams.
+Covers authenticated model access, per-model authorization, reason-for-access enforcement, rate limiting, structured audit logs, Prometheus-compatible metrics, Kubernetes health/scrape posture, SLO notes, incident runbooks, policy checks, tests, and production extension points such as OIDC, mTLS, KMS, GPU telemetry, and external policy engines.
 
 ### [Market Microstructure Engine](https://github.com/WaffleBits/market-microstructure-engine)
 
 Low-level matching engine and backtesting project for limit-order-book mechanics, deterministic execution, latency measurement, and market simulation.
 
-Target signal: quantitative trading and systems engineering roles.
+Covers price-time priority, integer tick prices, partial fills, market orders, cancellations, deterministic snapshots, edge-case tests, and benchmarkable execution. Next phase is a C++20 or Rust core with latency histograms and replay-style market data ingestion.
 
-## Technical Direction
+## Next Build Priorities
 
-I am intentionally building a portfolio around three company-relevant themes:
-
-1. Mission engineering for Palantir-style deployment and operational problem solving.
-2. AI/security infrastructure for OpenAI, Anthropic, and NVIDIA-style engineering teams.
-3. Systems and market mechanics for quantitative trading engineering roles.
+1. Extend the Kubernetes, metrics, SLO, and runbook pattern from Secure GPU Inference Gateway into the Triton benchmark and readiness repos.
+2. Add a live Triton or vLLM adapter path with reproducible benchmark reports and regression comparison.
+3. Port the market microstructure core to C++20 or Rust and compare latency, memory layout, and throughput against the Python reference.
+4. Add stronger incident-response artifacts: runbooks, fault injection, alert quality examples, and postmortem templates.
 
 ## Public-Safe Portfolio Note
 
