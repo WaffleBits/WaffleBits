@@ -1,4 +1,4 @@
-Cleared U.S. cyber operations specialist building secure AI infrastructure, mission decision systems, and performance-sensitive engineering projects.
+Cleared U.S. cyber operations specialist building secure AI infrastructure, production reliability tooling, mission decision systems, and performance-sensitive engineering projects.
 
 I am strongest where backend/platform engineering meets high-stakes operations: securing model-serving paths, measuring inference reliability, translating ambiguous workflows into operational software, and building deterministic systems that can be tested under pressure.
 
@@ -6,7 +6,7 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 
 ## Technical Focus
 
-- AI infrastructure / platform reliability: model-serving gateways, inference benchmarks, Docker/Kubernetes-oriented deployment thinking, Prometheus-compatible artifacts, latency/throughput regression checks, and GPU-aware system design.
+- AI infrastructure / platform reliability: model-serving gateways, inference benchmarks, Docker/Kubernetes-oriented deployment thinking, Prometheus-compatible artifacts, latency/throughput regression checks, GPU-aware system design, and production ML reliability.
 - Infrastructure security: authentication, authorization, RBAC, rate limits, audit trails, policy enforcement, threat modeling, secure service boundaries, and production extension paths such as OIDC, mTLS, external policy engines, and key management.
 - Forward-deployed / mission engineering: turning ambiguous operational data into working tools for root-cause analysis, what-if planning, observable delivery, and decision support.
 - Quantitative systems engineering: deterministic matching, market microstructure, latency measurement, correctness testing, Linux fundamentals, and a C++/Rust systems roadmap.
@@ -21,10 +21,17 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 
 ## Role Alignment
 
-- AI infrastructure and reliability teams: distributed services, model-serving reliability, Kubernetes-oriented operations, observability, inference benchmarking, and performance regression tracking.
+- AI infrastructure and reliability teams: distributed services, model-serving reliability, Kubernetes-oriented operations, observability, inference benchmarking, performance regression tracking, and hardware-aware debugging.
 - Infrastructure security teams: secure access paths, service boundaries, policy enforcement, audit evidence, threat models, incident runbooks, and controls around AI workloads.
 - Forward-deployed AI / government engineering teams: cleared mission context, stakeholder translation, full-stack prototypes, observable systems, and delivery under ambiguous requirements.
 - Quantitative systems teams: deterministic execution, market mechanics, performance measurement, strong CS fundamentals, and a path toward lower-level implementations.
+
+## Evidence Map
+
+- Compute / inference infrastructure: Triton-style benchmark work shows concurrency control, latency percentiles, throughput, retry/failure accounting, Prometheus output, baseline/candidate regression reports, and Kubernetes job posture.
+- Secure AI platform engineering: Secure GPU Inference Gateway shows authenticated model access, RBAC, reason-for-access policy, audit trails, metrics, SLO notes, incident runbooks, and extension points for OIDC, mTLS, KMS, GPU telemetry, and external policy engines.
+- Forward-deployed mission software: Readiness Control Tower shows public-safe operational data modeling, root-cause scoring, what-if analysis, recommendations, full-stack workflow design, Docker, and tests.
+- Systems / quant fundamentals: Market Microstructure Engine shows deterministic order-book mechanics, price-time priority, integer tick accounting, partial fills, cancellations, snapshots, tests, and a lower-level C++20/Rust roadmap.
 
 ## Featured Work
 
@@ -56,9 +63,9 @@ Covers price-time priority, integer tick prices, partial fills, market orders, c
 
 ## Next Build Priorities
 
-1. Add warmup/cold-start windows, payload profiles, and server-side telemetry correlation to the Triton benchmark.
+1. Add warmup/cold-start windows, payload profiles, server-side telemetry correlation, and workload comparison reports to the Triton benchmark.
 2. Add OIDC/JWT verification, distributed rate limiting, OpenTelemetry traces, and Grafana dashboard screenshots to the secure GPU inference gateway.
-3. Extend the Kubernetes, metrics, SLO, and runbook pattern into the readiness repo.
+3. Extend the Kubernetes, metrics, SLO, rollback, and runbook pattern into the readiness repo.
 4. Port the market microstructure core to C++20 or Rust and compare latency, memory layout, and throughput against the Python reference.
 5. Prepare the local LLM inference-serving stack for public release only after README cleanup, tests, and a reviewer-safe benchmark report.
 
