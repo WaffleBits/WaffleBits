@@ -348,6 +348,7 @@ h3 {
 .metric-grid,
 .focus-grid,
 .role-grid,
+.evidence-grid,
 .project-grid,
 .skills-grid {
   display: grid;
@@ -361,6 +362,7 @@ h3 {
 .metric-card,
 .focus-grid article,
 .role-grid article,
+.evidence-grid article,
 .project-card,
 .skills-grid article,
 .stack-list article {
@@ -386,6 +388,7 @@ h3 {
 .metric-card p,
 .focus-grid p,
 .role-grid p,
+.evidence-grid p,
 .project-card p,
 .skills-grid p,
 .stack-list li,
@@ -404,8 +407,13 @@ h3 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.evidence-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .focus-grid article,
 .role-grid article,
+.evidence-grid article,
 .skills-grid article,
 .stack-list article {
   padding: 1.2rem;
@@ -413,6 +421,7 @@ h3 {
 
 .focus-grid p,
 .role-grid p,
+.evidence-grid p,
 .skills-grid p {
   margin-bottom: 0;
 }
@@ -603,6 +612,7 @@ h3 {
   }
 
   .metric-grid,
+  .evidence-grid,
   .role-grid,
   .skills-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -631,8 +641,9 @@ h3 {
   }
 
   h1 {
-    max-width: 12ch;
-    font-size: clamp(2.65rem, 14vw, 4.5rem);
+    max-width: 100%;
+    font-size: 3.25rem;
+    overflow-wrap: break-word;
   }
 
   h2 {
@@ -652,6 +663,7 @@ h3 {
   .hero-facts,
   .metric-grid,
   .focus-grid,
+  .evidence-grid,
   .role-grid,
   .project-grid,
   .skills-grid {
@@ -674,6 +686,12 @@ h3 {
 
   .site-footer {
     display: grid;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.45rem;
   }
 }
 
@@ -746,6 +764,7 @@ h3 {
 
   .metric-grid,
   .focus-grid,
+  .evidence-grid,
   .project-grid,
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -753,6 +772,7 @@ h3 {
 
   .metric-card,
   .focus-grid article,
+  .evidence-grid article,
   .project-card,
   .skills-grid article,
   .stack-list article {
