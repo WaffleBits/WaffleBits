@@ -400,7 +400,7 @@ h3 {
 }
 
 .focus-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .role-grid {
@@ -612,6 +612,7 @@ h3 {
   }
 
   .metric-grid,
+  .focus-grid,
   .evidence-grid,
   .role-grid,
   .skills-grid {
