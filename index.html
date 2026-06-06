@@ -45,6 +45,7 @@
           "AI infrastructure",
           "Production ML reliability",
           "Inference runtime performance",
+          "Inference release validation",
           "Workload profiling",
           "Infrastructure security",
           "Inference benchmarking",
@@ -261,7 +262,7 @@
             <p>
               Triton Inference Benchmark shows repeatable load generation, concurrency controls, p50/p95/p99
               latency, throughput, retry and failure accounting, Prometheus output, baseline regression reports,
-              and the next path into routing, batching, streaming, and telemetry correlation.
+              correlated Triton/DCGM telemetry, and exact-output batch-invariance CI gates.
             </p>
           </article>
           <article>
@@ -413,7 +414,8 @@
               <h3>Triton Inference Benchmark</h3>
               <p>
                 Repeatable load-generation harness for Triton-style model serving, with concurrency controls,
-                p50/p95/p99 latency, throughput, retries, Prometheus export, baseline regression gates, and Kubernetes job posture.
+                p50/p95/p99 latency, throughput, retries, Prometheus export, baseline regression gates,
+                exact-output batch-invariance checks, and Kubernetes job posture.
               </p>
             </div>
             <a href="https://github.com/WaffleBits/triton-inference-benchmark" target="_blank" rel="noreferrer">
