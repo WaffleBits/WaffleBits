@@ -6,8 +6,8 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 
 ## Technical Focus
 
-- AI compute and inference infrastructure: model-serving gateways, inference benchmarks, Docker/Kubernetes-oriented deployment thinking, Prometheus-compatible artifacts, latency/throughput regression checks, GPU-aware system design, and production ML reliability.
-- Inference runtime performance: request routing, batching/caching concepts, workload profiling, tail-latency analysis, regression harnesses, and a practical path toward vLLM/SGLang-style serving work.
+- AI compute and inference infrastructure: model-serving gateways, inference benchmarks, Docker/Kubernetes-oriented deployment thinking, Prometheus-compatible artifacts, latency/throughput regression checks, token and GPU-hour capacity modeling, GPU-aware system design, and production ML reliability.
+- Inference runtime performance: request routing, batching/caching concepts, workload profiling, tail-latency analysis, cost-to-serve estimates, regression harnesses, and a practical path toward vLLM/SGLang-style serving work.
 - Infrastructure security: authentication, authorization, RBAC, rate limits, audit trails, policy enforcement, threat modeling, secure service boundaries, and production extension paths such as OIDC, mTLS, external policy engines, and key management.
 - Forward-deployed / mission engineering: turning ambiguous operational data into working tools for root-cause analysis, what-if planning, observable delivery, and decision support.
 - Quantitative systems engineering: deterministic matching, market microstructure, C++20, latency distributions, cross-language correctness gates, and Linux fundamentals.
@@ -16,21 +16,21 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 
 - Languages: Python, C++20, TypeScript, Java; building toward deeper CUDA/Rust systems work.
 - Backend/platform: FastAPI, REST APIs, Docker, Linux, CI, service boundaries, testable architecture, and Kubernetes deployment shapes.
-- AI infrastructure: Triton-style serving concepts, benchmarking, latency percentiles, throughput, failure accounting, exact-output batch-invariance checks, Prometheus output, regression comparison, queueing/batching concepts, and GPU-aware reliability.
+- AI infrastructure: Triton-style serving concepts, benchmarking, latency percentiles, token throughput, GPU-hour capacity, cost-to-serve estimates, failure accounting, exact-output batch-invariance checks, Prometheus output, regression comparison, queueing/batching concepts, and GPU-aware reliability.
 - Security: access control, policy enforcement, audit logging, rate limiting, public-safe threat modeling, incident response, and secure service design.
 - Product judgment: synthetic operational data modeling, command-facing workflows, explainable recommendations, reviewer-friendly docs, stakeholder translation, and public-safe portfolio discipline.
 
 ## Role Alignment
 
 - AI compute and inference infrastructure teams: distributed services, model-serving reliability, Kubernetes-oriented operations, observability, inference benchmarking, performance regression tracking, and hardware-aware debugging.
-- Inference runtime and performance teams: request lifecycle design, routing, batching, caching, tail-latency investigation, benchmark-driven optimization, and native C++ performance measurement.
+- Inference runtime and performance teams: request lifecycle design, routing, batching, caching, tail-latency investigation, benchmark-driven optimization, transparent cost modeling, and native C++ performance measurement.
 - Infrastructure security teams: secure access paths, service boundaries, policy enforcement, audit evidence, threat models, incident runbooks, and controls around AI workloads.
 - Forward-deployed AI / government engineering teams: cleared mission context, stakeholder translation, full-stack prototypes, data-backed workflows, observable systems, and delivery under ambiguous requirements.
 - Quantitative systems teams: deterministic execution, market mechanics, Linux fundamentals, C++20, latency measurement, oracle testing, and strong CS fundamentals.
 
 ## Evidence Map
 
-- Compute / inference infrastructure: Triton-style benchmark work shows concurrency control, latency percentiles, throughput, retry/failure accounting, exact-output checks across isolated and concurrent execution, Prometheus output, baseline/candidate regression reports, and Kubernetes job posture.
+- Compute / inference infrastructure: Triton-style benchmark work shows concurrency control, latency percentiles, token throughput, requests per GPU-hour, normalized cost-to-serve estimates, retry/failure accounting, exact-output checks across isolated and concurrent execution, Prometheus output, baseline/candidate regression reports, and Kubernetes job posture.
 - Runtime performance direction: the benchmark and gateway repos create a public-safe path for workload profiles, routing policy, queue-depth signals, server-side telemetry correlation, and future vLLM/SGLang-compatible testing.
 - Secure AI platform engineering: Secure GPU Inference Gateway shows authenticated model access, RBAC, reason-for-access policy, audit trails, metrics, SLO notes, incident runbooks, and extension points for OIDC, mTLS, KMS, GPU telemetry, and external policy engines.
 - Forward-deployed mission software: Readiness Control Tower shows public-safe operational data modeling, root-cause scoring, what-if analysis, recommendations, full-stack workflow design, Docker, and tests.
@@ -50,7 +50,7 @@ Distributed inference benchmarking toolkit for Triton-compatible model-serving w
 
 Covers Python load generation, configurable concurrency, retry-aware execution, p50/p95/p99 latency, throughput, success-rate reporting, JSON outputs, and a clean path from mock CI to live inference testing.
 
-Includes Prometheus text export, baseline-versus-candidate regression reporting, batch-invariance probes under concurrent noise traffic, operations notes, and a Kubernetes Job shape for cluster-local benchmark runs.
+Includes Prometheus text export, baseline-versus-candidate regression reporting, batch-invariance probes under concurrent noise traffic, token-throughput and GPU-capacity metrics, explicit accelerator/energy cost assumptions, normalized cost-to-serve estimates, operations notes, and a Kubernetes Job shape for cluster-local benchmark runs.
 
 ### [Secure GPU Inference Gateway](https://github.com/WaffleBits/secure-gpu-inference-gateway)
 
@@ -66,7 +66,7 @@ Covers price-time priority, integer tick prices, partial fills, market orders, c
 
 ## Next Build Priorities
 
-1. Add warmup/cold-start windows, payload profiles, model-aware numeric tolerance, distributed load generation, and workload comparison reports to the Triton benchmark.
+1. Add warmup/cold-start windows, saved workload profiles, model-aware numeric tolerance, distributed load generation, and cost-aware comparison gates to the Triton benchmark.
 2. Add a vLLM/SGLang-compatible mock profile that exercises request routing, batching, streaming, and tail-latency regression behavior without requiring private models.
 3. Add OIDC/JWT verification, distributed rate limiting, OpenTelemetry traces, and Grafana dashboard screenshots to the secure GPU inference gateway.
 4. Extend the Kubernetes, metrics, SLO, rollback, and runbook pattern into the readiness repo.
