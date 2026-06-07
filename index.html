@@ -47,6 +47,7 @@
           "Inference runtime performance",
           "Inference release validation",
           "Workload profiling",
+          "Inference cost modeling",
           "Infrastructure security",
           "Inference benchmarking",
           "Model serving reliability",
@@ -224,7 +225,8 @@
             <h3>Compute / Inference Infrastructure</h3>
             <p>
               Triton-style benchmarking, latency and throughput reporting, failure accounting,
-              Prometheus export, cluster-run job shapes, queueing/batching concepts, and hardware-aware debugging direction.
+              token and GPU-hour capacity metrics, cost-to-serve estimates, Prometheus export,
+              cluster-run job shapes, queueing/batching concepts, and hardware-aware debugging direction.
             </p>
           </article>
           <article>
@@ -262,7 +264,8 @@
             <p>
               Triton Inference Benchmark shows repeatable load generation, concurrency controls, p50/p95/p99
               latency, throughput, retry and failure accounting, Prometheus output, baseline regression reports,
-              correlated Triton/DCGM telemetry, and exact-output batch-invariance CI gates.
+              correlated Triton/DCGM telemetry, exact-output batch-invariance CI gates, token throughput,
+              requests per GPU-hour, and normalized cost-to-serve estimates.
             </p>
           </article>
           <article>
@@ -415,7 +418,8 @@
               <p>
                 Repeatable load-generation harness for Triton-style model serving, with concurrency controls,
                 p50/p95/p99 latency, throughput, retries, Prometheus export, baseline regression gates,
-                exact-output batch-invariance checks, and Kubernetes job posture.
+                exact-output batch-invariance checks, token and GPU-capacity metrics, explicit cost assumptions,
+                normalized cost-to-serve estimates, and Kubernetes job posture.
               </p>
             </div>
             <a href="https://github.com/WaffleBits/triton-inference-benchmark" target="_blank" rel="noreferrer">
@@ -470,7 +474,8 @@
             <h3>AI / Systems</h3>
             <p>
               AI infrastructure, inference benchmarking, model-serving concepts, latency percentiles, throughput,
-              failure accounting, routing and batching concepts, PyTorch, TensorFlow, CUDA/NCCL concepts,
+              token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
+              PyTorch, TensorFlow, CUDA/NCCL concepts,
               GPU-aware reliability, C++20, cross-language oracle testing, and performance profiling.
             </p>
           </article>
