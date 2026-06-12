@@ -6,7 +6,7 @@
     <title>WaffleBits | AI Infrastructure, Inference Systems & Mission Software</title>
     <meta
       name="description"
-      content="TS/SCI-cleared cyber operations specialist building secure AI infrastructure, inference reliability tooling, observability, performance benchmarks, and mission software."
+      content="TS/SCI-cleared cyber operations specialist building Triton GPU kernels, secure AI infrastructure, inference reliability tooling, performance benchmarks, and mission software."
     />
     <meta name="theme-color" content="#f4f6f3" />
     <meta property="og:title" content="WaffleBits | AI Infrastructure, Inference Systems & Mission Software" />
@@ -45,6 +45,9 @@
           "AI infrastructure",
           "Production ML reliability",
           "Inference runtime performance",
+          "Triton GPU kernels",
+          "RMSNorm",
+          "torch.compile",
           "Inference release validation",
           "Workload profiling",
           "Inference cost modeling",
@@ -232,8 +235,8 @@
           <article>
             <h3>Inference Runtime Performance</h3>
             <p>
-              Workload profiles, request lifecycle thinking, routing policy, streaming direction,
-              tail-latency regression checks, and a path toward C++/CUDA profiling work.
+              Fused Triton RMSNorm, cache-controlled CUDA-event measurement, PyTorch compiler comparison,
+              workload profiles, request lifecycle thinking, routing policy, and tail-latency regression checks.
             </p>
           </article>
           <article>
@@ -259,6 +262,14 @@
           <h2 id="evidence-title">Signals backed by public work.</h2>
         </div>
         <div class="evidence-grid">
+          <article>
+            <h3>GPU Kernel Performance</h3>
+            <p>
+              Triton Kernel Lab validates a fused RMSNorm kernel against an FP32 oracle, controls cache state,
+              preserves raw timing samples, compares with PyTorch eager and torch.compile, and records a
+              cache-cold RTX 5070 Ti benchmark with regression-gate output.
+            </p>
+          </article>
           <article>
             <h3>Inference Performance</h3>
             <p>
@@ -414,6 +425,19 @@
           </article>
           <article class="project-card">
             <div>
+              <h3>Triton Kernel Lab</h3>
+              <p>
+                Fused RMSNorm kernel with FP32 correctness validation, explicit cache control, CUDA-event latency
+                distributions, PyTorch compiler comparison, machine-readable reports, and a GPU regression gate.
+              </p>
+            </div>
+            <a href="https://github.com/WaffleBits/triton-kernel-lab" target="_blank" rel="noreferrer">
+              <span>Repository</span>
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
+          <article class="project-card">
+            <div>
               <h3>Triton Inference Benchmark</h3>
               <p>
                 Repeatable load-generation harness for Triton-style model serving, with concurrency controls,
@@ -475,8 +499,8 @@
             <p>
               AI infrastructure, inference benchmarking, model-serving concepts, latency percentiles, throughput,
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
-              PyTorch, TensorFlow, CUDA/NCCL concepts,
-              GPU-aware reliability, C++20, cross-language oracle testing, and performance profiling.
+              PyTorch, torch.compile, Triton GPU kernels, cache-controlled CUDA-event measurement,
+              CUDA/NCCL concepts, GPU-aware reliability, C++20, cross-language oracle testing, and performance profiling.
             </p>
           </article>
         </div>
