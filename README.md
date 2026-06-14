@@ -7,16 +7,18 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 ## Technical Focus
 
 - AI compute and inference infrastructure: custom Triton kernels, cache-controlled GPU benchmarks, model-serving gateways, inference benchmarks, Docker/Kubernetes-oriented deployment thinking, Prometheus-compatible artifacts, latency/throughput regression checks, token and GPU-hour capacity modeling, and production ML reliability.
-- Inference runtime performance: fused RMSNorm, PyTorch and `torch.compile` baselines, request routing, batching/caching concepts, workload profiling, tail-latency analysis, cost-to-serve estimates, regression harnesses, and a practical path toward vLLM/SGLang-style serving work.
+- Inference runtime performance: fused RMSNorm and SwiGLU, Triton launch autotuning, PyTorch and `torch.compile` baselines, request routing, batching/caching concepts, workload profiling, tail-latency analysis, cost-to-serve estimates, and regression harnesses.
+- Hardware/software co-design: ONNX graph ingestion, mixed analog-digital partitioning, explicit accelerator and memory cost models, SystemVerilog control/datapath blocks, FPGA synthesis flows, and model-level quality evaluation with clear simulation-versus-measurement boundaries.
 - Infrastructure security: authentication, authorization, RBAC, rate limits, audit trails, policy enforcement, threat modeling, secure service boundaries, and production extension paths such as OIDC, mTLS, external policy engines, and key management.
 - Forward-deployed / mission engineering: turning ambiguous operational data into working tools for root-cause analysis, what-if planning, observable delivery, and decision support.
 - Quantitative systems engineering: deterministic matching, market microstructure, C++20, latency distributions, cross-language correctness gates, and Linux fundamentals.
 
 ## Current Stack
 
-- Languages: Python, C++20, TypeScript, Java; building toward deeper CUDA and Rust systems work.
+- Languages: Python, C++20, SystemVerilog, TypeScript, Java; building toward deeper CUDA and Rust systems work.
 - Backend/platform: FastAPI, REST APIs, Docker, Linux, CI, service boundaries, testable architecture, and Kubernetes deployment shapes.
-- AI infrastructure: Triton GPU kernels, FP32-accumulating correctness oracles, cache-cold CUDA-event benchmarking, PyTorch compile comparisons, latency percentiles, token throughput, GPU-hour capacity, cost-to-serve estimates, failure accounting, exact-output batch-invariance checks, Prometheus output, and GPU-aware reliability.
+- AI infrastructure: Triton GPU kernels, FP32-accumulating correctness oracles, launch autotuning, cache-cold CUDA-event benchmarking, PyTorch compile comparisons, latency percentiles, token throughput, GPU-hour capacity, cost-to-serve estimates, failure accounting, exact-output batch-invariance checks, Prometheus output, and GPU-aware reliability.
+- Accelerator co-design: ONNX, analytical performance/energy models, analog non-ideality simulation, banked-SRAM traffic analysis, SystemVerilog, Icarus Verilog, Verilator, Yosys, OpenLane configuration, and FPGA schedule execution.
 - Security: access control, policy enforcement, audit logging, rate limiting, public-safe threat modeling, incident response, and secure service design.
 - Product judgment: synthetic operational data modeling, command-facing workflows, explainable recommendations, reviewer-friendly docs, stakeholder translation, and public-safe portfolio discipline.
 
@@ -24,13 +26,15 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 
 - AI compute and inference infrastructure teams: distributed services, model-serving reliability, Kubernetes-oriented operations, observability, inference benchmarking, performance regression tracking, and hardware-aware debugging.
 - Inference runtime and performance teams: Triton kernel development, cache-state control, PyTorch compiler comparison, request lifecycle design, routing, batching, tail-latency investigation, transparent cost modeling, and native C++ performance measurement.
+- Accelerator and hardware/software co-design teams: compiler partitioning, cost-model assumptions, memory hierarchy analysis, low-precision datapaths, RTL verification, FPGA synthesis, and model-level accuracy tradeoff analysis.
 - Infrastructure security teams: secure access paths, service boundaries, policy enforcement, audit evidence, threat models, incident runbooks, and controls around AI workloads.
 - Forward-deployed AI / government engineering teams: cleared mission context, stakeholder translation, full-stack prototypes, data-backed workflows, observable systems, and delivery under ambiguous requirements.
 - Quantitative systems teams: deterministic execution, market mechanics, Linux fundamentals, C++20, latency measurement, oracle testing, and strong CS fundamentals.
 
 ## Evidence Map
 
-- GPU kernel performance: Triton Kernel Lab shows a fused RMSNorm kernel, FP32 oracle validation, cache-cold and cache-hot modes, raw timing samples, p50/p95/p99 tails, `torch.compile` comparison, and a machine-readable regression gate measured on an RTX 5070 Ti.
+- GPU kernel performance: Triton Kernel Lab shows fused RMSNorm and SwiGLU kernels, FP32 oracle validation, shape-aware launch autotuning, cache-cold and cache-hot modes, raw timing samples, p50/p95/p99 tails, `torch.compile` comparison, and a machine-readable regression gate measured on an RTX 5070 Ti.
+- Hardware/software co-design: HeteroCore connects ONNX compilation, analog non-ideality simulation, SRAM/DRAM traffic modeling, synthesizable SystemVerilog, and FPGA schedule execution through a versioned execution plan. Projected and simulated results are labeled separately from synthesis outputs and physical measurements.
 - Compute / inference infrastructure: Triton-style benchmark work shows concurrency control, latency percentiles, token throughput, requests per GPU-hour, normalized cost-to-serve estimates, retry/failure accounting, exact-output checks across isolated and concurrent execution, Prometheus output, baseline/candidate regression reports, and Kubernetes job posture.
 - Runtime performance direction: the benchmark and gateway repos create a public-safe path for workload profiles, routing policy, queue-depth signals, server-side telemetry correlation, and future vLLM/SGLang-compatible testing.
 - Secure AI platform engineering: Secure GPU Inference Gateway shows authenticated model access, RBAC, reason-for-access policy, audit trails, metrics, SLO notes, incident runbooks, and extension points for OIDC, mTLS, KMS, GPU telemetry, and external policy engines.
@@ -41,9 +45,15 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 
 ### [Triton Kernel Lab](https://github.com/WaffleBits/triton-kernel-lab)
 
-Correctness-first GPU kernel lab centered on a fused Triton RMSNorm implementation and controlled comparison with PyTorch eager and `torch.compile`.
+Correctness-first GPU kernel lab with fused Triton RMSNorm and SwiGLU implementations, FP32 oracles, and controlled comparison with PyTorch eager and `torch.compile`.
 
-The committed RTX 5070 Ti report records 100 warmups and 500 cache-cold samples per case, correctness errors, p50/p95/p99/max latency, environment metadata, and 1.15x-2.44x FP16 p50 speedups over the compiled baseline across the tested shapes.
+The June 14 RTX 5070 Ti report records 100 warmups and 500 cache-cold samples per case, correctness errors, p50/p95/p99/max latency, environment metadata, and FP16 p50 speedups of 1.25x-2.21x for RMSNorm and 1.07x-2.07x for SwiGLU over the compiled baselines.
+
+### [HeteroCore Compiler](https://github.com/WaffleBits/heterocore-compiler)
+
+Compiler and analytical cost model for mixed analog-digital AI inference, linked to separate analog simulation, memory hierarchy, RTL, and FPGA repositories through a versioned execution plan.
+
+Covers ONNX import, explainable operator placement, peripheral-aware energy sensitivity, model-level quality evaluation, banked-SRAM traffic analysis, synthesizable INT8 datapaths, self-checking simulation, and FPGA synthesis. Analytical projections, simulations, synthesis outputs, and future board measurements are explicitly distinguished.
 
 ### [Readiness Control Tower](https://github.com/WaffleBits/readiness-control-tower)
 
@@ -73,12 +83,12 @@ Covers price-time priority, integer tick prices, partial fills, market orders, c
 
 ## Next Build Priorities
 
-1. Extend the Triton kernel lab with Nsight Compute counters, fused gated activations, shape-specific autotuning, and controlled hardware-counter reports.
+1. Extend the Triton kernel lab with Nsight Compute counters, roofline analysis, and controlled hardware-counter reports.
 2. Add a vLLM/SGLang-compatible mock profile that exercises request routing, batching, streaming, and tail-latency regression behavior without requiring private models.
-3. Add OIDC/JWT verification, distributed rate limiting, OpenTelemetry traces, and Grafana dashboard screenshots to the secure GPU inference gateway.
-4. Extend the Kubernetes, metrics, SLO, rollback, and runbook pattern into the readiness repo.
-5. Add Linux performance-counter capture, cache-aware data-structure comparisons, and replay-style market data ingestion to the C++20 matching engine.
-6. Prepare the local LLM inference-serving stack for public release only after README cleanup, tests, and a reviewer-safe benchmark report.
+3. Load compiler-generated HeteroCore tiles through a host interface and record physical FPGA timing, utilization, and wall-power measurements.
+4. Add distributed rate limiting, OpenTelemetry export, and Grafana dashboard screenshots to the secure GPU inference gateway.
+5. Extend the Kubernetes, metrics, SLO, rollback, and runbook pattern into the readiness repo.
+6. Add Linux performance-counter capture, cache-aware data-structure comparisons, and replay-style market data ingestion to the C++20 matching engine.
 
 ## Public-Safe Portfolio Note
 

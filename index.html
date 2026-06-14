@@ -6,7 +6,7 @@
     <title>WaffleBits | AI Infrastructure, Inference Systems & Mission Software</title>
     <meta
       name="description"
-      content="TS/SCI-cleared cyber operations specialist building Triton GPU kernels, secure AI infrastructure, inference reliability tooling, performance benchmarks, and mission software."
+      content="TS/SCI-cleared cyber operations specialist building Triton GPU kernels, accelerator co-design prototypes, secure AI infrastructure, inference reliability tooling, and mission software."
     />
     <meta name="theme-color" content="#f4f6f3" />
     <meta property="og:title" content="WaffleBits | AI Infrastructure, Inference Systems & Mission Software" />
@@ -16,6 +16,7 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="assets/avatar.jpg" />
+    <link rel="icon" href="assets/avatar.jpg" type="image/jpeg" />
     <link rel="preload" href="assets/avatar.jpg" as="image" />
     <link rel="stylesheet" href="styles.css" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
@@ -47,6 +48,8 @@
           "Inference runtime performance",
           "Triton GPU kernels",
           "RMSNorm",
+          "SwiGLU",
+          "GPU kernel autotuning",
           "torch.compile",
           "Inference release validation",
           "Workload profiling",
@@ -59,6 +62,10 @@
           "Prometheus",
           "Python",
           "C++20",
+          "SystemVerilog",
+          "Hardware software co-design",
+          "ONNX",
+          "FPGA",
           "Performance profiling",
           "Linux",
           "SQL"
@@ -197,8 +204,15 @@
           <article>
             <h3>Inference Runtime Performance</h3>
             <p>
-              Request routing, batching and caching concepts, tail-latency investigation, workload profiling,
-              telemetry correlation, and a path toward vLLM/SGLang-style serving work.
+              Fused RMSNorm and SwiGLU kernels, launch autotuning, cache-controlled measurement,
+              request routing, batching and caching concepts, workload profiling, and tail-latency investigation.
+            </p>
+          </article>
+          <article>
+            <h3>Hardware / Software Co-Design</h3>
+            <p>
+              ONNX graph partitioning, explicit accelerator and memory cost models, analog non-ideality simulation,
+              synthesizable SystemVerilog, FPGA flows, and model-level quality tradeoff analysis.
             </p>
           </article>
           <article>
@@ -235,8 +249,15 @@
           <article>
             <h3>Inference Runtime Performance</h3>
             <p>
-              Fused Triton RMSNorm, cache-controlled CUDA-event measurement, PyTorch compiler comparison,
-              workload profiles, request lifecycle thinking, routing policy, and tail-latency regression checks.
+              Fused Triton RMSNorm and SwiGLU, shape-aware launch autotuning, cache-controlled CUDA-event
+              measurement, PyTorch compiler comparison, workload profiles, and tail-latency regression checks.
+            </p>
+          </article>
+          <article>
+            <h3>Accelerator Co-Design</h3>
+            <p>
+              ONNX compilation, explainable mixed-target partitioning, peripheral-aware energy sensitivity,
+              SRAM/DRAM traffic analysis, RTL verification, FPGA synthesis, and low-precision datapaths.
             </p>
           </article>
           <article>
@@ -265,9 +286,17 @@
           <article>
             <h3>GPU Kernel Performance</h3>
             <p>
-              Triton Kernel Lab validates a fused RMSNorm kernel against an FP32 oracle, controls cache state,
-              preserves raw timing samples, compares with PyTorch eager and torch.compile, and records a
-              cache-cold RTX 5070 Ti benchmark with regression-gate output.
+              Triton Kernel Lab validates fused RMSNorm and SwiGLU kernels against FP32 oracles, autotunes
+              SwiGLU launch parameters, controls cache state, preserves raw timing samples, compares with
+              PyTorch eager and torch.compile, and records cache-cold RTX 5070 Ti regression artifacts.
+            </p>
+          </article>
+          <article>
+            <h3>Hardware / Software Co-Design</h3>
+            <p>
+              HeteroCore links ONNX compilation, analog non-ideality simulation, SRAM/DRAM traffic modeling,
+              synthesizable SystemVerilog, and FPGA schedule execution through a versioned plan while clearly
+              separating projections, simulations, synthesis outputs, and future board measurements.
             </p>
           </article>
           <article>
@@ -378,6 +407,11 @@
                   benchmarks, telemetry artifacts, and runbooks.
                 </li>
                 <li>
+                  Build hardware/software co-design prototypes spanning ONNX graph partitioning, analytical
+                  cost models, analog non-ideality simulation, memory hierarchy analysis, SystemVerilog,
+                  self-checking RTL, synthesis, and FPGA schedule execution.
+                </li>
+                <li>
                   Build deterministic market-systems work around order-book mechanics, price-time priority,
                   a dependency-free C++20 core, Python-oracle parity checks, and p50/p95/p99 latency measurement.
                 </li>
@@ -427,11 +461,25 @@
             <div>
               <h3>Triton Kernel Lab</h3>
               <p>
-                Fused RMSNorm kernel with FP32 correctness validation, explicit cache control, CUDA-event latency
-                distributions, PyTorch compiler comparison, machine-readable reports, and a GPU regression gate.
+                Fused RMSNorm and autotuned SwiGLU kernels with FP32 correctness validation, explicit cache
+                control, CUDA-event latency distributions, PyTorch compiler comparison, machine-readable reports,
+                and a GPU regression gate.
               </p>
             </div>
             <a href="https://github.com/WaffleBits/triton-kernel-lab" target="_blank" rel="noreferrer">
+              <span>Repository</span>
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
+          <article class="project-card">
+            <div>
+              <h3>HeteroCore Compiler</h3>
+              <p>
+                ONNX compiler and analytical cost model for mixed analog-digital inference, connected to analog
+                simulation, memory hierarchy, synthesizable RTL, and FPGA schedule execution through a versioned plan.
+              </p>
+            </div>
+            <a href="https://github.com/WaffleBits/heterocore-compiler" target="_blank" rel="noreferrer">
               <span>Repository</span>
               <i data-lucide="arrow-up-right" aria-hidden="true"></i>
             </a>
@@ -499,8 +547,9 @@
             <p>
               AI infrastructure, inference benchmarking, model-serving concepts, latency percentiles, throughput,
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
-              PyTorch, torch.compile, Triton GPU kernels, cache-controlled CUDA-event measurement,
-              CUDA/NCCL concepts, GPU-aware reliability, C++20, cross-language oracle testing, and performance profiling.
+              PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
+              CUDA/NCCL concepts, ONNX, SystemVerilog, FPGA flows, analytical accelerator and memory models,
+              GPU-aware reliability, C++20, cross-language oracle testing, and performance profiling.
             </p>
           </article>
         </div>
