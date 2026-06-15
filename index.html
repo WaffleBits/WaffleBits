@@ -6,7 +6,7 @@
     <title>WaffleBits | AI Infrastructure, Inference Systems & Mission Software</title>
     <meta
       name="description"
-      content="TS/SCI-cleared cyber operations specialist building Triton GPU kernels, accelerator co-design prototypes, secure AI infrastructure, inference reliability tooling, and mission software."
+      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime components, Triton GPU kernels, accelerator co-design prototypes, secure AI infrastructure, and mission software."
     />
     <meta name="theme-color" content="#f4f6f3" />
     <meta property="og:title" content="WaffleBits | AI Infrastructure, Inference Systems & Mission Software" />
@@ -46,6 +46,10 @@
           "AI infrastructure",
           "Production ML reliability",
           "Inference runtime performance",
+          "Rust",
+          "Continuous batching",
+          "Paged KV cache admission",
+          "Canary and shadow release validation",
           "Triton GPU kernels",
           "RMSNorm",
           "SwiGLU",
@@ -249,8 +253,8 @@
           <article>
             <h3>Inference Runtime Performance</h3>
             <p>
-              Fused Triton RMSNorm and SwiGLU, shape-aware launch autotuning, cache-controlled CUDA-event
-              measurement, PyTorch compiler comparison, workload profiles, and tail-latency regression checks.
+              Rust continuous batching, paged KV admission, deterministic replay, canary/shadow/rollback gates,
+              fused Triton kernels, cache-controlled measurement, and tail-latency regression checks.
             </p>
           </article>
           <article>
@@ -306,6 +310,14 @@
               latency, throughput, retry and failure accounting, Prometheus output, baseline regression reports,
               correlated Triton/DCGM telemetry, exact-output batch-invariance CI gates, token throughput,
               requests per GPU-hour, and normalized cost-to-serve estimates.
+            </p>
+          </article>
+          <article>
+            <h3>Rust Inference Runtime</h3>
+            <p>
+              Rust Inference Runtime implements stable priority admission, bounded prefill work, conservative paged
+              KV reservations, round-robin decode scheduling, deterministic trace fingerprints, and baseline/candidate
+              promote, hold, and rollback decisions backed by synthetic fixtures and CI.
             </p>
           </article>
           <article>
@@ -402,8 +414,8 @@
               <h3>Developer / Systems Builder</h3>
               <ul>
                 <li>
-                  Build public-safe AI infrastructure and mission-software projects across FastAPI, React,
-                  TypeScript, Docker, Kubernetes-oriented deployment patterns, metrics, tests, policy controls,
+                  Build public-safe AI infrastructure and mission-software projects across Rust, Python, FastAPI,
+                  React, TypeScript, Docker, Kubernetes-oriented deployment patterns, metrics, tests, policy controls,
                   benchmarks, telemetry artifacts, and runbooks.
                 </li>
                 <li>
@@ -473,6 +485,19 @@
           </article>
           <article class="project-card">
             <div>
+              <h3>Rust Inference Runtime</h3>
+              <p>
+                Deterministic continuous batching and paged KV-cache admission with stable priority ordering,
+                round-robin decode progress, replay fingerprints, and canary/shadow promote, hold, and rollback gates.
+              </p>
+            </div>
+            <a href="https://github.com/WaffleBits/rust-inference-runtime" target="_blank" rel="noreferrer">
+              <span>Repository</span>
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
+          <article class="project-card">
+            <div>
               <h3>HeteroCore Compiler</h3>
               <p>
                 ONNX compiler and analytical cost model for mixed analog-digital inference, connected to analog
@@ -531,7 +556,7 @@
           <article>
             <h3>Backend / Product</h3>
             <p>
-              Python, TypeScript, Java, SQL, Bash, FastAPI, React, REST APIs, dashboards, automation scripting,
+              Rust, Python, TypeScript, Java, SQL, Bash, FastAPI, React, REST APIs, dashboards, automation scripting,
               data analysis, tests, and reviewer-friendly documentation.
             </p>
           </article>
@@ -549,7 +574,8 @@
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
               CUDA/NCCL concepts, ONNX, SystemVerilog, FPGA flows, analytical accelerator and memory models,
-              GPU-aware reliability, C++20, cross-language oracle testing, and performance profiling.
+              GPU-aware reliability, Rust scheduling and release gates, C++20, cross-language oracle testing,
+              and performance profiling.
             </p>
           </article>
         </div>
