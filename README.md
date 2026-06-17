@@ -7,7 +7,7 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 ## Technical Focus
 
 - AI compute and inference infrastructure: custom Triton kernels, cache-controlled GPU benchmarks, model-serving gateways, inference benchmarks, Docker/Kubernetes-oriented deployment thinking, Prometheus-compatible artifacts, latency/throughput regression checks, token and GPU-hour capacity modeling, and production ML reliability.
-- Inference runtime performance: Rust continuous batching, paged KV-cache admission, deterministic replay, canary/shadow release gates, fused Triton kernels, PyTorch and `torch.compile` baselines, workload profiling, tail-latency analysis, and regression harnesses.
+- Inference runtime performance: Rust continuous batching, paged KV-cache admission, deterministic replay, canary/shadow release gates, model-aware numeric tolerance, segmented backend validation, fused Triton kernels, PyTorch and `torch.compile` baselines, workload profiling, tail-latency analysis, and regression harnesses.
 - Hardware/software co-design: ONNX graph ingestion, mixed analog-digital partitioning, explicit accelerator and memory cost models, SystemVerilog control/datapath blocks, FPGA synthesis flows, and model-level quality evaluation with clear simulation-versus-measurement boundaries.
 - Infrastructure security: authentication, authorization, RBAC, rate limits, audit trails, policy enforcement, threat modeling, secure service boundaries, and production extension paths such as OIDC, mTLS, external policy engines, and key management.
 - Forward-deployed / mission engineering: turning ambiguous operational data into working tools for root-cause analysis, what-if planning, observable delivery, and decision support.
@@ -25,7 +25,7 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 ## Role Alignment
 
 - AI compute and inference infrastructure teams: distributed services, model-serving reliability, Kubernetes-oriented operations, observability, inference benchmarking, performance regression tracking, and hardware-aware debugging.
-- Inference runtime and performance teams: Rust scheduling, paged KV admission, deterministic replay, canary/shadow/rollback validation, Triton kernel development, cache-state control, tail-latency investigation, transparent cost modeling, and native C++ performance measurement.
+- Inference runtime and performance teams: Rust scheduling, paged KV admission, deterministic replay, canary/shadow/rollback validation, model/backend numeric drift gates, Triton kernel development, cache-state control, tail-latency investigation, transparent cost modeling, and native C++ performance measurement.
 - Accelerator and hardware/software co-design teams: compiler partitioning, cost-model assumptions, memory hierarchy analysis, low-precision datapaths, RTL verification, FPGA synthesis, and model-level accuracy tradeoff analysis.
 - Infrastructure security teams: secure access paths, service boundaries, policy enforcement, audit evidence, threat models, incident runbooks, and controls around AI workloads.
 - Forward-deployed AI / government engineering teams: cleared mission context, stakeholder translation, full-stack prototypes, data-backed workflows, observable systems, and delivery under ambiguous requirements.
@@ -36,7 +36,7 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 - GPU kernel performance: Triton Kernel Lab shows fused RMSNorm and SwiGLU kernels, FP32 oracle validation, shape-aware launch autotuning, cache-cold and cache-hot modes, raw timing samples, p50/p95/p99 tails, `torch.compile` comparison, and a machine-readable regression gate measured on an RTX 5070 Ti.
 - Hardware/software co-design: HeteroCore connects ONNX compilation, analog non-ideality simulation, SRAM/DRAM traffic modeling, synthesizable SystemVerilog, and FPGA schedule execution through a versioned execution plan. Projected and simulated results are labeled separately from synthesis outputs and physical measurements.
 - Compute / inference infrastructure: Triton-style benchmark work shows concurrency control, latency percentiles, token throughput, requests per GPU-hour, normalized cost-to-serve estimates, retry/failure accounting, exact-output checks across isolated and concurrent execution, Prometheus output, baseline/candidate regression reports, and Kubernetes job posture.
-- Inference runtime engineering: Rust Inference Runtime implements stable priority admission, bounded prefill work, conservative paged KV reservations, round-robin decode scheduling, deterministic trace fingerprints, and baseline/candidate `promote`, `hold`, and `rollback` release decisions.
+- Inference runtime engineering: Rust Inference Runtime implements stable priority admission, bounded prefill work, conservative paged KV reservations, round-robin decode scheduling, deterministic trace fingerprints, model-aware numeric tolerance for backend drift, segmented release reports, and baseline/candidate `promote`, `hold`, and `rollback` decisions.
 - Secure AI platform engineering: Secure GPU Inference Gateway shows authenticated model access, RBAC, reason-for-access policy, audit trails, metrics, SLO notes, incident runbooks, and extension points for OIDC, mTLS, KMS, GPU telemetry, and external policy engines.
 - Forward-deployed mission software: Readiness Control Tower shows public-safe operational data modeling, root-cause scoring, what-if analysis, recommendations, full-stack workflow design, Docker, and tests.
 - Systems / quant fundamentals: Market Microstructure Engine pairs a Python correctness oracle with a dependency-free C++20 core, deterministic parity checks, latency distributions, and measured native throughput.
@@ -51,9 +51,9 @@ The June 14 RTX 5070 Ti report records 100 warmups and 500 cache-cold samples pe
 
 ### [Rust Inference Runtime](https://github.com/WaffleBits/rust-inference-runtime)
 
-Deterministic, accelerator-agnostic runtime core for continuous batching, paged KV-cache admission, replayable scheduling traces, and canary/shadow release validation.
+Deterministic, accelerator-agnostic runtime core for continuous batching, paged KV-cache admission, replayable scheduling traces, model-aware numeric tolerance, segmented backend reports, and canary/shadow release validation.
 
-The checked workload completes four synthetic requests in 11 scheduler ticks, peaks at 12 of 20 KV pages, returns all reservations on completion, and emits a stable trace fingerprint. Separate fixtures exercise `promote` and `rollback` policy paths through exact output, error-rate, coverage, and p95 latency checks.
+The checked workload completes four synthetic requests in 11 scheduler ticks, peaks at 12 of 20 KV pages, returns all reservations on completion, and emits a stable trace fingerprint. Separate fixtures exercise `promote` and `rollback` policy paths through exact output, numeric drift tolerance, error-rate, coverage, segmented backend, and p95 latency checks.
 
 ### [HeteroCore Compiler](https://github.com/WaffleBits/heterocore-compiler)
 
@@ -90,7 +90,7 @@ Covers price-time priority, integer tick prices, partial fills, market orders, c
 ## Next Build Priorities
 
 1. Extend the Triton kernel lab with Nsight Compute counters, roofline analysis, and controlled hardware-counter reports.
-2. Connect the Rust runtime core to a vLLM/SGLang-compatible backend adapter and mirrored-observation format for streaming and tail-latency validation.
+2. Connect the Rust runtime core to a vLLM/SGLang-compatible backend adapter for mirrored streaming observations and tail-latency validation.
 3. Load compiler-generated HeteroCore tiles through a host interface and record physical FPGA timing, utilization, and wall-power measurements.
 4. Add distributed rate limiting, OpenTelemetry export, and Grafana dashboard screenshots to the secure GPU inference gateway.
 5. Extend the Kubernetes, metrics, SLO, rollback, and runbook pattern into the readiness repo.

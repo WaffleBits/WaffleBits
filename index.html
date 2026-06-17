@@ -50,6 +50,8 @@
           "Continuous batching",
           "Paged KV cache admission",
           "Canary and shadow release validation",
+          "Model-aware numeric tolerance",
+          "Segmented backend validation",
           "Triton GPU kernels",
           "RMSNorm",
           "SwiGLU",
@@ -254,7 +256,8 @@
             <h3>Inference Runtime Performance</h3>
             <p>
               Rust continuous batching, paged KV admission, deterministic replay, canary/shadow/rollback gates,
-              fused Triton kernels, cache-controlled measurement, and tail-latency regression checks.
+              model/backend numeric drift checks, fused Triton kernels, cache-controlled measurement, and
+              tail-latency regression checks.
             </p>
           </article>
           <article>
@@ -317,7 +320,8 @@
             <p>
               Rust Inference Runtime implements stable priority admission, bounded prefill work, conservative paged
               KV reservations, round-robin decode scheduling, deterministic trace fingerprints, and baseline/candidate
-              promote, hold, and rollback decisions backed by synthetic fixtures and CI.
+              promote, hold, and rollback decisions with model-aware numeric tolerance, segmented backend reports,
+              synthetic fixtures, and CI.
             </p>
           </article>
           <article>
@@ -488,7 +492,8 @@
               <h3>Rust Inference Runtime</h3>
               <p>
                 Deterministic continuous batching and paged KV-cache admission with stable priority ordering,
-                round-robin decode progress, replay fingerprints, and canary/shadow promote, hold, and rollback gates.
+                round-robin decode progress, replay fingerprints, model-aware numeric tolerance, and canary/shadow
+                promote, hold, and rollback gates.
               </p>
             </div>
             <a href="https://github.com/WaffleBits/rust-inference-runtime" target="_blank" rel="noreferrer">
@@ -574,8 +579,8 @@
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
               CUDA/NCCL concepts, ONNX, SystemVerilog, FPGA flows, analytical accelerator and memory models,
-              GPU-aware reliability, Rust scheduling and release gates, C++20, cross-language oracle testing,
-              and performance profiling.
+              GPU-aware reliability, Rust scheduling, numeric release gates, segmented backend validation, C++20,
+              cross-language oracle testing, and performance profiling.
             </p>
           </article>
         </div>
