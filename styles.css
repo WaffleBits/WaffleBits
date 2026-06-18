@@ -346,6 +346,7 @@ h3 {
 }
 
 .metric-grid,
+.proof-grid,
 .focus-grid,
 .role-grid,
 .evidence-grid,
@@ -359,7 +360,12 @@ h3 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.proof-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .metric-card,
+.proof-grid article,
 .focus-grid article,
 .role-grid article,
 .evidence-grid article,
@@ -386,6 +392,7 @@ h3 {
 }
 
 .metric-card p,
+.proof-grid p,
 .focus-grid p,
 .role-grid p,
 .evidence-grid p,
@@ -412,6 +419,7 @@ h3 {
 }
 
 .focus-grid article,
+.proof-grid article,
 .role-grid article,
 .evidence-grid article,
 .skills-grid article,
@@ -419,6 +427,7 @@ h3 {
   padding: 1.2rem;
 }
 
+.proof-grid p,
 .focus-grid p,
 .role-grid p,
 .evidence-grid p,
@@ -612,6 +621,7 @@ h3 {
   }
 
   .metric-grid,
+  .proof-grid,
   .focus-grid,
   .evidence-grid,
   .role-grid,
@@ -663,6 +673,7 @@ h3 {
 
   .hero-facts,
   .metric-grid,
+  .proof-grid,
   .focus-grid,
   .evidence-grid,
   .role-grid,
@@ -764,7 +775,9 @@ h3 {
   }
 
   .metric-grid,
+  .proof-grid,
   .focus-grid,
+  .role-grid,
   .evidence-grid,
   .project-grid,
   .skills-grid {
@@ -772,7 +785,9 @@ h3 {
   }
 
   .metric-card,
+  .proof-grid article,
   .focus-grid article,
+  .role-grid article,
   .evidence-grid article,
   .project-card,
   .skills-grid article,

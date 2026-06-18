@@ -6,7 +6,7 @@
     <title>WaffleBits | AI Infrastructure, Inference Systems & Mission Software</title>
     <meta
       name="description"
-      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime components, Triton GPU kernels, accelerator co-design prototypes, secure AI infrastructure, and mission software."
+      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime validation, Triton GPU performance tooling, secure AI infrastructure, accelerator co-design prototypes, and mission software."
     />
     <meta name="theme-color" content="#f4f6f3" />
     <meta property="og:title" content="WaffleBits | AI Infrastructure, Inference Systems & Mission Software" />
@@ -60,6 +60,9 @@
           "Inference release validation",
           "Workload profiling",
           "Inference cost modeling",
+          "AI reliability",
+          "Accelerator-aware release gates",
+          "Resilience testing",
           "Infrastructure security",
           "Inference benchmarking",
           "Model serving reliability",
@@ -89,6 +92,7 @@
       </a>
       <nav class="nav-links" aria-label="Resume sections">
         <a href="#impact">Impact</a>
+        <a href="#proof">Proof</a>
         <a href="#role-fit">Role Fit</a>
         <a href="#evidence">Evidence</a>
         <a href="#experience">Experience</a>
@@ -194,6 +198,43 @@
         </div>
       </section>
 
+      <section class="section-band compressed" id="proof" aria-labelledby="proof-title">
+        <div class="section-heading">
+          <p class="eyebrow">Proof Snapshot</p>
+          <h2 id="proof-title">Concrete systems work behind the positioning.</h2>
+        </div>
+        <div class="proof-grid">
+          <article>
+            <h3>Inference Runtime Validation</h3>
+            <p>
+              Rust scheduler core with continuous batching, paged KV-cache admission, deterministic replay,
+              backend-scoped numeric tolerance, segmented release reports, and promote, hold, and rollback gates.
+            </p>
+          </article>
+          <article>
+            <h3>GPU Performance Evidence</h3>
+            <p>
+              Triton RMSNorm and SwiGLU kernels with FP32 oracles, launch autotuning, cache-controlled CUDA-event
+              measurement, raw p50/p95/p99 timing artifacts, and torch.compile baselines.
+            </p>
+          </article>
+          <article>
+            <h3>AI Reliability / Operations</h3>
+            <p>
+              Latency, throughput, failures, token/GPU-hour capacity, cost-to-serve estimates, Prometheus output,
+              batch-invariance gates, and Kubernetes-shaped benchmark execution.
+            </p>
+          </article>
+          <article>
+            <h3>Secure Mission Delivery</h3>
+            <p>
+              TS/SCI operational context combined with authenticated model access, RBAC, policy controls,
+              audit trails, incident runbooks, and public-safe mission decision software.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="section-band" id="focus" aria-labelledby="focus-title">
         <div class="section-heading">
           <p class="eyebrow">Positioning</p>
@@ -225,7 +266,7 @@
             <h3>Infrastructure Security</h3>
             <p>
               Authenticated service boundaries, RBAC, policy enforcement, audit evidence, rate limits,
-              threat models, incident runbooks, and secure AI workload controls.
+              threat models, incident runbooks, AI observability, and secure workload controls.
             </p>
           </article>
           <article>
@@ -249,7 +290,8 @@
             <p>
               Triton-style benchmarking, latency and throughput reporting, failure accounting,
               token and GPU-hour capacity metrics, cost-to-serve estimates, Prometheus export,
-              cluster-run job shapes, queueing/batching concepts, and hardware-aware debugging direction.
+              cluster-run job shapes, queueing/batching concepts, accelerator-aware release gates,
+              and hardware-aware debugging direction.
             </p>
           </article>
           <article>
@@ -275,10 +317,18 @@
             </p>
           </article>
           <article>
+            <h3>AI Reliability / Production</h3>
+            <p>
+              SLOs, Prometheus-compatible artifacts, incident runbooks, release gates, failure accounting,
+              deterministic fixtures, resilience testing direction, and telemetry that makes regressions visible.
+            </p>
+          </article>
+          <article>
             <h3>Systems / Quant Engineering</h3>
             <p>
               Deterministic matching, order-book mechanics, benchmarkable execution,
-              Linux fundamentals, C++20, latency distributions, and cross-language correctness gates.
+              Linux fundamentals, C++20, latency distributions, cross-language correctness gates,
+              performance-counter direction, and cache-aware benchmarking direction.
             </p>
           </article>
         </div>
@@ -569,7 +619,8 @@
             <h3>Infrastructure / Observability</h3>
             <p>
               Linux, Docker, Git, Kubernetes deployment shapes, Prometheus-compatible metrics, OpenTelemetry direction,
-              SLOs, runbooks, rollback thinking, routing and switching, enclave support, SSH operations, and troubleshooting.
+              SLOs, release gates, resilience testing direction, runbooks, rollback thinking, routing and switching,
+              enclave support, SSH operations, and troubleshooting.
             </p>
           </article>
           <article>
@@ -578,9 +629,10 @@
               AI infrastructure, inference benchmarking, model-serving concepts, latency percentiles, throughput,
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
-              CUDA/NCCL concepts, ONNX, SystemVerilog, FPGA flows, analytical accelerator and memory models,
-              GPU-aware reliability, Rust scheduling, numeric release gates, segmented backend validation, C++20,
-              cross-language oracle testing, and performance profiling.
+              CUDA/NCCL concepts, accelerator-aware release gates, ONNX, SystemVerilog, FPGA flows,
+              analytical accelerator and memory models, GPU-aware reliability, Rust scheduling,
+              numeric release gates, segmented backend validation, C++20, cross-language oracle testing,
+              Linux performance-counter direction, cache-aware benchmarking direction, and performance profiling.
             </p>
           </article>
         </div>
