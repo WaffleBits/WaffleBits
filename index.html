@@ -6,7 +6,7 @@
     <title>WaffleBits | AI Infrastructure, Inference Systems & Mission Software</title>
     <meta
       name="description"
-      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime validation, Triton GPU performance tooling, secure AI infrastructure, accelerator co-design prototypes, and mission software."
+      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime validation, Triton GPU performance tooling, token-path observability, secure AI infrastructure, accelerator co-design prototypes, and mission software."
     />
     <meta name="theme-color" content="#f4f6f3" />
     <meta property="og:title" content="WaffleBits | AI Infrastructure, Inference Systems & Mission Software" />
@@ -63,6 +63,7 @@
           "AI reliability",
           "Accelerator-aware release gates",
           "Resilience testing",
+          "Token-path observability",
           "Infrastructure security",
           "Inference benchmarking",
           "Model serving reliability",
@@ -222,7 +223,7 @@
             <h3>AI Reliability / Operations</h3>
             <p>
               Latency, throughput, failures, token/GPU-hour capacity, cost-to-serve estimates, Prometheus output,
-              batch-invariance gates, and Kubernetes-shaped benchmark execution.
+              batch-invariance gates, deterministic trace artifacts, and Kubernetes-shaped benchmark execution.
             </p>
           </article>
           <article>
@@ -291,7 +292,7 @@
               Triton-style benchmarking, latency and throughput reporting, failure accounting,
               token and GPU-hour capacity metrics, cost-to-serve estimates, Prometheus export,
               cluster-run job shapes, queueing/batching concepts, accelerator-aware release gates,
-              and hardware-aware debugging direction.
+              traceable workload artifacts, and hardware-aware debugging direction.
             </p>
           </article>
           <article>
@@ -320,7 +321,8 @@
             <h3>AI Reliability / Production</h3>
             <p>
               SLOs, Prometheus-compatible artifacts, incident runbooks, release gates, failure accounting,
-              deterministic fixtures, resilience testing direction, and telemetry that makes regressions visible.
+              deterministic fixtures, trace/replay tooling, token-path observability direction,
+              resilience testing direction, and telemetry that makes regressions visible.
             </p>
           </article>
           <article>
@@ -619,8 +621,8 @@
             <h3>Infrastructure / Observability</h3>
             <p>
               Linux, Docker, Git, Kubernetes deployment shapes, Prometheus-compatible metrics, OpenTelemetry direction,
-              SLOs, release gates, resilience testing direction, runbooks, rollback thinking, routing and switching,
-              enclave support, SSH operations, and troubleshooting.
+              SLOs, release gates, token-path observability direction, resilience testing direction, runbooks,
+              rollback thinking, routing and switching, enclave support, SSH operations, and troubleshooting.
             </p>
           </article>
           <article>
@@ -629,10 +631,11 @@
               AI infrastructure, inference benchmarking, model-serving concepts, latency percentiles, throughput,
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
-              CUDA/NCCL concepts, accelerator-aware release gates, ONNX, SystemVerilog, FPGA flows,
-              analytical accelerator and memory models, GPU-aware reliability, Rust scheduling,
-              numeric release gates, segmented backend validation, C++20, cross-language oracle testing,
-              Linux performance-counter direction, cache-aware benchmarking direction, and performance profiling.
+              CUDA/NCCL concepts, vLLM/SGLang-compatible adapter direction, accelerator-aware release gates, ONNX,
+              SystemVerilog, FPGA flows, analytical accelerator and memory models, GPU-aware reliability,
+              Rust scheduling, numeric release gates, segmented backend validation, C++20,
+              cross-language oracle testing, Linux performance-counter direction, cache-aware benchmarking direction,
+              and performance profiling.
             </p>
           </article>
         </div>
