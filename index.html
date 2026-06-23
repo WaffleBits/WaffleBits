@@ -6,7 +6,7 @@
     <title>WaffleBits | AI Infrastructure, Inference Systems & Mission Software</title>
     <meta
       name="description"
-      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime validation, LLM serving reliability tooling, Triton GPU performance evidence, token-path observability, secure AI infrastructure, accelerator co-design prototypes, and mission software."
+      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime and backend mirror validation, LLM serving reliability tooling, Triton GPU performance evidence, token-path observability, secure AI infrastructure, accelerator co-design prototypes, and mission software."
     />
     <meta name="theme-color" content="#f4f6f3" />
     <meta property="og:title" content="WaffleBits | AI Infrastructure, Inference Systems & Mission Software" />
@@ -52,6 +52,9 @@
           "Canary and shadow release validation",
           "Model-aware numeric tolerance",
           "Segmented backend validation",
+          "Backend mirror validation",
+          "vLLM",
+          "SGLang",
           "Triton GPU kernels",
           "RMSNorm",
           "SwiGLU",
@@ -209,7 +212,8 @@
             <h3>Inference Runtime Validation</h3>
             <p>
               Rust scheduler core with continuous batching, paged KV-cache admission, deterministic replay,
-              backend-scoped numeric tolerance, segmented release reports, and promote, hold, and rollback gates.
+              backend-scoped numeric tolerance, vLLM/SGLang mirror normalization, segmented release reports,
+              and promote, hold, and rollback gates.
             </p>
           </article>
           <article>
@@ -300,8 +304,8 @@
           <article>
             <h3>Inference Runtime Performance</h3>
             <p>
-              Rust continuous batching, paged KV admission, deterministic replay, canary/shadow/rollback gates,
-              model/backend numeric drift checks, fused Triton kernels, cache-controlled measurement, and
+              Rust continuous batching, paged KV admission, deterministic replay, vLLM/SGLang mirror normalization,
+              canary/shadow/rollback gates, model/backend numeric drift checks, fused Triton kernels, cache-controlled measurement, and
               tracing/profiling direction, memory-pressure checks, and tail-latency regression checks.
             </p>
           </article>
@@ -374,8 +378,8 @@
             <p>
               Rust Inference Runtime implements stable priority admission, bounded prefill work, conservative paged
               KV reservations, round-robin decode scheduling, deterministic trace fingerprints, and baseline/candidate
-              promote, hold, and rollback decisions with model-aware numeric tolerance, segmented backend reports,
-              synthetic fixtures, and CI.
+              promote, hold, and rollback decisions with vLLM/SGLang-style mirrored observation normalization,
+              model-aware numeric tolerance, segmented backend reports, synthetic fixtures, and CI.
             </p>
           </article>
           <article>
@@ -546,8 +550,8 @@
               <h3>Rust Inference Runtime</h3>
               <p>
                 Deterministic continuous batching and paged KV-cache admission with stable priority ordering,
-                round-robin decode progress, replay fingerprints, model-aware numeric tolerance, and canary/shadow
-                promote, hold, and rollback gates.
+                round-robin decode progress, replay fingerprints, vLLM/SGLang-style mirror normalization,
+                model-aware numeric tolerance, and canary/shadow promote, hold, and rollback gates.
               </p>
             </div>
             <a href="https://github.com/WaffleBits/rust-inference-runtime" target="_blank" rel="noreferrer">
@@ -633,7 +637,7 @@
               AI infrastructure, inference benchmarking, model-serving concepts, latency percentiles, throughput,
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
-              CUDA/NCCL concepts, vLLM/SGLang-compatible adapter direction, routing/scheduling/autoscaling concepts,
+              CUDA/NCCL concepts, vLLM/SGLang-style mirrored observation adapters, routing/scheduling/autoscaling concepts,
               instrumentation/tracing/profiling direction, accelerator-aware release gates, ONNX, SystemVerilog,
               FPGA flows, analytical accelerator and memory models, GPU-aware reliability, Rust scheduling,
               numeric release gates, segmented backend validation, C++20, cross-language oracle testing,
