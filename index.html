@@ -6,7 +6,7 @@
     <title>WaffleBits | AI Infrastructure, Inference Systems & Mission Software</title>
     <meta
       name="description"
-      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime components, Triton GPU kernels, accelerator co-design prototypes, secure AI infrastructure, and mission software."
+      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime validation, LLM serving reliability tooling, Triton GPU performance evidence, token-path observability, secure AI infrastructure, accelerator co-design prototypes, and mission software."
     />
     <meta name="theme-color" content="#f4f6f3" />
     <meta property="og:title" content="WaffleBits | AI Infrastructure, Inference Systems & Mission Software" />
@@ -60,6 +60,10 @@
           "Inference release validation",
           "Workload profiling",
           "Inference cost modeling",
+          "AI reliability",
+          "Accelerator-aware release gates",
+          "Resilience testing",
+          "Token-path observability",
           "Infrastructure security",
           "Inference benchmarking",
           "Model serving reliability",
@@ -89,6 +93,7 @@
       </a>
       <nav class="nav-links" aria-label="Resume sections">
         <a href="#impact">Impact</a>
+        <a href="#proof">Proof</a>
         <a href="#role-fit">Role Fit</a>
         <a href="#evidence">Evidence</a>
         <a href="#experience">Experience</a>
@@ -109,7 +114,7 @@
           <h1>Building secure inference systems for high-stakes environments.</h1>
           <p class="lead">
             Cleared cyber operations specialist focused on secure model access, inference reliability,
-            production ML observability, and mission decision systems. My strongest work turns operational
+            LLM serving reliability, production ML observability, and mission decision systems. My strongest work turns operational
             pressure into tested backend services, routing and policy controls, benchmarks, dashboards, and runbooks.
           </p>
           <div class="hero-actions" aria-label="Profile links">
@@ -194,6 +199,43 @@
         </div>
       </section>
 
+      <section class="section-band compressed" id="proof" aria-labelledby="proof-title">
+        <div class="section-heading">
+          <p class="eyebrow">Proof Snapshot</p>
+          <h2 id="proof-title">Concrete systems work behind the positioning.</h2>
+        </div>
+        <div class="proof-grid">
+          <article>
+            <h3>Inference Runtime Validation</h3>
+            <p>
+              Rust scheduler core with continuous batching, paged KV-cache admission, deterministic replay,
+              backend-scoped numeric tolerance, segmented release reports, and promote, hold, and rollback gates.
+            </p>
+          </article>
+          <article>
+            <h3>GPU Performance Evidence</h3>
+            <p>
+              Triton RMSNorm and SwiGLU kernels with FP32 oracles, launch autotuning, cache-controlled CUDA-event
+              measurement, raw p50/p95/p99 timing artifacts, and torch.compile baselines.
+            </p>
+          </article>
+          <article>
+            <h3>AI Reliability / Operations</h3>
+            <p>
+              Latency, throughput, failures, token/GPU-hour capacity, cost-to-serve estimates, Prometheus output,
+              batch-invariance gates, deterministic trace artifacts, and Kubernetes-shaped benchmark execution.
+            </p>
+          </article>
+          <article>
+            <h3>Secure Mission Delivery</h3>
+            <p>
+              TS/SCI operational context combined with authenticated model access, RBAC, policy controls,
+              audit trails, incident runbooks, and public-safe mission decision software.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="section-band" id="focus" aria-labelledby="focus-title">
         <div class="section-heading">
           <p class="eyebrow">Positioning</p>
@@ -204,14 +246,15 @@
             <h3>AI Infrastructure / Reliability</h3>
             <p>
               Model-serving gateways, inference benchmarks, latency percentiles, Prometheus artifacts,
-              regression checks, and Kubernetes-oriented deployment patterns.
+              routing, scheduling, autoscaling concepts, regression checks, and Kubernetes-oriented deployment patterns.
             </p>
           </article>
           <article>
             <h3>Inference Runtime Performance</h3>
             <p>
               Fused RMSNorm and SwiGLU kernels, launch autotuning, cache-controlled measurement,
-              request routing, batching and caching concepts, workload profiling, and tail-latency investigation.
+              request routing, batching and caching concepts, workload profiling, instrumentation/profiling direction,
+              memory-pressure checks, model-version rollback paths, and tail-latency investigation.
             </p>
           </article>
           <article>
@@ -225,7 +268,7 @@
             <h3>Infrastructure Security</h3>
             <p>
               Authenticated service boundaries, RBAC, policy enforcement, audit evidence, rate limits,
-              threat models, incident runbooks, and secure AI workload controls.
+              threat models, incident runbooks, AI observability, and secure workload controls.
             </p>
           </article>
           <article>
@@ -249,7 +292,9 @@
             <p>
               Triton-style benchmarking, latency and throughput reporting, failure accounting,
               token and GPU-hour capacity metrics, cost-to-serve estimates, Prometheus export,
-              cluster-run job shapes, queueing/batching concepts, and hardware-aware debugging direction.
+              cluster-run job shapes, queueing/batching concepts, customer-facing serving API posture,
+              routing/scheduling/autoscaling concepts, accelerator-aware release gates, traceable workload artifacts,
+              and hardware-aware debugging direction.
             </p>
           </article>
           <article>
@@ -257,7 +302,7 @@
             <p>
               Rust continuous batching, paged KV admission, deterministic replay, canary/shadow/rollback gates,
               model/backend numeric drift checks, fused Triton kernels, cache-controlled measurement, and
-              tail-latency regression checks.
+              tracing/profiling direction, memory-pressure checks, and tail-latency regression checks.
             </p>
           </article>
           <article>
@@ -275,10 +320,19 @@
             </p>
           </article>
           <article>
+            <h3>AI Reliability / Production</h3>
+            <p>
+              SLOs, Prometheus-compatible artifacts, incident runbooks, release gates, failure accounting,
+              deterministic fixtures, trace/replay tooling, token-path observability direction,
+              OpenTelemetry/Grafana direction, resilience testing direction, and telemetry that makes regressions visible.
+            </p>
+          </article>
+          <article>
             <h3>Systems / Quant Engineering</h3>
             <p>
               Deterministic matching, order-book mechanics, benchmarkable execution,
-              Linux fundamentals, C++20, latency distributions, and cross-language correctness gates.
+              Linux fundamentals, C++20, latency distributions, cross-language correctness gates,
+              performance-counter direction, and cache-aware benchmarking direction.
             </p>
           </article>
         </div>
@@ -569,7 +623,8 @@
             <h3>Infrastructure / Observability</h3>
             <p>
               Linux, Docker, Git, Kubernetes deployment shapes, Prometheus-compatible metrics, OpenTelemetry direction,
-              SLOs, runbooks, rollback thinking, routing and switching, enclave support, SSH operations, and troubleshooting.
+              SLOs, release gates, token-path observability direction, resilience testing direction, runbooks,
+              rollback thinking, routing and switching, enclave support, SSH operations, and troubleshooting.
             </p>
           </article>
           <article>
@@ -578,9 +633,11 @@
               AI infrastructure, inference benchmarking, model-serving concepts, latency percentiles, throughput,
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
-              CUDA/NCCL concepts, ONNX, SystemVerilog, FPGA flows, analytical accelerator and memory models,
-              GPU-aware reliability, Rust scheduling, numeric release gates, segmented backend validation, C++20,
-              cross-language oracle testing, and performance profiling.
+              CUDA/NCCL concepts, vLLM/SGLang-compatible adapter direction, routing/scheduling/autoscaling concepts,
+              instrumentation/tracing/profiling direction, accelerator-aware release gates, ONNX, SystemVerilog,
+              FPGA flows, analytical accelerator and memory models, GPU-aware reliability, Rust scheduling,
+              numeric release gates, segmented backend validation, C++20, cross-language oracle testing,
+              Linux performance-counter direction, cache-aware benchmarking direction, and performance profiling.
             </p>
           </article>
         </div>
