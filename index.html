@@ -6,7 +6,7 @@
     <title>WaffleBits | AI Infrastructure, Inference Systems & Mission Software</title>
     <meta
       name="description"
-      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime and backend mirror validation, LLM serving reliability tooling, Triton GPU performance evidence, token-path observability, secure AI infrastructure, accelerator co-design prototypes, and mission software."
+      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime and backend mirror validation, LLM serving reliability tooling, Triton GPU performance evidence, token-path telemetry, secure AI infrastructure, accelerator co-design prototypes, and mission software."
     />
     <meta name="theme-color" content="#f4f6f3" />
     <meta property="og:title" content="WaffleBits | AI Infrastructure, Inference Systems & Mission Software" />
@@ -66,7 +66,10 @@
           "AI reliability",
           "Accelerator-aware release gates",
           "Resilience testing",
-          "Token-path observability",
+          "Token-path telemetry",
+          "TTFT and decode-token p95 checks",
+          "KV memory-pressure reporting",
+          "Model-version rollout metadata",
           "Infrastructure security",
           "Inference benchmarking",
           "Model serving reliability",
@@ -213,7 +216,8 @@
             <p>
               Rust scheduler core with continuous batching, paged KV-cache admission, deterministic replay,
               backend-scoped numeric tolerance, vLLM/SGLang mirror normalization, segmented release reports,
-              and promote, hold, and rollback gates.
+              TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transitions,
+              token-trace fingerprints, and promote, hold, and rollback gates.
             </p>
           </article>
           <article>
@@ -258,7 +262,7 @@
             <p>
               Fused RMSNorm and SwiGLU kernels, launch autotuning, cache-controlled measurement,
               request routing, batching and caching concepts, workload profiling, instrumentation/profiling direction,
-              memory-pressure checks, model-version rollback paths, and tail-latency investigation.
+              memory-pressure checks, model-version transition metadata, token-path telemetry, and tail-latency investigation.
             </p>
           </article>
           <article>
@@ -306,7 +310,8 @@
             <p>
               Rust continuous batching, paged KV admission, deterministic replay, vLLM/SGLang mirror normalization,
               canary/shadow/rollback gates, model/backend numeric drift checks, fused Triton kernels, cache-controlled measurement, and
-              tracing/profiling direction, memory-pressure checks, and tail-latency regression checks.
+              tracing/profiling direction, TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transition metadata,
+              and tail-latency regression checks.
             </p>
           </article>
           <article>
@@ -327,7 +332,7 @@
             <h3>AI Reliability / Production</h3>
             <p>
               SLOs, Prometheus-compatible artifacts, incident runbooks, release gates, failure accounting,
-              deterministic fixtures, trace/replay tooling, token-path observability direction,
+              deterministic fixtures, trace/replay tooling, token-path telemetry,
               OpenTelemetry/Grafana direction, resilience testing direction, and telemetry that makes regressions visible.
             </p>
           </article>
@@ -379,7 +384,8 @@
               Rust Inference Runtime implements stable priority admission, bounded prefill work, conservative paged
               KV reservations, round-robin decode scheduling, deterministic trace fingerprints, and baseline/candidate
               promote, hold, and rollback decisions with vLLM/SGLang-style mirrored observation normalization,
-              model-aware numeric tolerance, segmented backend reports, synthetic fixtures, and CI.
+              model-aware numeric tolerance, segmented backend reports, TTFT and decode-token p95 checks,
+              KV memory-pressure reporting, model-version transition metadata, token-trace fingerprints, synthetic fixtures, and CI.
             </p>
           </article>
           <article>
@@ -551,7 +557,7 @@
               <p>
                 Deterministic continuous batching and paged KV-cache admission with stable priority ordering,
                 round-robin decode progress, replay fingerprints, vLLM/SGLang-style mirror normalization,
-                model-aware numeric tolerance, and canary/shadow promote, hold, and rollback gates.
+                model-aware numeric tolerance, token-path telemetry, and canary/shadow promote, hold, and rollback gates.
               </p>
             </div>
             <a href="https://github.com/WaffleBits/rust-inference-runtime" target="_blank" rel="noreferrer">
@@ -638,7 +644,8 @@
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
               CUDA/NCCL concepts, vLLM/SGLang-style mirrored observation adapters, routing/scheduling/autoscaling concepts,
-              instrumentation/tracing/profiling direction, accelerator-aware release gates, ONNX, SystemVerilog,
+              instrumentation/tracing/profiling direction, TTFT and decode-token p95 checks, KV memory-pressure reporting,
+              model-version transition metadata, accelerator-aware release gates, ONNX, SystemVerilog,
               FPGA flows, analytical accelerator and memory models, GPU-aware reliability, Rust scheduling,
               numeric release gates, segmented backend validation, C++20, cross-language oracle testing,
               Linux performance-counter direction, cache-aware benchmarking direction, and performance profiling.
