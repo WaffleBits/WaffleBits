@@ -1,8 +1,14 @@
-Cleared U.S. cyber operations specialist building secure AI infrastructure, LLM serving reliability tooling, inference runtime validation, token-path telemetry, mission decision systems, and performance-sensitive engineering projects.
+Cleared U.S. cyber operations specialist building the platform and security software layer around AI infrastructure: secure model access, LLM serving reliability tooling, inference runtime validation, token-path telemetry, mission decision systems, and performance-sensitive engineering projects.
 
-I am strongest where backend/platform engineering meets high-stakes operations: securing model-serving paths, measuring inference reliability, translating ambiguous workflows into operational software, and building deterministic systems that can be tested under pressure.
+I am strongest where backend/platform engineering meets high-stakes operations: securing model-serving paths, turning policy and audit requirements into software controls, measuring inference reliability, translating ambiguous workflows into operational software, and building deterministic systems that can be tested under pressure.
 
 **Resume website:** [wafflebits.github.io/WaffleBits](https://wafflebits.github.io/WaffleBits/)
+
+## Target Engineering Lane
+
+- Platform security and security software engineering: authenticated service boundaries, policy-as-code direction, audit evidence, secure CI/CD thinking, rate limits, incident runbooks, and developer-facing controls.
+- AI infrastructure security: model-serving gateways, protected inference paths, token-path telemetry, model authorization, redaction and data-handling roadmap, GPU-aware reliability, and production observability.
+- Forward-deployed mission engineering: cleared operational context, synthetic public-safe mission workflows, root-cause analysis, what-if planning, and systems that help users act under pressure.
 
 ## Proof Snapshot
 
@@ -45,7 +51,7 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 - Hardware/software co-design: HeteroCore connects ONNX compilation, analog non-ideality simulation, SRAM/DRAM traffic modeling, synthesizable SystemVerilog, and FPGA schedule execution through a versioned execution plan. Projected and simulated results are labeled separately from synthesis outputs and physical measurements.
 - Compute / inference infrastructure: Triton-style benchmark work shows concurrency control, latency percentiles, token throughput, requests per GPU-hour, normalized cost-to-serve estimates, retry/failure accounting, exact-output checks across isolated and concurrent execution, Prometheus output, baseline/candidate regression reports, traceable workload artifacts, and Kubernetes job posture.
 - Inference runtime engineering: Rust Inference Runtime implements stable priority admission, bounded prefill work, conservative paged KV reservations, round-robin decode scheduling, deterministic trace fingerprints, queue-pressure and active-capacity replay summaries, vLLM/SGLang-style mirrored observation normalization, model-aware numeric tolerance for backend drift, segmented release reports, TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transition metadata, token-trace fingerprints, and baseline/candidate `promote`, `hold`, and `rollback` decisions.
-- Secure AI platform engineering: Secure GPU Inference Gateway shows authenticated model access, RBAC, reason-for-access policy, audit trails, metrics, SLO notes, incident runbooks, and extension points for OIDC, mTLS, KMS, GPU telemetry, and external policy engines.
+- Secure AI platform engineering: Secure GPU Inference Gateway shows authenticated model access, RBAC, reason-for-access policy, audit trails, metrics, SLO notes, incident runbooks, and extension points for OIDC, mTLS, KMS, policy-as-code, redaction, GPU telemetry, and external policy engines.
 - Forward-deployed mission software: Readiness Control Tower shows public-safe operational data modeling, root-cause scoring, what-if analysis, recommendations, full-stack workflow design, Docker, and tests.
 - Systems / quant fundamentals: Market Microstructure Engine pairs a Python correctness oracle with a dependency-free C++20 core, deterministic parity checks, latency distributions, and measured native throughput.
 
@@ -87,7 +93,7 @@ Includes Prometheus text export, baseline-versus-candidate regression reporting,
 
 Security-focused AI infrastructure project for authenticated model access, RBAC, rate limiting, audit logs, policy checks, and observability.
 
-Covers authenticated model access, per-model authorization, reason-for-access enforcement, rate limiting, structured audit logs, Prometheus-compatible metrics, Kubernetes health/scrape posture, SLO notes, incident runbooks, policy checks, tests, and production extension points such as OIDC, mTLS, KMS, GPU telemetry, and external policy engines.
+Covers authenticated model access, per-model authorization, reason-for-access enforcement, rate limiting, structured audit logs, Prometheus-compatible metrics, Kubernetes health/scrape posture, SLO notes, incident runbooks, policy checks, tests, and production extension points such as OIDC, mTLS, KMS, policy-as-code, prompt/output redaction, GPU telemetry, and external policy engines.
 
 ### [Market Microstructure Engine](https://github.com/WaffleBits/market-microstructure-engine)
 
