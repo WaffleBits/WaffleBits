@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>WaffleBits | AI Infrastructure, Inference Systems & Mission Software</title>
+    <title>WaffleBits | AI Infrastructure Security, Inference Systems & Mission Software</title>
     <meta
       name="description"
-      content="TS/SCI-cleared cyber operations specialist building Rust inference runtime and backend mirror validation, LLM serving reliability tooling, Triton GPU performance evidence, token-path observability, secure AI infrastructure, accelerator co-design prototypes, and mission software."
+      content="TS/SCI-cleared cyber operations specialist building platform and security software around AI infrastructure: secure model access, Rust inference runtime validation, LLM serving reliability tooling, Triton GPU performance evidence, token-path telemetry, accelerator co-design prototypes, and mission software."
     />
     <meta name="theme-color" content="#f4f6f3" />
-    <meta property="og:title" content="WaffleBits | AI Infrastructure, Inference Systems & Mission Software" />
+    <meta property="og:title" content="WaffleBits | AI Infrastructure Security, Inference Systems & Mission Software" />
     <meta
       property="og:description"
       content="AI infrastructure, infrastructure security, mission assurance, observability, and public-safe portfolio projects."
@@ -26,7 +26,7 @@
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "WaffleBits",
-        "jobTitle": "Cyber Operations Specialist and AI Infrastructure Builder",
+        "jobTitle": "Platform Security and AI Infrastructure Builder",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "VA",
@@ -61,12 +61,16 @@
           "GPU kernel autotuning",
           "torch.compile",
           "Inference release validation",
+          "Workload pressure replay",
           "Workload profiling",
           "Inference cost modeling",
           "AI reliability",
           "Accelerator-aware release gates",
           "Resilience testing",
-          "Token-path observability",
+          "Token-path telemetry",
+          "TTFT and decode-token p95 checks",
+          "KV memory-pressure reporting",
+          "Model-version rollout metadata",
           "Infrastructure security",
           "Inference benchmarking",
           "Model serving reliability",
@@ -113,12 +117,12 @@
     <main id="main">
       <section class="hero section-band" id="top">
         <div class="hero-copy">
-          <p class="eyebrow">TS/SCI cleared | CompTIA Security+ | AI infrastructure, inference systems, and mission software</p>
-          <h1>Building secure inference systems for high-stakes environments.</h1>
+          <p class="eyebrow">TS/SCI cleared | CompTIA Security+ | Platform security, AI infrastructure, and inference systems</p>
+          <h1>Building secure AI infrastructure for high-stakes environments.</h1>
           <p class="lead">
-            Cleared cyber operations specialist focused on secure model access, inference reliability,
+            Cleared cyber operations specialist focused on platform security software, secure model access,
             LLM serving reliability, production ML observability, and mission decision systems. My strongest work turns operational
-            pressure into tested backend services, routing and policy controls, benchmarks, dashboards, and runbooks.
+            pressure into tested backend services, routing and policy controls, audit evidence, benchmarks, dashboards, and runbooks.
           </p>
           <div class="hero-actions" aria-label="Profile links">
             <a class="button primary" href="https://www.linkedin.com/in/wafflebits/" target="_blank" rel="noreferrer">
@@ -163,7 +167,7 @@
           <ul class="identity-list" aria-label="Current positioning">
             <li>
               <i data-lucide="shield-check" aria-hidden="true"></i>
-              <span>Infrastructure security, cyber defense, and mission assurance</span>
+              <span>Platform security, cyber defense, and mission assurance</span>
             </li>
             <li>
               <i data-lucide="activity" aria-hidden="true"></i>
@@ -171,7 +175,7 @@
             </li>
             <li>
               <i data-lucide="cpu" aria-hidden="true"></i>
-              <span>AI infrastructure, Linux, Docker, Kubernetes-shaped deployments, Python, TypeScript, SQL, and automation</span>
+              <span>AI infrastructure security, Linux, Docker, Kubernetes-shaped deployments, Python, TypeScript, SQL, and automation</span>
             </li>
           </ul>
         </aside>
@@ -212,8 +216,9 @@
             <h3>Inference Runtime Validation</h3>
             <p>
               Rust scheduler core with continuous batching, paged KV-cache admission, deterministic replay,
-              backend-scoped numeric tolerance, vLLM/SGLang mirror normalization, segmented release reports,
-              and promote, hold, and rollback gates.
+              workload-pressure replay summaries, backend-scoped numeric tolerance, vLLM/SGLang mirror normalization, segmented release reports,
+              TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transitions,
+              token-trace fingerprints, and promote, hold, and rollback gates.
             </p>
           </article>
           <article>
@@ -257,8 +262,8 @@
             <h3>Inference Runtime Performance</h3>
             <p>
               Fused RMSNorm and SwiGLU kernels, launch autotuning, cache-controlled measurement,
-              request routing, batching and caching concepts, workload profiling, instrumentation/profiling direction,
-              memory-pressure checks, model-version rollback paths, and tail-latency investigation.
+              request routing, batching and caching concepts, workload-pressure replay, instrumentation/profiling direction,
+              memory-pressure checks, model-version transition metadata, token-path telemetry, and tail-latency investigation.
             </p>
           </article>
           <article>
@@ -269,10 +274,10 @@
             </p>
           </article>
           <article>
-            <h3>Infrastructure Security</h3>
+            <h3>Platform / Security Software</h3>
             <p>
               Authenticated service boundaries, RBAC, policy enforcement, audit evidence, rate limits,
-              threat models, incident runbooks, AI observability, and secure workload controls.
+              threat models, incident runbooks, AI observability, secure workload controls, and policy-as-code direction.
             </p>
           </article>
           <article>
@@ -304,9 +309,10 @@
           <article>
             <h3>Inference Runtime Performance</h3>
             <p>
-              Rust continuous batching, paged KV admission, deterministic replay, vLLM/SGLang mirror normalization,
+              Rust continuous batching, paged KV admission, deterministic replay, workload-pressure replay reports, vLLM/SGLang mirror normalization,
               canary/shadow/rollback gates, model/backend numeric drift checks, fused Triton kernels, cache-controlled measurement, and
-              tracing/profiling direction, memory-pressure checks, and tail-latency regression checks.
+              tracing/profiling direction, TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transition metadata,
+              and tail-latency regression checks.
             </p>
           </article>
           <article>
@@ -327,7 +333,7 @@
             <h3>AI Reliability / Production</h3>
             <p>
               SLOs, Prometheus-compatible artifacts, incident runbooks, release gates, failure accounting,
-              deterministic fixtures, trace/replay tooling, token-path observability direction,
+              deterministic fixtures, trace/replay tooling, token-path telemetry,
               OpenTelemetry/Grafana direction, resilience testing direction, and telemetry that makes regressions visible.
             </p>
           </article>
@@ -378,15 +384,17 @@
             <p>
               Rust Inference Runtime implements stable priority admission, bounded prefill work, conservative paged
               KV reservations, round-robin decode scheduling, deterministic trace fingerprints, and baseline/candidate
-              promote, hold, and rollback decisions with vLLM/SGLang-style mirrored observation normalization,
-              model-aware numeric tolerance, segmented backend reports, synthetic fixtures, and CI.
+              promote, hold, and rollback decisions with queue-pressure and active-capacity replay summaries, vLLM/SGLang-style mirrored observation normalization,
+              model-aware numeric tolerance, segmented backend reports, TTFT and decode-token p95 checks,
+              KV memory-pressure reporting, model-version transition metadata, token-trace fingerprints, synthetic fixtures, and CI.
             </p>
           </article>
           <article>
             <h3>Secure AI Service Boundaries</h3>
             <p>
               Secure GPU Inference Gateway shows authenticated model access, RBAC, reason-for-access policy,
-              audit trails, rate limits, metrics, SLO notes, incident runbooks, and production extension paths.
+              audit trails, rate limits, metrics, SLO notes, incident runbooks, and production extension paths for policy-as-code,
+              redaction, telemetry, and external authorization engines.
             </p>
           </article>
           <article>
@@ -523,7 +531,8 @@
               <h3>Secure GPU Inference Gateway</h3>
               <p>
                 Security-focused AI infrastructure gateway with model authorization, reason-for-access checks,
-                rate limits, audit logs, Prometheus metrics, Kubernetes posture, SLO notes, and incident runbooks.
+                rate limits, audit logs, Prometheus metrics, Kubernetes posture, SLO notes, incident runbooks,
+                and a roadmap toward policy-as-code, redaction, and control evidence.
               </p>
             </div>
             <a href="https://github.com/WaffleBits/secure-gpu-inference-gateway" target="_blank" rel="noreferrer">
@@ -550,8 +559,8 @@
               <h3>Rust Inference Runtime</h3>
               <p>
                 Deterministic continuous batching and paged KV-cache admission with stable priority ordering,
-                round-robin decode progress, replay fingerprints, vLLM/SGLang-style mirror normalization,
-                model-aware numeric tolerance, and canary/shadow promote, hold, and rollback gates.
+                round-robin decode progress, replay fingerprints, workload-pressure summaries, vLLM/SGLang-style mirror normalization,
+                model-aware numeric tolerance, token-path telemetry, and canary/shadow promote, hold, and rollback gates.
               </p>
             </div>
             <a href="https://github.com/WaffleBits/rust-inference-runtime" target="_blank" rel="noreferrer">
@@ -638,7 +647,9 @@
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
               CUDA/NCCL concepts, vLLM/SGLang-style mirrored observation adapters, routing/scheduling/autoscaling concepts,
-              instrumentation/tracing/profiling direction, accelerator-aware release gates, ONNX, SystemVerilog,
+              workload-pressure replay summaries,
+              instrumentation/tracing/profiling direction, TTFT and decode-token p95 checks, KV memory-pressure reporting,
+              model-version transition metadata, accelerator-aware release gates, ONNX, SystemVerilog,
               FPGA flows, analytical accelerator and memory models, GPU-aware reliability, Rust scheduling,
               numeric release gates, segmented backend validation, C++20, cross-language oracle testing,
               Linux performance-counter direction, cache-aware benchmarking direction, and performance profiling.
@@ -721,7 +732,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>WaffleBits | AI Infrastructure | Infrastructure Security | Mission Software</p>
+      <p>WaffleBits | AI Infrastructure Security | Platform Security | Mission Software</p>
       <p>Public-safe portfolio: no operational, classified, proprietary, or government-furnished data is published here.</p>
     </footer>
   </body>
