@@ -63,6 +63,9 @@
           "torch.compile",
           "Inference release validation",
           "Workload pressure replay",
+          "Replay capacity envelopes",
+          "Prefill and decode utilization",
+          "KV page occupancy",
           "Workload profiling",
           "Inference cost modeling",
           "AI reliability",
@@ -217,7 +220,8 @@
             <h3>Inference Runtime Validation</h3>
             <p>
               Rust scheduler core with continuous batching, paged KV-cache admission, deterministic replay,
-              workload-pressure replay summaries, backend-scoped numeric tolerance, vLLM/SGLang mirror normalization, segmented release reports,
+              workload-pressure replay summaries, replay capacity envelopes, prefill/decode utilization, KV-page occupancy,
+              backend-scoped numeric tolerance, vLLM/SGLang mirror normalization, segmented release reports,
               TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transitions,
               token-trace fingerprints, structured release-triage owner hints, and promote, hold, and rollback gates.
             </p>
@@ -263,7 +267,8 @@
             <h3>Inference Runtime Performance</h3>
             <p>
               Fused RMSNorm and SwiGLU kernels, launch autotuning, cache-controlled measurement,
-              request routing, batching and caching concepts, workload-pressure replay, instrumentation/profiling direction,
+              request routing, batching and caching concepts, workload-pressure replay, replay capacity envelopes,
+              prefill/decode utilization, KV-page occupancy, instrumentation/profiling direction,
               memory-pressure checks, model-version transition metadata, token-path telemetry, and tail-latency investigation.
             </p>
           </article>
@@ -310,9 +315,11 @@
           <article>
             <h3>Inference Runtime Performance</h3>
             <p>
-              Rust continuous batching, paged KV admission, deterministic replay, workload-pressure replay reports, vLLM/SGLang mirror normalization,
-              canary/shadow/rollback gates, structured release-triage owner hints, model/backend numeric drift checks, fused Triton kernels, cache-controlled measurement, and
-              tracing/profiling direction, TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transition metadata,
+              Rust continuous batching, paged KV admission, deterministic replay, workload-pressure replay reports,
+              replay capacity envelopes, prefill/decode utilization, KV-page occupancy, vLLM/SGLang mirror normalization,
+              canary/shadow/rollback gates, structured release-triage owner hints, model/backend numeric drift checks,
+              fused Triton kernels, cache-controlled measurement, tracing/profiling direction, TTFT and decode-token p95 checks,
+              KV memory-pressure reporting, model-version transition metadata,
               and tail-latency regression checks.
             </p>
           </article>
@@ -385,7 +392,9 @@
             <p>
               Rust Inference Runtime implements stable priority admission, bounded prefill work, conservative paged
               KV reservations, round-robin decode scheduling, deterministic trace fingerprints, and baseline/candidate
-              promote, hold, and rollback decisions with queue-pressure and active-capacity replay summaries, vLLM/SGLang-style mirrored observation normalization,
+              promote, hold, and rollback decisions with queue-pressure, active-capacity, and replay capacity-envelope summaries,
+              including 0.888889 decode-capacity utilization and 0.595062 KV-page occupancy in the pressure fixture,
+              plus vLLM/SGLang-style mirrored observation normalization,
               model-aware numeric tolerance, segmented backend reports, TTFT and decode-token p95 checks,
               KV memory-pressure reporting, model-version transition metadata, token-trace fingerprints, structured triage for hold/rollback reasons, synthetic fixtures, and CI.
             </p>
@@ -560,7 +569,8 @@
               <h3>Rust Inference Runtime</h3>
               <p>
                 Deterministic continuous batching and paged KV-cache admission with stable priority ordering,
-                round-robin decode progress, replay fingerprints, workload-pressure summaries, vLLM/SGLang-style mirror normalization,
+                round-robin decode progress, replay fingerprints, workload-pressure summaries, replay capacity envelopes,
+                prefill/decode utilization, KV-page occupancy, vLLM/SGLang-style mirror normalization,
                 model-aware numeric tolerance, structured release triage, token-path telemetry, and canary/shadow promote, hold, and rollback gates.
               </p>
             </div>
@@ -649,6 +659,7 @@
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
               CUDA/NCCL concepts, vLLM/SGLang-style mirrored observation adapters, routing/scheduling/autoscaling concepts,
               workload-pressure replay summaries,
+              replay capacity-envelope reports, prefill/decode utilization, KV-page occupancy,
               instrumentation/tracing/profiling direction, TTFT and decode-token p95 checks, KV memory-pressure reporting,
               model-version transition metadata, release-triage owner hints, accelerator-aware release gates, ONNX, SystemVerilog,
               FPGA flows, analytical accelerator and memory models, GPU-aware reliability, Rust scheduling,
