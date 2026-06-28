@@ -6,7 +6,7 @@
     <title>WaffleBits | AI Infrastructure Security, Inference Systems & Mission Software</title>
     <meta
       name="description"
-      content="TS/SCI-cleared cyber operations specialist building platform and security software around AI infrastructure: secure model access, Rust inference runtime validation, LLM serving reliability tooling, Triton GPU performance evidence, token-path telemetry, accelerator co-design prototypes, and mission software."
+      content="TS/SCI-cleared cyber operations specialist building platform and security software around AI infrastructure: secure model access, Rust inference runtime validation, LLM serving reliability tooling, streaming token-path telemetry, Triton GPU performance evidence, accelerator co-design prototypes, and mission software."
     />
     <meta name="theme-color" content="#f4f6f3" />
     <meta property="og:title" content="WaffleBits | AI Infrastructure Security, Inference Systems & Mission Software" />
@@ -54,6 +54,8 @@
           "Model-aware numeric tolerance",
           "Segmented backend validation",
           "Backend mirror validation",
+          "Streaming token event validation",
+          "Route and scheduler provenance",
           "vLLM",
           "SGLang",
           "Triton GPU kernels",
@@ -222,8 +224,9 @@
               Rust scheduler core with continuous batching, paged KV-cache admission, deterministic replay,
               workload-pressure replay summaries, replay capacity envelopes, prefill/decode utilization, KV-page occupancy,
               backend-scoped numeric tolerance, vLLM/SGLang mirror normalization, segmented release reports,
-              TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transitions,
-              token-trace fingerprints, structured release-triage owner hints, and promote, hold, and rollback gates.
+              streaming-token event ingestion, route and scheduler provenance coverage, TTFT and decode-token p95 checks,
+              KV memory-pressure reporting, model-version transitions, token-trace fingerprints,
+              structured release-triage owner hints, and promote, hold, and rollback gates.
             </p>
           </article>
           <article>
@@ -269,7 +272,8 @@
               Fused RMSNorm and SwiGLU kernels, launch autotuning, cache-controlled measurement,
               request routing, batching and caching concepts, workload-pressure replay, replay capacity envelopes,
               prefill/decode utilization, KV-page occupancy, instrumentation/profiling direction,
-              memory-pressure checks, model-version transition metadata, token-path telemetry, and tail-latency investigation.
+              memory-pressure checks, streaming-token trace validation, route/scheduler provenance,
+              model-version transition metadata, token-path telemetry, and tail-latency investigation.
             </p>
           </article>
           <article>
@@ -317,7 +321,8 @@
             <p>
               Rust continuous batching, paged KV admission, deterministic replay, workload-pressure replay reports,
               replay capacity envelopes, prefill/decode utilization, KV-page occupancy, vLLM/SGLang mirror normalization,
-              canary/shadow/rollback gates, structured release-triage owner hints, model/backend numeric drift checks,
+              streaming-token trace validation, route/scheduler provenance checks, canary/shadow/rollback gates,
+              structured release-triage owner hints, model/backend numeric drift checks,
               fused Triton kernels, cache-controlled measurement, tracing/profiling direction, TTFT and decode-token p95 checks,
               KV memory-pressure reporting, model-version transition metadata,
               and tail-latency regression checks.
@@ -395,8 +400,10 @@
               promote, hold, and rollback decisions with queue-pressure, active-capacity, and replay capacity-envelope summaries,
               including 0.888889 decode-capacity utilization and 0.595062 KV-page occupancy in the pressure fixture,
               plus vLLM/SGLang-style mirrored observation normalization,
+              streaming-token event validation, route/scheduler provenance coverage,
               model-aware numeric tolerance, segmented backend reports, TTFT and decode-token p95 checks,
-              KV memory-pressure reporting, model-version transition metadata, token-trace fingerprints, structured triage for hold/rollback reasons, synthetic fixtures, and CI.
+              KV memory-pressure reporting, model-version transition metadata, token-trace fingerprints,
+              structured triage for hold/rollback reasons, a checked streaming mirror promote report, synthetic fixtures, and CI.
             </p>
           </article>
           <article>
@@ -571,6 +578,7 @@
                 Deterministic continuous batching and paged KV-cache admission with stable priority ordering,
                 round-robin decode progress, replay fingerprints, workload-pressure summaries, replay capacity envelopes,
                 prefill/decode utilization, KV-page occupancy, vLLM/SGLang-style mirror normalization,
+                streaming-token trace validation, route/scheduler provenance coverage,
                 model-aware numeric tolerance, structured release triage, token-path telemetry, and canary/shadow promote, hold, and rollback gates.
               </p>
             </div>
@@ -657,7 +665,8 @@
               AI infrastructure, inference benchmarking, model-serving concepts, latency percentiles, throughput,
               token and GPU-hour capacity, cost-to-serve modeling, failure accounting, routing and batching concepts,
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
-              CUDA/NCCL concepts, vLLM/SGLang-style mirrored observation adapters, routing/scheduling/autoscaling concepts,
+              CUDA/NCCL concepts, vLLM/SGLang-style mirrored observation adapters, streaming-token trace validation,
+              route/scheduler provenance coverage, routing/scheduling/autoscaling concepts,
               workload-pressure replay summaries,
               replay capacity-envelope reports, prefill/decode utilization, KV-page occupancy,
               instrumentation/tracing/profiling direction, TTFT and decode-token p95 checks, KV memory-pressure reporting,
