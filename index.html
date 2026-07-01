@@ -74,6 +74,7 @@
           "Accelerator-aware release gates",
           "Resilience testing",
           "Token-path telemetry",
+          "Token-budget limiting",
           "Sanitized trace export",
           "Grafana dashboard provisioning",
           "TTFT and decode-token p95 checks",
@@ -249,6 +250,7 @@
             <h3>Secure Mission Delivery</h3>
             <p>
               TS/SCI operational context combined with authenticated model access, RBAC, policy controls,
+              request and token-budget limits,
               audit trails, sanitized trace export, Grafana and Prometheus observability evidence,
               incident runbooks, and public-safe mission decision software.
             </p>
@@ -289,7 +291,7 @@
           <article>
             <h3>Platform / Security Software</h3>
             <p>
-              Authenticated service boundaries, RBAC, policy enforcement, audit evidence, rate limits,
+              Authenticated service boundaries, RBAC, policy enforcement, audit evidence, request and token-budget limits,
               threat models, incident runbooks, AI observability, sanitized trace evidence,
               Grafana dashboard provisioning, secure workload controls, and policy-as-code direction.
             </p>
@@ -351,7 +353,7 @@
             <p>
               SLOs, Prometheus-compatible artifacts, incident runbooks, release gates, failure accounting,
               triage routing, deterministic fixtures, trace/replay tooling, token-path telemetry,
-              sanitized trace export, Grafana dashboard provisioning, resilience testing direction,
+              token-budget limiter evidence, sanitized trace export, Grafana dashboard provisioning, resilience testing direction,
               and telemetry that makes regressions visible.
             </p>
           </article>
@@ -415,7 +417,8 @@
             <h3>Secure AI Service Boundaries</h3>
             <p>
               Secure GPU Inference Gateway shows authenticated model access, RBAC, reason-for-access policy,
-              audit trails, rate limits, Prometheus metrics, sanitized trace JSONL evidence,
+              audit trails, request and token-budget limits, Prometheus metrics, estimated input-token throughput,
+              sanitized trace JSONL evidence,
               Grafana dashboard provisioning, SLO notes, incident runbooks, and production extension paths for policy-as-code,
               redaction, telemetry, and external authorization engines.
             </p>
@@ -554,7 +557,8 @@
               <h3>Secure GPU Inference Gateway</h3>
               <p>
                 Security-focused AI infrastructure gateway with model authorization, reason-for-access checks,
-                rate limits, audit logs, Prometheus metrics, sanitized trace export, checked trace artifacts,
+                request and token-budget limits, audit logs, Prometheus metrics, estimated input-token throughput,
+                sanitized trace export, checked trace artifacts,
                 Grafana dashboard provisioning, Kubernetes posture, SLO notes, incident runbooks,
                 and a roadmap toward policy-as-code, redaction, and control evidence.
               </p>
@@ -662,7 +666,7 @@
             <h3>Infrastructure / Observability</h3>
             <p>
               Linux, Docker, Git, Kubernetes deployment shapes, Prometheus-compatible metrics, OpenTelemetry direction,
-              SLOs, release gates, token-path observability direction, resilience testing direction, runbooks,
+              SLOs, release gates, token-budget limiting, token-path observability direction, resilience testing direction, runbooks,
               sanitized trace export, Grafana dashboard provisioning, rollback thinking,
               routing and switching, enclave support, SSH operations, and troubleshooting.
             </p>
