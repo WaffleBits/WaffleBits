@@ -75,6 +75,8 @@
           "Resilience testing",
           "Token-path telemetry",
           "Token-budget limiting",
+          "Workload readiness replay",
+          "Guardrail coverage",
           "Sanitized trace export",
           "Grafana dashboard provisioning",
           "TTFT and decode-token p95 checks",
@@ -251,6 +253,7 @@
             <p>
               TS/SCI operational context combined with authenticated model access, RBAC, policy controls,
               request and token-budget limits,
+              workload-readiness replay,
               audit trails, sanitized trace export, synthetic capacity/cost planning,
               Grafana and Prometheus observability evidence,
               incident runbooks, and public-safe mission decision software.
@@ -294,7 +297,7 @@
             <p>
               Authenticated service boundaries, RBAC, policy enforcement, audit evidence, request and token-budget limits,
               threat models, incident runbooks, AI observability, sanitized trace evidence,
-              synthetic capacity/cost planning,
+              workload-readiness gates, synthetic capacity/cost planning,
               Grafana dashboard provisioning, secure workload controls, and policy-as-code direction.
             </p>
           </article>
@@ -355,7 +358,8 @@
             <p>
               SLOs, Prometheus-compatible artifacts, incident runbooks, release gates, failure accounting,
               triage routing, deterministic fixtures, trace/replay tooling, token-path telemetry,
-              token-budget limiter evidence, sanitized trace export, Grafana dashboard provisioning, resilience testing direction,
+              workload-readiness replay, guardrail coverage, token-budget limiter evidence,
+              sanitized trace export, Grafana dashboard provisioning, resilience testing direction,
               and telemetry that makes regressions visible.
             </p>
           </article>
@@ -420,6 +424,7 @@
             <p>
               Secure GPU Inference Gateway shows authenticated model access, RBAC, reason-for-access policy,
               audit trails, request and token-budget limits, Prometheus metrics, estimated input-token throughput,
+              workload-readiness replay for allowed, policy-denied, rate-limited, and token-budget-limited paths,
               sanitized trace JSONL evidence, synthetic capacity/cost planning tied to model policy,
               Grafana dashboard provisioning, SLO notes, incident runbooks, and production extension paths for policy-as-code,
               redaction, telemetry, and external authorization engines.
@@ -560,7 +565,8 @@
               <p>
                 Security-focused AI infrastructure gateway with model authorization, reason-for-access checks,
                 request and token-budget limits, audit logs, Prometheus metrics, estimated input-token throughput,
-                sanitized trace export, checked trace and capacity-plan artifacts,
+                deterministic workload-readiness replay, sanitized trace export,
+                checked trace, workload-readiness, and capacity-plan artifacts,
                 Grafana dashboard provisioning, Kubernetes posture, SLO notes, incident runbooks,
                 and a roadmap toward policy-as-code, redaction, and control evidence.
               </p>
@@ -669,7 +675,7 @@
             <p>
               Linux, Docker, Git, Kubernetes deployment shapes, Prometheus-compatible metrics, OpenTelemetry direction,
               SLOs, release gates, token-budget limiting, token-path observability direction, resilience testing direction, runbooks,
-              sanitized trace export, Grafana dashboard provisioning, rollback thinking,
+              workload-readiness replay, sanitized trace export, Grafana dashboard provisioning, rollback thinking,
               routing and switching, enclave support, SSH operations, and troubleshooting.
             </p>
           </article>
@@ -681,7 +687,7 @@
               PyTorch, torch.compile, Triton GPU kernels, launch autotuning, cache-controlled CUDA-event measurement,
               CUDA/NCCL concepts, vLLM/SGLang-style mirrored observation adapters, streaming-token trace validation,
               route/scheduler provenance coverage, routing/scheduling/autoscaling concepts,
-              workload-pressure replay summaries,
+              workload-pressure replay summaries, workload-readiness replay,
               replay capacity-envelope reports, prefill/decode utilization, KV-page occupancy,
               instrumentation/tracing/profiling direction, TTFT and decode-token p95 checks, KV memory-pressure reporting,
               model-version transition metadata, release-triage owner hints, accelerator-aware release gates, ONNX, SystemVerilog,
