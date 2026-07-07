@@ -12,7 +12,7 @@
     <meta property="og:title" content="WaffleBits // Secure AI Infrastructure Command Center" />
     <meta
       property="og:description"
-      content="Secure model access, inference reliability, observability, policy enforcement, audit trails, replay evidence, and mission-grade engineering — presented as a live control interface."
+      content="Secure model access, inference reliability, observability, policy enforcement, audit trails, replay evidence, and mission-grade engineering, presented as a live control interface."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="assets/avatar.jpg" />
@@ -70,7 +70,7 @@
          TOP BAR
     ========================================================== -->
     <header class="topbar" id="top">
-      <a class="brand" href="#top" aria-label="WaffleBits — home">
+      <a class="brand" href="#top" aria-label="WaffleBits home">
         <span class="waffle-mark" aria-hidden="true">
           <span></span><span></span><span></span>
           <span></span><span></span><span></span>
@@ -88,7 +88,7 @@
       </nav>
 
       <div class="topbar-tools">
-        <div class="status-pill" title="Public-safe. No operational or classified data.">
+        <div class="status-pill" title="Live interface status">
           <span class="dot" aria-hidden="true"></span>
           <span id="sys-status">SYSTEM NOMINAL</span>
           <time id="sys-clock" aria-label="Session clock">--:--:--</time>
@@ -151,11 +151,11 @@
           <div class="panel panel-signals">
             <div class="panel-head"><span>SIGNALS</span><span class="panel-tag" id="signal-time">live</span></div>
             <ul class="signal-list" id="signal-list">
-              <li data-metric="ttft"><span class="k">TTFT p95</span><span class="bar"><i></i></span><span class="v">—</span></li>
-              <li data-metric="decode"><span class="k">decode p95</span><span class="bar"><i></i></span><span class="v">—</span></li>
-              <li data-metric="kv"><span class="k">KV occupancy</span><span class="bar"><i></i></span><span class="v">—</span></li>
-              <li data-metric="policy"><span class="k">policy pass</span><span class="bar"><i></i></span><span class="v">—</span></li>
-              <li data-metric="audit"><span class="k">audit lag</span><span class="bar"><i></i></span><span class="v">—</span></li>
+              <li data-metric="ttft"><span class="k">TTFT p95</span><span class="bar"><i></i></span><span class="v">··</span></li>
+              <li data-metric="decode"><span class="k">decode p95</span><span class="bar"><i></i></span><span class="v">··</span></li>
+              <li data-metric="kv"><span class="k">KV occupancy</span><span class="bar"><i></i></span><span class="v">··</span></li>
+              <li data-metric="policy"><span class="k">policy pass</span><span class="bar"><i></i></span><span class="v">··</span></li>
+              <li data-metric="audit"><span class="k">audit lag</span><span class="bar"><i></i></span><span class="v">··</span></li>
             </ul>
           </div>
 
@@ -175,14 +175,14 @@
       <div class="divider" data-divider role="separator" aria-hidden="true"></div>
 
       <!-- =========================================================
-           SYSTEM MAP — request path
+           SYSTEM MAP // request path
       ========================================================== -->
       <section class="section" id="map" aria-labelledby="map-title">
         <div class="section-head">
           <p class="eyebrow"><span class="ascii-mini" aria-hidden="true">[//]</span> REQUEST PATH</p>
           <h2 id="map-title">Trace an inference request through the control plane.</h2>
           <p class="section-sub">
-            Every request is authenticated, policed, routed, served, observed, and audited — with a
+            Every request is authenticated, policed, routed, served, observed, and audited, with a
             promotion gate that can <strong>catch a bad path and roll it back</strong>. Select a stage,
             or run the packet.
           </p>
@@ -277,7 +277,7 @@
         <div class="section-head">
           <p class="eyebrow"><span class="ascii-mini" aria-hidden="true">[//]</span> SYSTEM DOSSIERS</p>
           <h2 id="cf-title">Case files.</h2>
-          <p class="section-sub">Public-safe builds. Each dossier states the problem, the system, the evidence, and the impact.</p>
+          <p class="section-sub">Each dossier states the problem, the system, the evidence, and the impact.</p>
         </div>
         <div class="casefile-grid" id="casefile-grid"><!-- rendered by script.js from CASE_FILES --></div>
       </section>
@@ -291,7 +291,7 @@
         <div class="section-head">
           <p class="eyebrow"><span class="ascii-mini" aria-hidden="true">[//]</span> EVIDENCE LOCKER</p>
           <h2 id="ev-title">Proofs, traces, and gates.</h2>
-          <p class="section-sub">The artifacts behind the claims — benchmarks, replay fixtures, dashboards, runbooks, and CI gates.</p>
+          <p class="section-sub">The artifacts behind the claims: benchmarks, replay fixtures, dashboards, runbooks, and CI gates.</p>
         </div>
         <div class="evidence-grid" id="evidence-grid"><!-- rendered by script.js from EVIDENCE --></div>
       </section>
@@ -309,7 +309,7 @@
         <div class="timeline">
           <article class="tl-item" data-roles="security mission">
             <div class="tl-meta">
-              <span class="tl-date">2023 — Present</span>
+              <span class="tl-date">2023 / Present</span>
               <strong>United States Air Force</strong>
               <p>ACC Communications Support Squadron · Joint Base Langley-Eustis, VA</p>
             </div>
@@ -317,7 +317,7 @@
               <h3>Cyber Defense Operations Specialist / Mission Assurance Technician</h3>
               <ul>
                 <li>24/7 cyber command-and-control and tier-1 support to 26 wings across 13 CONUS bases (27K users) on an 11-member team.</li>
-                <li>Engineered a tracking tool fusing 216K data points into 4 live dashboards over a $1.3B environment — cut threat resolution from 5 days to 2.</li>
+                <li>Engineered a tracking tool fusing 216K data points into 4 live dashboards over a $1.3B environment, cutting threat resolution from 5 days to 2.</li>
                 <li>Led 11 Airmen across 18 AFCYBER tasking orders, hardening 5 sites and 30K assets for 1.3K units across 262 locations.</li>
                 <li>Deployed SolarWinds Observability across ACC bases; restored data paths and strengthened enterprise situational awareness.</li>
                 <li>Expedited 5 urgent change requests from 21 days to 5 for a combat-readiness exercise supporting 10K warfighters.</li>
@@ -335,10 +335,10 @@
             <div class="tl-body">
               <h3>Developer / Systems Builder</h3>
               <ul>
-                <li>Public-safe AI infrastructure and mission software across Rust, Python, FastAPI, React, Docker, and Kubernetes-shaped deployments — with metrics, tests, policy controls, and runbooks.</li>
+                <li>AI infrastructure and mission software across Rust, Python, FastAPI, React, Docker, and Kubernetes-shaped deployments, with metrics, tests, policy controls, and runbooks.</li>
                 <li>Hardware/software co-design prototypes: ONNX partitioning, analytical cost models, analog non-ideality simulation, self-checking RTL, and FPGA schedule execution.</li>
                 <li>Deterministic market systems: order-book mechanics, a dependency-free C++20 core, Python-oracle parity checks, and p50/p95/p99 latency measurement.</li>
-                <li>Administer Linux-hosted game infrastructure for a 600+ member community — SSH ops, observability, permissions, and profiling.</li>
+                <li>Administer Linux-hosted game infrastructure for a 600+ member community: SSH ops, observability, permissions, and profiling.</li>
               </ul>
             </div>
           </article>
@@ -421,15 +421,15 @@
           <article class="stack-card">
             <h3>Education</h3>
             <ul>
-              <li>Western Governors University — B.S. Cybersecurity &amp; Information Assurance (in progress)</li>
-              <li>Northern Virginia Community College — Computer Science coursework (60+ credits)</li>
+              <li>Western Governors University, B.S. Cybersecurity &amp; Information Assurance (in progress)</li>
+              <li>Northern Virginia Community College, Computer Science coursework (60+ credits)</li>
             </ul>
           </article>
           <article class="stack-card">
             <h3>Leadership &amp; Service</h3>
             <ul>
-              <li>Booster Club concessions committee — 80 hours, morale fundraising.</li>
-              <li>Food bank volunteer — packaged 11K lbs of food.</li>
+              <li>Booster Club concessions committee: 80 hours, morale fundraising.</li>
+              <li>Food bank volunteer: packaged 11K lbs of food.</li>
               <li>AFCEA event support; Base Appearance Team storm cleanup.</li>
             </ul>
           </article>
@@ -445,10 +445,10 @@
         <div class="contact-eye" aria-hidden="true"><pre id="contact-eye" class="ambient-eye small"></pre></div>
         <div class="contact-copy">
           <p class="eyebrow"><span class="ascii-mini" aria-hidden="true">[//]</span> CONTACT</p>
-          <h2 id="contact-title">Public profile first. Sensitive details on request.</h2>
+          <h2 id="contact-title">Get in touch.</h2>
           <p>
-            This site keeps phone and direct email off-page by design. Reach me through LinkedIn or review the
-            work on GitHub. No operational, classified, proprietary, or government-furnished data is published here.
+            Best reached on LinkedIn. Every system on this page is open on GitHub, so read the code and
+            judge the work directly.
           </p>
           <div class="hero-actions">
             <a class="btn primary" href="https://www.linkedin.com/in/wafflebits/" target="_blank" rel="noreferrer">Connect on LinkedIn ↗</a>
@@ -461,7 +461,6 @@
     <footer class="site-footer">
       <div class="foot-ascii" aria-hidden="true"></div>
       <p>WaffleBits // Secure AI Infrastructure · Platform Security · Observability · Mission Software</p>
-      <p class="foot-note">Public-safe portfolio. No operational, classified, proprietary, or government-furnished data is published here.</p>
     </footer>
 
     <!-- =========================================================

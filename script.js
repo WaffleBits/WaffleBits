@@ -4,7 +4,7 @@
 
    Sections:
      0. Content data (separated from presentation)
-     1. Sentinel eye — procedural ASCII renderer
+     1. Sentinel eye: procedural ASCII renderer
      2. Boot / intro controller (session-gated, skippable)
      3. Ambient eyes
      4. Live signals + session clock
@@ -41,10 +41,10 @@ const CASE_FILES = [
     id: "CF-02", icon: "▤", roles: "ai",
     title: "Rust Inference Runtime",
     tags: ["Rust", "Scheduling", "Determinism"],
-    problem: "Serving reliability breaks silently — non-deterministic batching and cache admission make regressions hard to catch before promotion.",
+    problem: "Serving reliability breaks silently: non-deterministic batching and cache admission make regressions hard to catch before promotion.",
     system: "Continuous batching with stable priority ordering, paged KV-cache admission, round-robin decode progress, and vLLM/SGLang-style mirror normalization.",
     evidence: "Deterministic replay fingerprints, workload-pressure summaries, replay capacity envelopes, prefill/decode utilization, KV-page occupancy, TTFT and decode-token p95 checks, and structured hold/rollback triage.",
-    impact: "Promote / hold / rollback decisions backed by reproducible evidence — a runtime that catches the bad path before it ships.",
+    impact: "Promote / hold / rollback decisions backed by reproducible evidence. A runtime that catches the bad path before it ships.",
     url: "https://github.com/WaffleBits/rust-inference-runtime",
   },
   {
@@ -54,14 +54,14 @@ const CASE_FILES = [
     problem: "Kernel-level performance claims are worthless without correctness oracles and controlled measurement.",
     system: "Fused RMSNorm and autotuned SwiGLU Triton kernels validated against FP32 oracles, with explicit cache control and CUDA-event timing.",
     evidence: "Raw p50/p95/p99 latency distributions, torch.compile baselines, machine-readable reports, and a cache-cold GPU regression gate.",
-    impact: "Trustworthy kernel performance evidence — measured, correctness-gated, and regression-protected.",
+    impact: "Trustworthy kernel performance evidence: measured, correctness-gated, and regression-protected.",
     url: "https://github.com/WaffleBits/triton-kernel-lab",
   },
   {
     id: "CF-04", icon: "◎", roles: "ai",
     title: "Triton Inference Benchmark",
     tags: ["Load", "Cost", "Reliability"],
-    problem: "Serving decisions need repeatable numbers: latency, throughput, failure accounting, and cost-to-serve — not vibes.",
+    problem: "Serving decisions need repeatable numbers: latency, throughput, failure accounting, and cost-to-serve, not vibes.",
     system: "Repeatable load-generation harness with concurrency controls, retry/failure accounting, and Kubernetes job posture.",
     evidence: "p50/p95/p99 latency, throughput, Prometheus export, baseline regression gates, exact-output batch-invariance checks, token & GPU-hour capacity, and normalized cost-to-serve estimates.",
     impact: "A capacity- and cost-aware benchmark that turns serving tradeoffs into defensible numbers.",
@@ -73,7 +73,7 @@ const CASE_FILES = [
     tags: ["Mission", "FastAPI", "Decision"],
     problem: "Operators drown in raw sortie, maintenance, supply, and outage data with no path to root cause under pressure.",
     system: "Synthetic mission-readiness platform (FastAPI + React) with root-cause scoring, what-if analysis, and command-facing workflows.",
-    evidence: "Operational recommendations, Dockerized deployment, and test coverage over public-safe synthetic data.",
+    evidence: "Operational recommendations, Dockerized deployment, and test coverage over synthetic data.",
     impact: "Ambiguous operational data becomes a decision surface that helps users act under uncertainty.",
     url: "https://github.com/WaffleBits/readiness-control-tower",
   },
@@ -81,7 +81,7 @@ const CASE_FILES = [
     id: "CF-06", icon: "⊟", roles: "ai",
     title: "HeteroCore Compiler",
     tags: ["Co-Design", "ONNX", "FPGA"],
-    problem: "Analog/digital accelerator tradeoffs are opaque — projections, simulations, and measurements get conflated.",
+    problem: "Analog/digital accelerator tradeoffs are opaque: projections, simulations, and measurements get conflated.",
     system: "ONNX compiler and analytical cost model for mixed analog-digital inference, linked to analog simulation, memory-hierarchy analysis, synthesizable RTL, and FPGA schedule execution.",
     evidence: "A versioned plan that clearly separates projections, simulations, synthesis outputs, and future board measurements.",
     impact: "Honest hardware/software co-design analysis with explicit simulation-versus-measurement boundaries.",
@@ -91,7 +91,7 @@ const CASE_FILES = [
     id: "CF-07", icon: "≋", roles: "mission ai",
     title: "Market Microstructure Engine",
     tags: ["C++20", "Determinism", "Latency"],
-    problem: "Matching logic is unforgiving — a single ordering bug corrupts every downstream fill.",
+    problem: "Matching logic is unforgiving: a single ordering bug corrupts every downstream fill.",
     system: "Python and C++20 matching engines covering price-time priority, partial fills, market orders, and cancellations.",
     evidence: "Deterministic cross-language parity checks, integer tick accounting, native tests, and p50/p95/p99 latency distributions.",
     impact: "A benchmarkable, provably-consistent deterministic core with a Python oracle guarding the C++ implementation.",
@@ -141,22 +141,22 @@ const EVIDENCE = [
 const MAP_NODES = {
   ingress: { title: "Ingress / Auth", body: "Authenticated service boundary. Callers present identity; RBAC decides which models and scopes they may touch before a single token is generated." },
   policy:  { title: "Policy", body: "Reason-for-access checks, request and token-budget limits, and distributed-limiter readiness. Denied and rate-limited paths are first-class, not afterthoughts." },
-  routing: { title: "Routing", body: "Scheduler and continuous-batching decisions with stable priority ordering — provenance is recorded so a request can be traced back to the route that served it." },
+  routing: { title: "Routing", body: "Scheduler and continuous-batching decisions with stable priority ordering. Provenance is recorded so a request can be traced back to the route that served it." },
   runtime: { title: "Runtime", body: "Paged KV-cache admission and deterministic decode. Prefill/decode utilization and KV-page occupancy are measured, not assumed." },
   observe: { title: "Observability", body: "Prometheus metrics, OTLP trace export, TTFT and decode-token p95 checks. If it isn't measured, it isn't shipped." },
-  audit:   { title: "Audit", body: "Sanitized trace log with token-trace fingerprints. Every served request leaves a reviewable, public-safe record." },
+  audit:   { title: "Audit", body: "Sanitized trace log with token-trace fingerprints. Every served request leaves a reviewable record." },
   gate:    { title: "Promotion Gate", body: "Batch-invariance, latency-regression, and replay gates decide promote / hold / rollback. This is where a bad path gets caught." },
 };
 
 const MAP_ORDER = ["ingress", "policy", "routing", "runtime", "observe", "audit", "gate"];
 const FAULT = {
   node: "gate",
-  title: "Fault caught — rollback",
+  title: "Fault caught // rollback",
   body: "Batch-invariance gate flagged a non-deterministic output at the promotion boundary. The candidate is held and rolled back automatically; the audit log records the reason. The sentinel caught the failure path before it reached production.",
 };
 
 /* =============================================================
-   1. SENTINEL EYE — procedural ASCII renderer
+   1. SENTINEL EYE: procedural ASCII renderer
    Not a fixed template: the eye is generated per-frame from an
    almond aperture + iris striations + pupil catchlight, resolving
    from noise and sweeping a scan line.
@@ -399,7 +399,7 @@ function ambientFrame(ts) {
   requestAnimationFrame(ambientFrame);
 }
 
-// "the sentinel reappears" — sweep the ambient eyes when audit/evidence opens
+// "the sentinel reappears": sweep the ambient eyes when audit/evidence opens
 function pulseSentinel() {
   const now = performance.now() - (ambStart || 0);
   ambient.forEach((a) => (a.pulseUntil = now + 900));
@@ -445,7 +445,7 @@ function startClock() {
 }
 
 /* =============================================================
-   5. SYSTEM MAP — request path
+   5. SYSTEM MAP: request path
    ============================================================= */
 
 let packetBusy = false;
