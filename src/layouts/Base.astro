@@ -1,0 +1,34 @@
+---
+import "../styles/global.css";
+const base = import.meta.env.BASE_URL;
+const title = "WaffleBits // Secure AI Infrastructure Terminal";
+const desc =
+  "Cleared cyber operations specialist building the secure control layer around AI infrastructure: secure access, policy enforcement, inference reliability, observability, audit trails, and mission software. Rendered as a live terminal.";
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={desc} />
+    <meta name="theme-color" content="#05070a" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={`${base}assets/avatar.jpg`} />
+    <link rel="icon" href={`${base}assets/avatar.jpg`} type="image/jpeg" />
+    <script is:inline>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">skip to content</a>
+    <slot />
+    <script>
+      import "../lib/client";
+    </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+---
+import { identity } from "../data/portfolio";
+---
+<header class="topbar" id="top">
+  <a class="topbar__brand" href="#top">
+    <b>{identity.name}</b><span class="path">// {identity.host}</span>
+  </a>
+  <nav class="topbar__nav" aria-label="Sections">
+    <a href="#request">request_path</a>
+    <a href="#files">case_files</a>
+    <a href="#evidence">evidence</a>
+    <a href="#service">service</a>
+    <a href="#contact">contact</a>
+  </nav>
+  <div class="topbar__status">
+    <span class="dot" aria-hidden="true"></span>
+    <span>SYSTEM NOMINAL</span>
+    <time id="clk" class="clk" aria-label="Session clock">--:--:--</time>
+  </div>
+  <button class="cmdbtn" type="button" data-open-palette aria-haspopup="dialog" aria-controls="palette">
+    <span class="p">&gt;_</span><span>command</span><kbd>⌘K</kbd>
+  </button>
+</header>

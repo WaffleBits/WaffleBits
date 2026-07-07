@@ -1,0 +1,303 @@
+---
+import Base from "../layouts/Base.astro";
+import Boot from "../components/Boot.astro";
+import TopBar from "../components/TopBar.astro";
+import Palette from "../components/Palette.astro";
+import Frame from "../components/Frame.astro";
+import {
+  identity, requestPath, caseFiles, evidence,
+  serviceRecord, capability, awards, certifications, education,
+} from "../data/portfolio";
+
+// role tags not stored on every record: mapped here for filtering
+const evRoles: Record<string, string> = {
+  BNCH: "ai", RPLY: "ai", TRCE: "ai security", DASH: "security ai", GATE: "ai", AUDT: "security mission",
+};
+const capRoles: Record<string, string> = {
+  AI: "ai", SEC: "security", OBS: "ai security", SYS: "ai mission", OPS: "security mission", LNG: "ai security mission",
+};
+const svcRoles = ["security mission", "ai security mission"];
+
+const metrics = [
+  { v: "$1.3B", d: "enterprise terrain monitored via live cyber dashboards" },
+  { v: "5>2 days", d: "threat-resolution cycle after dashboard engineering" },
+  { v: "21>5 days", d: "urgent change execution during combat-readiness support" },
+  { v: "30K", d: "assets hardened across 18 tasking orders" },
+];
+---
+
+<Base>
+  <Boot />
+  <div id="live" class="sr-only" aria-live="polite"></div>
+  <TopBar />
+
+  <main id="main">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero__grid">
+          <div>
+            <p class="hero__promptline" id="hero-prompt">{identity.handle}@{identity.host}:~$ ./sentinel --boot --identity</p>
+            <div class="hero__id">
+              <span class="chip on">{identity.clearance} CLEARED</span>
+              <span class="chip">SECURITY+</span>
+              <span class="chip">PLATFORM SECURITY // AI INFRA</span>
+            </div>
+            <h1 data-reveal id="hero-h1">I build the <span class="hl">secure control layer</span> around AI infrastructure.<span class="cursor" aria-hidden="true"></span></h1>
+            <p class="hero__lead" data-reveal>
+              Cleared cyber operations specialist engineering the platform-security and observability layer for
+              model serving: secure access, policy enforcement, inference reliability, token-path telemetry, audit
+              trails, and replay evidence. I turn operational pressure into tested systems that
+              <em>verify, observe, and catch the failure path</em>.
+            </p>
+            <div class="hero__actions" data-reveal>
+              <button class="btn primary" type="button" data-open-palette><span>&gt;_</span> open command</button>
+              <a class="btn" href="#files">./case_files</a>
+              <a class="btn" href={identity.links.github} target="_blank" rel="noreferrer">github ↗</a>
+            </div>
+            <div class="views" role="group" aria-label="View as">
+              <span class="views__label">VIEW_AS</span>
+              <button class="view on" type="button" data-role="all">full</button>
+              <button class="view" type="button" data-role="ai">ai_infra</button>
+              <button class="view" type="button" data-role="security">platform_sec</button>
+              <button class="view" type="button" data-role="mission">mission_eng</button>
+              <button class="view" type="button" data-role="recruiter">recruiter</button>
+            </div>
+          </div>
+
+          <aside class="hero__panel" aria-label="Sentinel readout">
+            <div class="frame__bar"><span class="frame__seq">[//]</span><span class="frame__label">SENTINEL</span><span class="frame__tag">watch</span></div>
+            <pre id="hero-eye" class="eye" aria-hidden="true"></pre>
+            <div class="hero__boot">
+              <ul>
+                <li><span class="ok">▸</span><span>loc</span><span class="val">{identity.location}</span></li>
+                <li><span class="ok">▸</span><span>open</span><span class="val">{identity.open}</span></li>
+                <li><span class="ok">▸</span><span>clr</span><span class="val">{identity.clearance}</span></li>
+                <li><span class="ok">▸</span><span>watch</span><span class="val">access · policy · audit</span></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule" data-rule aria-hidden="true"></div></div>
+
+    <!-- ===================== REQUEST PATH ===================== -->
+    <section class="section" id="request">
+      <div class="wrap">
+        <div class="head">
+          <p class="head__kicker"><span class="b">[02]</span> REQUEST_PATH</p>
+          <h2 data-reveal="scramble">Trace an inference request through the control plane.</h2>
+          <p data-reveal>Every request is authenticated, policed, routed, served, observed, and audited, with a promotion gate that can <strong>catch a bad path and roll it back</strong>. Select a stage, or run the trace.</p>
+        </div>
+        <div class="pipe">
+          <div class="pipe__stages" id="pipe-stages" role="list">
+            {requestPath.map((s) => (
+              <button class="stage" type="button" role="listitem" data-stage={s.id}>
+                <span class="stage__seq">{s.seq}<span class="stage__caret">▹</span></span>
+                <span class="stage__name">{s.name}</span>
+                <span class="stage__meta">{s.meta}</span>
+                <span class="stage__scan" aria-hidden="true"></span>
+                <span class="stage__pipe" aria-hidden="true">──▶</span>
+              </button>
+            ))}
+            <span class="packet" id="packet" aria-hidden="true"></span>
+          </div>
+          <div class="pipe__ctl">
+            <button class="btn small" type="button" id="run-trace">▶ run trace</button>
+            <button class="btn small" type="button" id="fault-trace">⚠ inject fault</button>
+          </div>
+          <div class="pipe__out" id="pipe-out" aria-live="polite">
+            <p class="lbl">INGRESS / AUTH</p>
+            <p class="txt">{requestPath[0].body}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule" data-rule aria-hidden="true"></div></div>
+
+    <!-- ===================== IMPACT ===================== -->
+    <section class="section tight" id="impact">
+      <div class="wrap">
+        <div class="head">
+          <p class="head__kicker"><span class="b">[03]</span> MISSION_IMPACT</p>
+          <h2 data-reveal="scramble">Outcomes, first.</h2>
+        </div>
+        <div class="matrix" data-reveal>
+          {metrics.map((m) => (
+            <div class="cap">
+              <span class="cap__code" style="color:var(--amber)">{m.v}</span>
+              <p style="color:var(--ink-dim);align-self:center">{m.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule" data-rule aria-hidden="true"></div></div>
+
+    <!-- ===================== CASE FILES ===================== -->
+    <section class="section" id="files">
+      <div class="wrap">
+        <div class="head">
+          <p class="head__kicker"><span class="b">[04]</span> SYSTEM_DOSSIERS</p>
+          <h2 data-reveal="scramble">Case files.</h2>
+          <p data-reveal>Each dossier states the problem, the system, the evidence, and the impact. Open one to inspect.</p>
+        </div>
+        <div class="files">
+          {caseFiles.map((cf) => (
+            <article class="file" id={`file-${cf.id}`} data-roles={cf.roles}>
+              <div class="file__bar">
+                <span class="file__id">{cf.id}</span>
+                <span class="file__stat">record</span>
+              </div>
+              <div class="file__body">
+                <h3 data-reveal="scramble">{cf.title}</h3>
+                <div class="file__tags">{cf.tags.map((t) => <span class="file__tag">{t}</span>)}</div>
+                <p class="file__q">{cf.problem}</p>
+                <details>
+                  <summary>inspect</summary>
+                  <dl>
+                    <div class="blk"><dt>system</dt><dd>{cf.system}</dd></div>
+                    <div class="blk"><dt>evidence</dt><dd>{cf.evidence}</dd></div>
+                    <div class="blk"><dt>impact</dt><dd>{cf.impact}</dd></div>
+                  </dl>
+                  <a class="repo" href={cf.url} target="_blank" rel="noreferrer">repository ↗</a>
+                </details>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule" data-rule aria-hidden="true"></div></div>
+
+    <!-- ===================== EVIDENCE LOCKER ===================== -->
+    <section class="section" id="evidence">
+      <div class="wrap">
+        <div class="head">
+          <p class="head__kicker"><span class="b">[05]</span> EVIDENCE_LOCKER</p>
+          <h2 data-reveal="scramble">Proofs, traces, and gates.</h2>
+          <p data-reveal>The artifacts behind the claims: benchmarks, replay fixtures, dashboards, runbooks, and CI gates.</p>
+        </div>
+        <div class="locker">
+          {evidence.map((ev) => (
+            <details class="ev" data-roles={evRoles[ev.code]}>
+              <summary>
+                <span class="ev__code">{ev.code}</span>
+                <span class="ev__title">{ev.title}</span>
+                <span class="ev__n">{String(ev.items.length).padStart(2, "0")}</span>
+              </summary>
+              <div class="ev__body"><ul>{ev.items.map((i) => <li>{i}</li>)}</ul></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule" data-rule aria-hidden="true"></div></div>
+
+    <!-- ===================== SERVICE RECORD ===================== -->
+    <section class="section" id="service">
+      <div class="wrap">
+        <div class="head">
+          <p class="head__kicker"><span class="b">[06]</span> SERVICE_RECORD</p>
+          <h2 data-reveal="scramble">Cyber defense operations with measurable impact.</h2>
+        </div>
+        <div class="rec">
+          {serviceRecord.map((r, i) => (
+            <article class="rec__item" data-roles={svcRoles[i]}>
+              <div class="rec__meta">
+                <span class="span">{r.span}</span>
+                <strong>{r.org}</strong>
+                <p class="unit">{r.unit}</p>
+              </div>
+              <div class="rec__body">
+                <h3>{r.role}</h3>
+                <ul>{r.lines.map((l) => <li>{l}</li>)}</ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule" data-rule aria-hidden="true"></div></div>
+
+    <!-- ===================== CAPABILITY MATRIX ===================== -->
+    <section class="section" id="capability">
+      <div class="wrap">
+        <div class="head">
+          <p class="head__kicker"><span class="b">[07]</span> CAPABILITY_MATRIX</p>
+          <h2 data-reveal="scramble">Range across AI infrastructure, security, and systems.</h2>
+        </div>
+        <div class="matrix">
+          {capability.map((c) => (
+            <div class="cap" data-roles={capRoles[c.code]}>
+              <span class="cap__code">{c.code}</span>
+              <div>
+                <h3 data-reveal="scramble">{c.title}</h3>
+                <p>{c.items}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule" data-rule aria-hidden="true"></div></div>
+
+    <!-- ===================== RECOGNITION ===================== -->
+    <section class="section" id="recognition">
+      <div class="wrap">
+        <div class="head">
+          <p class="head__kicker"><span class="b">[08]</span> RECOGNITION</p>
+          <h2 data-reveal="scramble">Awards, certifications, education.</h2>
+        </div>
+        <div class="two">
+          <div class="card"><h3>awards</h3><ul>{awards.map((a) => <li>{a}</li>)}</ul></div>
+          <div class="card"><h3>certifications</h3><ul>{certifications.map((c) => <li>{c}</li>)}</ul></div>
+          <div class="card"><h3>education</h3><ul>{education.map((e) => <li>{e}</li>)}</ul></div>
+          <div class="card"><h3>service</h3><ul>
+            <li>Booster Club concessions committee :: 80 hours</li>
+            <li>Food bank volunteer :: packaged 11K lbs</li>
+            <li>AFCEA event support :: base appearance team</li>
+          </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><div class="rule" data-rule aria-hidden="true"></div></div>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="section" id="contact">
+      <div class="wrap">
+        <div class="head">
+          <p class="head__kicker"><span class="b">[09]</span> CONTACT</p>
+          <h2 data-reveal="scramble">Open a channel.</h2>
+        </div>
+        <div class="contact__grid">
+          <div class="contact__eye" aria-hidden="true"><pre id="contact-eye"></pre></div>
+          <div class="contact__copy">
+            <p><span class="prompt">{identity.handle}@{identity.host}:~$</span> Best reached on LinkedIn. Every system on this page is open on GitHub, so read the code and judge the work directly.</p>
+            <div class="hero__actions">
+              <a class="btn primary" href={identity.links.linkedin} target="_blank" rel="noreferrer">linkedin ↗</a>
+              <a class="btn" href={identity.links.github} target="_blank" rel="noreferrer">github ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p>{identity.name} // secure AI infrastructure · platform security · observability · mission software</p>
+    </div>
+  </footer>
+
+  <Palette />
+</Base>

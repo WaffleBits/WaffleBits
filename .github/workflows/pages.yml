@@ -17,30 +17,44 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate static resume site
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build terminal site
+        run: npm run build
+        env:
+          WB_BASE: /WaffleBits
+
+      - name: Validate build output
         shell: bash
         run: |
           set -euo pipefail
-          test -f index.html
-          test -f README.md
-          test -f styles.css
-          test -f script.js
-          test -f assets/avatar.jpg
-          test -f .nojekyll
-          grep -q "distributed-limiter" README.md
-          grep -q "distributed-limiter" index.html
-          grep -q "deployment-readiness" README.md
-          grep -q "deployment-readiness" index.html
+          test -f dist/index.html
+          test -f dist/.nojekyll
+          test -f dist/assets/avatar.jpg
+          grep -q "distributed-limiter" dist/index.html
+          grep -q "deployment-readiness" dist/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
 
   deploy:
     if: github.event_name != 'pull_request'
-    needs: validate
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -50,16 +64,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Configure Pages
         uses: actions/configure-pages@v6
-
-      - name: Upload static site
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: .
 
       - name: Deploy to GitHub Pages
         id: deployment
