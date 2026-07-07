@@ -8,14 +8,14 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 
 - Platform security and security software engineering: authenticated service boundaries, policy-as-code direction, audit evidence, secure CI/CD thinking, request and token-budget limits, incident runbooks, and developer-facing controls.
 - AI infrastructure security: model-serving gateways, protected inference paths, token-path telemetry, model authorization, redaction and data-handling roadmap, GPU-aware reliability, and production observability.
-- Forward-deployed mission engineering: cleared operational context, synthetic public-safe mission workflows, root-cause analysis, what-if planning, and systems that help users act under pressure.
+- Forward-deployed mission engineering: cleared operational context, mission workflows, root-cause analysis, what-if planning, and systems that help users act under pressure.
 
 ## Proof Snapshot
 
 - Inference runtime validation: Rust scheduler core with continuous batching, paged KV-cache admission, deterministic replay, workload-pressure replay summaries, replay capacity envelopes, prefill/decode utilization, KV-page occupancy, backend-scoped numeric tolerance, vLLM/SGLang mirror normalization, streaming-token event ingestion, route/scheduler provenance coverage, segmented release reports, TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transitions, token-trace fingerprints, structured release-triage owner hints, and `promote`, `hold`, and `rollback` gates.
 - GPU performance evidence: Triton RMSNorm and SwiGLU kernels with FP32 oracles, launch autotuning, cache-controlled CUDA-event measurement, raw p50/p95/p99 timing artifacts, and `torch.compile` baselines.
 - AI reliability and operations: inference benchmark reports for latency, throughput, failures, token/GPU-hour capacity, cost-to-serve estimates, Prometheus output, batch-invariance gates, deterministic trace artifacts, and Kubernetes-shaped execution.
-- Secure mission delivery: TS/SCI operational context combined with authenticated model access, RBAC, policy controls, request and token-budget limits, distributed-limiter readiness evidence, deployment-readiness gates, workload-readiness replay, audit trails, sanitized trace export, OTLP collector payload generation, synthetic capacity/cost planning, Grafana/Prometheus observability evidence, incident runbooks, and public-safe mission decision software.
+- Secure mission delivery: TS/SCI operational context combined with authenticated model access, RBAC, policy controls, request and token-budget limits, distributed-limiter readiness evidence, deployment-readiness gates, workload-readiness replay, audit trails, sanitized trace export, OTLP collector payload generation, synthetic capacity/cost planning, Grafana/Prometheus observability evidence, incident runbooks, and mission decision software.
 
 ## Technical Focus
 
@@ -32,8 +32,8 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 - Backend/platform: FastAPI, REST APIs, Docker, Linux, CI, service boundaries, testable architecture, and Kubernetes deployment shapes.
 - AI infrastructure: Triton GPU kernels, FP32-accumulating correctness oracles, launch autotuning, cache-cold CUDA-event benchmarking, PyTorch compile comparisons, latency percentiles, token throughput, GPU-hour capacity, cost-to-serve estimates, gateway policy capacity planning, failure accounting, exact-output batch-invariance checks, Prometheus output, routing/scheduling/autoscaling concepts, vLLM/SGLang-style release-gate adapters, streaming-token trace fixtures, route/scheduler provenance coverage, replay capacity-envelope reports, structured release-triage output, accelerator-aware release gates, instrumentation/tracing/profiling direction, and GPU-aware reliability.
 - Accelerator co-design: ONNX, analytical performance/energy models, analog non-ideality simulation, banked-SRAM traffic analysis, SystemVerilog, Icarus Verilog, Verilator, Yosys, OpenLane configuration, and FPGA schedule execution.
-- Security: access control, policy enforcement, audit logging, request and token-budget limiting, public-safe threat modeling, incident response, and secure service design.
-- Product judgment: synthetic operational data modeling, command-facing workflows, explainable recommendations, reviewer-friendly docs, stakeholder translation, and public-safe portfolio discipline.
+- Security: access control, policy enforcement, audit logging, request and token-budget limiting, threat modeling, incident response, and secure service design.
+- Product judgment: synthetic operational data modeling, command-facing workflows, explainable recommendations, reviewer-friendly docs, and stakeholder translation.
 
 ## Role Alignment
 
@@ -52,7 +52,7 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 - Compute / inference infrastructure: Triton-style benchmark work shows concurrency control, latency percentiles, token throughput, requests per GPU-hour, normalized cost-to-serve estimates, retry/failure accounting, exact-output checks across isolated and concurrent execution, Prometheus output, baseline/candidate regression reports, traceable workload artifacts, and Kubernetes job posture.
 - Inference runtime engineering: Rust Inference Runtime implements stable priority admission, bounded prefill work, conservative paged KV reservations, round-robin decode scheduling, deterministic trace fingerprints, queue-pressure and active-capacity replay summaries, replay capacity-envelope reports, prefill/decode utilization, KV-page occupancy, vLLM/SGLang-style mirrored observation normalization, streaming-token event ingestion, route/scheduler provenance coverage, model-aware numeric tolerance for backend drift, segmented release reports, TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transition metadata, token-trace fingerprints, structured triage for hold/rollback reasons, and baseline/candidate `promote`, `hold`, and `rollback` decisions.
 - Secure AI platform engineering: Secure GPU Inference Gateway shows authenticated model access, RBAC, reason-for-access policy, request and token-budget limits, distributed-limiter readiness evidence for Redis/Envoy migration, deployment-readiness gates for shadow, canary, staged rollout, and rollback review, workload-readiness replay for allowed, policy-denied, rate-limited, and token-budget-limited paths, audit trails, Prometheus metrics, estimated input-token throughput, sanitized trace JSONL evidence, OTLP collector-ready payload artifacts, synthetic capacity/cost planning tied to model policy, Grafana dashboard provisioning, SLO notes, incident runbooks, and extension points for OIDC, mTLS, KMS, policy-as-code, redaction, GPU telemetry, and external policy engines.
-- Forward-deployed mission software: Readiness Control Tower shows public-safe operational data modeling, root-cause scoring, what-if analysis, recommendations, full-stack workflow design, Docker, and tests.
+- Forward-deployed mission software: Readiness Control Tower shows operational data modeling, root-cause scoring, what-if analysis, recommendations, full-stack workflow design, Docker, and tests.
 - Systems / quant fundamentals: Market Microstructure Engine pairs a Python correctness oracle with a dependency-free C++20 core, deterministic parity checks, latency distributions, and measured native throughput.
 
 ## Featured Work
@@ -79,7 +79,7 @@ Covers ONNX import, explainable operator placement, peripheral-aware energy sens
 
 Synthetic mission readiness platform that fuses sortie, maintenance, supply, personnel, and outage data into a command-facing decision surface.
 
-Covers operational data modeling, FastAPI service design, React/TypeScript workflow design, root-cause scoring, what-if analysis, Docker, tests, and public-safe mission framing.
+Covers operational data modeling, FastAPI service design, React/TypeScript workflow design, root-cause scoring, what-if analysis, Docker, and tests.
 
 ### [Triton Inference Benchmark](https://github.com/WaffleBits/triton-inference-benchmark)
 
@@ -109,7 +109,3 @@ Covers price-time priority, integer tick prices, partial fills, market orders, c
 4. Load compiler-generated HeteroCore tiles through a host interface and record physical FPGA timing, utilization, and wall-power measurements.
 5. Extend the Kubernetes, metrics, SLO, rollback, and runbook pattern into the readiness repo.
 6. Add Linux performance-counter capture, cache-aware data-structure comparisons, and replay-style market data ingestion to the C++20 matching engine.
-
-## Public-Safe Portfolio Note
-
-All public repositories use synthetic data, mock integrations, or open tooling. I do not publish operational, classified, proprietary, government-furnished, or sensitive customer data.
