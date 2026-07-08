@@ -3,8 +3,8 @@
    ============================================================= */
 import { caseFiles, identity } from "../data/portfolio";
 import { pulseSentinel, replayIntro } from "./boot";
+import { reduced } from "./reveal";
 
-const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = <T extends Element>(s: string, r: ParentNode = document) => r.querySelector<T>(s);
 const $$ = <T extends Element>(s: string, r: ParentNode = document) => Array.from(r.querySelectorAll<T>(s));
 
@@ -14,17 +14,16 @@ const scrollTo = (sel: string) =>
   document.querySelector(sel)?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
 
 function openFile(id: string) {
-  const el = document.getElementById("case-" + id);
+  const el = document.getElementById("case-" + id) as HTMLDetailsElement | null;
   if (!el) return;
   el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
-  const det = el as HTMLDetailsElement;
-  if (det) det.open = true;
+  el.open = true;
   el.classList.add("flash");
   setTimeout(() => el.classList.remove("flash"), 800);
 }
 
 export function setRole(role: string) {
-  $$<HTMLElement>(".rolepick .tok").forEach((b) => b.classList.toggle("is-active", b.dataset.role === role));
+  $$<HTMLElement>(".rolepick .tok").forEach((b) => b.classList.toggle("on", b.dataset.role === role));
   const show = role === "all" || role === "recruiter";
   $$<HTMLElement>("[data-roles]").forEach((el) => {
     el.classList.toggle("dim", !show && !el.dataset.roles!.split(" ").includes(role));
@@ -40,17 +39,17 @@ export function setRole(role: string) {
 function build(): Cmd[] {
   const cmds: Cmd[] = [];
   caseFiles.forEach((cf) =>
-    cmds.push({ g: cf.id.replace("CF-", ""), n: "open " + cf.title.toLowerCase(), d: "case file", keys: cf.title + " " + cf.tags.join(" "), run: () => openFile(cf.id) })
+    cmds.push({ g: cf.id.replace("CF-", ""), n: "open " + cf.title.toLowerCase(), d: "case", keys: cf.title + " " + cf.tags.join(" "), run: () => openFile(cf.id) })
   );
-  ([["ai", "ai infrastructure"], ["security", "platform security"], ["mission", "mission engineering"], ["recruiter", "recruiter fast-scan"], ["all", "full spectrum"]] as const).forEach(
-    ([r, label]) => cmds.push({ g: "▲", n: "view " + label, d: "filter", keys: "view role " + label, run: () => setRole(r) })
+  ([["ai", "ai_infra"], ["security", "platform_sec"], ["mission", "mission_eng"], ["recruiter", "recruiter"], ["all", "full"]] as const).forEach(
+    ([r, label]) => cmds.push({ g: "#", n: "view " + label, d: "filter", keys: "view role " + label, run: () => setRole(r) })
   );
   ([["impact", "#impact"], ["trace", "#request"], ["cases", "#files"], ["evidence", "#evidence"], ["service", "#service"], ["capability", "#capability"], ["recognition", "#recognition"], ["contact", "#contact"]] as const).forEach(
-    ([label, sel]) => cmds.push({ g: "→", n: "goto " + label, d: "jump", keys: "goto " + label, run: () => scrollTo(sel) })
+    ([label, sel]) => cmds.push({ g: ">", n: "goto " + label, d: "jump", keys: "goto cd " + label, run: () => scrollTo(sel) })
   );
-  cmds.push({ g: "↗", n: "open github", d: "external", keys: "github repo", run: () => window.open(identity.links.github, "_blank", "noopener") });
-  cmds.push({ g: "↗", n: "open linkedin", d: "external", keys: "linkedin contact", run: () => window.open(identity.links.linkedin, "_blank", "noopener") });
-  cmds.push({ g: "↺", n: "replay sentinel intro", d: "system", keys: "replay intro boot eye", run: () => replayIntro() });
+  cmds.push({ g: "^", n: "open github", d: "link", keys: "github repo", run: () => window.open(identity.links.github, "_blank", "noopener") });
+  cmds.push({ g: "^", n: "open linkedin", d: "link", keys: "linkedin contact", run: () => window.open(identity.links.linkedin, "_blank", "noopener") });
+  cmds.push({ g: "~", n: "replay sentinel", d: "sys", keys: "replay intro boot eye", run: () => replayIntro() });
   return cmds;
 }
 
@@ -80,7 +79,7 @@ export function initPalette() {
     active = 0;
     render();
   };
-  const exec = (i: number) => { const c = filtered[i]; if (!c) return; close(); setTimeout(() => c.run(), 50); };
+  const exec = (i: number) => { const c = filtered[i]; if (!c) return; close(); setTimeout(() => c.run(), 40); };
   const open = () => { overlay.hidden = false; input.value = ""; filter(""); setTimeout(() => input.focus(), 20); };
   const close = () => { overlay.hidden = true; };
 
@@ -98,11 +97,9 @@ export function initPalette() {
     else if (e.key === "/" && overlay.hidden && !/input|textarea/i.test((document.activeElement as HTMLElement)?.tagName || "")) { e.preventDefault(); open(); }
   });
   $$<HTMLElement>("[data-open-palette]").forEach((b) => b.addEventListener("click", open));
+  $$(".rolepick .tok").forEach((b) => b.addEventListener("click", () => setRole((b as HTMLElement).dataset.role!)));
 
-  // role tokens
-  $$(".rolepick .tok").forEach((b) => b.addEventListener("click", () => setRole(b.dataset.role!)));
-
-  // single-open inspection: opening one file/evidence closes its siblings
+  // single-open inspection: opening one entry closes its siblings
   ["fentry", "eentry"].forEach((cls) => {
     $$<HTMLDetailsElement>("." + cls).forEach((d) =>
       d.addEventListener("toggle", () => { if (d.open) { pulseSentinel(); $$<HTMLDetailsElement>("." + cls).forEach((o) => { if (o !== d) o.open = false; }); } })

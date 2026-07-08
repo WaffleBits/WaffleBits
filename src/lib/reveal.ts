@@ -1,114 +1,104 @@
 /* =============================================================
-   Reveal engine // terminal materialization
-   Each [data-block] types its command, then prints its [data-in]
-   rows one by one, as if the terminal is generating the output.
-   [data-hero] blocks are driven by boot.ts. No-JS + reduced-motion
-   safe: content is server-rendered and only hidden when JS is
-   present and motion is allowed.
+   Reveal engine // terminal-native animation primitives.
+   Everything renders as if a system is printing it: commands
+   type in, output decodes from glyph-noise line by line.
+   No-JS safe (content present); reduced-motion shows instantly.
    ============================================================= */
 
-const GLYPHS = "!<>-_\\/[]{}=+*^?#01ABCDEFxo*#@%&";
-const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const GLYPHS = "!<>-_\\/[]{}=+*^?#01ABCDEFxo:.";
+export const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-export function typeEl(el: HTMLElement | null, done?: () => void) {
-  if (!el) { done?.(); return; }
-  const text = el.dataset.type ?? el.textContent ?? "";
-  if (reduced) { el.textContent = text; done?.(); return; }
-  el.textContent = "";
-  let i = 0;
-  const step = () => {
-    i++;
-    el.textContent = text.slice(0, i);
-    if (i < text.length) setTimeout(step, 16);
-    else done?.();
-  };
-  step();
-}
-
-function scrambleEl(el: HTMLElement, text: string) {
-  if (reduced) { el.textContent = text; return; }
-  const dur = Math.min(820, 220 + text.length * 18);
-  const last = GLYPHS.length - 1;
-  let start: number | null = null;
-  const frame = (now: number) => {
-    if (start == null) start = now;
-    const p = Math.min(1, (now - start) / dur);
-    const revealed = Math.floor(p * text.length);
-    let s = "";
-    for (let i = 0; i < text.length; i++) {
-      const ch = text[i];
-      if (i < revealed || ch === " ") s += ch;
-      else s += GLYPHS[(Math.random() * last) | 0];
-    }
-    el.textContent = s;
-    if (p < 1) requestAnimationFrame(frame);
-    else el.textContent = text;
-  };
-  requestAnimationFrame(frame);
-}
-
-export function scrambleNow(el: HTMLElement | null) {
-  if (!el) return;
-  scrambleEl(el, el.dataset.scramble ?? el.textContent ?? "");
-}
-
-/* Stagger every [data-in] row inside a container, one at a time. */
-export function staggerIn(parent: HTMLElement | null, delay = 34, done?: () => void) {
-  if (!parent) { done?.(); return; }
-  const items = Array.from(parent.querySelectorAll<HTMLElement>("[data-in]"));
-  if (!items.length) { done?.(); return; }
-  if (reduced) { items.forEach((it) => it.classList.add("show")); done?.(); return; }
-  let i = 0;
-  const step = () => {
-    if (i < items.length) { items[i].classList.add("show"); i++; setTimeout(step, delay); }
-    else done?.();
-  };
-  step();
-}
-
-/* Drive one [data-block]: type its command, then print its rows. */
-function runBlock(block: HTMLElement) {
-  if (block.dataset.done) return;
-  block.dataset.done = "1";
-  block.classList.add("active");
-  const cmd = block.querySelector<HTMLElement>("[data-type]");
-  const start = () => staggerIn(block);
-  if (cmd && !reduced) typeEl(cmd, start);
-  else { if (cmd) cmd.textContent = cmd.dataset.type ?? cmd.textContent ?? ""; start(); }
-  block.querySelectorAll<HTMLElement>("[data-scramble]").forEach((el) => {
-    if (reduced) return;
-    scrambleEl(el, el.dataset.scramble ?? el.textContent ?? "");
+/* matrix-resolve an element's text from glyph noise */
+export function scramble(el: HTMLElement, dur = 0): Promise<void> {
+  const target = el.dataset.text ?? el.textContent ?? "";
+  el.dataset.text = target;
+  const d = dur || Math.min(700, 180 + target.length * 16);
+  return new Promise((resolve) => {
+    let start: number | null = null;
+    const frame = (now: number) => {
+      if (start == null) start = now;
+      const p = Math.min(1, (now - start) / d);
+      const cut = Math.floor(p * target.length);
+      let s = "";
+      for (let i = 0; i < target.length; i++) {
+        const ch = target[i];
+        s += i < cut || ch === " " ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+      }
+      el.textContent = s;
+      if (p < 1) requestAnimationFrame(frame);
+      else { el.textContent = target; resolve(); }
+    };
+    requestAnimationFrame(frame);
   });
 }
 
-export function initReveal() {
-  const blocks = Array.from(document.querySelectorAll<HTMLElement>("[data-block]"));
-  if (reduced || !("IntersectionObserver" in window)) {
-    blocks.forEach((b) => { b.dataset.done = "1"; b.classList.add("active"); });
-    document.querySelectorAll<HTMLElement>("[data-in]").forEach((el) => el.classList.add("show"));
+/* typewriter a single line (used for command prompts) */
+export function typeEl(el: HTMLElement | null, done?: () => void) {
+  if (!el) { done?.(); return; }
+  const target = el.dataset.text ?? el.textContent ?? "";
+  el.dataset.text = target;
+  if (reduced) { el.textContent = target; el.classList.add("done"); done?.(); return; }
+  el.textContent = "";
+  el.classList.add("typing");
+  let i = 0;
+  const step = () => {
+    i++;
+    el.textContent = target.slice(0, i);
+    if (i < target.length) setTimeout(step, 12 + Math.random() * 20);
+    else { el.classList.remove("typing"); el.classList.add("done"); done?.(); }
+  };
+  step();
+}
+
+/* reveal [data-line] children one at a time, each decoding from noise */
+export function staggerIn(container: HTMLElement | null, gap = 55, done?: () => void) {
+  if (!container) { done?.(); return; }
+  const lines = Array.from(container.querySelectorAll<HTMLElement>("[data-line]"));
+  container.classList.add("is-in");
+  if (reduced || !lines.length) { lines.forEach((l) => l.classList.add("is-in")); done?.(); return; }
+  let i = 0;
+  const next = () => {
+    if (i >= lines.length) { done?.(); return; }
+    const line = lines[i++];
+    line.classList.add("is-in");
+    const scr = line.querySelector<HTMLElement>("[data-scramble]") || (line.hasAttribute("data-scramble") ? line : null);
+    if (scr) scramble(scr);
+    setTimeout(next, gap);
+  };
+  next();
+}
+
+/* drive one terminal operation: type its command, then print output */
+function runOp(op: HTMLElement) {
+  if (op.dataset.ran) return;
+  op.dataset.ran = "1";
+  op.classList.add("live");
+  const cmd = op.querySelector<HTMLElement>("[data-type]");
+  const out = op.querySelector<HTMLElement>("[data-out]");
+  const finish = () => op.classList.add("done");
+  if (reduced) {
+    cmd?.classList.add("done");
+    out?.classList.add("is-in");
+    out?.querySelectorAll<HTMLElement>("[data-line]").forEach((l) => l.classList.add("is-in"));
+    finish();
     return;
   }
+  typeEl(cmd, () => staggerIn(out, out?.dataset.gap ? +out.dataset.gap : 48, finish));
+}
+
+/* observe every [data-op] and render it when scrolled into view */
+export function initReveal() {
+  const ops = Array.from(document.querySelectorAll<HTMLElement>("[data-op]"));
+  if (reduced || !("IntersectionObserver" in window)) { ops.forEach(runOp); return; }
   const io = new IntersectionObserver(
     (entries) => {
       for (const e of entries) {
         if (!e.isIntersecting) continue;
         io.unobserve(e.target);
-        runBlock(e.target as HTMLElement);
+        runOp(e.target as HTMLElement);
       }
     },
-    { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
   );
-  blocks.forEach((b) => io.observe(b));
-}
-
-/* Safety net: if anything stalled, force the whole buffer visible. */
-export function forceRevealAll() {
-  document.querySelectorAll<HTMLElement>("[data-block],[data-hero]").forEach((b) => {
-    b.classList.add("active");
-    b.dataset.done = "1";
-  });
-  document.querySelectorAll<HTMLElement>("[data-in]").forEach((el) => el.classList.add("show"));
-  document.querySelectorAll<HTMLElement>("[data-type]").forEach((el) => {
-    if (!el.textContent) el.textContent = el.dataset.type ?? "";
-  });
+  ops.forEach((op) => io.observe(op));
 }
