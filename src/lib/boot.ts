@@ -15,11 +15,9 @@ let raf = 0;
 let aStart: number | null = null;
 let aLast = 0;
 
-function colsFor(w: number) {
-  if (w < 560) return 44;
-  if (w < 860) return 62;
-  return 78;
-}
+/* hero sentinel eye geometry — resolve + ambient must match to avoid a jump */
+const HERO_COLS = 50;
+const HERO_RATIO = 0.5;
 
 /* ---- resolve-from-noise animation (plays once per session) ---- */
 function playResolve(pre: HTMLElement, cols: number, rows: number, done: () => void) {
@@ -67,7 +65,7 @@ function ambientFrame(ts: number) {
 
 function startAmbient() {
   const defs = [
-    { sel: "#hero-eye", cols: 30, ratio: 0.46 },
+    { sel: "#hero-eye", cols: HERO_COLS, ratio: HERO_RATIO },
     { sel: "#contact-eye", cols: 24, ratio: 0.46 },
   ];
   for (const d of defs) {
@@ -101,7 +99,7 @@ function revealHero() {
 export function initBoot() {
   const pre = $<HTMLElement>("#hero-eye");
   if (pre) {
-    const { cols, rows } = fitEye(pre, colsFor(window.innerWidth), 0.5);
+    const { cols, rows } = fitEye(pre, HERO_COLS, HERO_RATIO);
     let seen = false;
     try { seen = sessionStorage.getItem("wb_eye") === "1"; } catch {}
     if (reduced || seen) {
@@ -120,7 +118,7 @@ export function replayIntro() {
   const pre = $<HTMLElement>("#hero-eye");
   if (!pre || reduced) return;
   try { sessionStorage.removeItem("wb_eye"); } catch {}
-  const { cols, rows } = fitEye(pre, colsFor(window.innerWidth), 0.5);
+  const { cols, rows } = fitEye(pre, HERO_COLS, HERO_RATIO);
   if (raf) cancelAnimationFrame(raf);
   playResolve(pre, cols, rows, () => {});
 }
