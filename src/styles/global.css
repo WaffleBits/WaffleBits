@@ -149,6 +149,9 @@ html.js [data-line].is-in { opacity: 1; transition: opacity 180ms var(--ease); }
   .rec { grid-template-columns: 2.6em 1fr; }
   .rec .v { grid-column: 2; }
   .rec .note { grid-column: 2; }
+  .tl { grid-template-columns: 1.8em 2.2em 1fr; }
+  .tl .mt { display: none; }
+  .op__cmd { font-size: 13.5px; }
 }
 
 /* =============================================================
