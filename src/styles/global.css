@@ -263,7 +263,68 @@ html.js [data-line].is-in { opacity: 1; transition: opacity 180ms var(--ease); }
 .palette__hint { font-size: 11px; color: var(--faint); text-align: center; margin: 0; padding: 7px; border-top: 1px solid var(--line); }
 
 /* =============================================================
+   AMBIENT MATRIX FIELD  (background only, never content)
+   ============================================================= */
+#matrix {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0; transition: opacity 1600ms ease;
+}
+#matrix.on { opacity: 0.9; }
+
+/* =============================================================
+   SENTINEL LOADER
+   ============================================================= */
+body.boot-lock { overflow: hidden; }
+.boot {
+  position: fixed; inset: 0; z-index: 250; display: grid; place-items: center; overflow: hidden;
+  background: radial-gradient(1100px 720px at 50% 44%, #070b0f 0%, #05070a 68%, #030405 100%);
+}
+.boot[hidden] { display: none; }
+.boot.leaving { animation: bootOut 620ms var(--ease) forwards; }
+@keyframes bootOut { to { opacity: 0; transform: scale(1.035); filter: blur(5px); visibility: hidden; } }
+.boot__inner { width: min(92vw, 660px); display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px; }
+.boot__eye {
+  margin: 0; font-family: var(--mono); color: var(--cyan);
+  font-size: clamp(6px, 1.6vw, 12px); line-height: 1; white-space: pre;
+  text-shadow: 0 0 10px rgba(87,195,212,0.30); user-select: none;
+}
+.boot__title { margin: 4px 0 0; font-size: 11.5px; letter-spacing: 3px; color: var(--green); text-align: center; }
+.boot__bar { margin: 0; font-size: clamp(8px, 1.5vw, 12px); color: var(--green); white-space: pre; letter-spacing: 0.5px; }
+.boot__log { list-style: none; margin: 2px 0 0; padding: 0; width: 100%; max-width: 320px; min-height: 5.4em; font-size: 12px; color: var(--dim); }
+.boot__log li { opacity: 0; }
+.boot__log li.show { opacity: 1; transition: opacity 180ms var(--ease); }
+.boot__cue {
+  margin: 6px 0 0; font-size: 12px; letter-spacing: 3px; color: var(--dim);
+  text-align: center; text-transform: uppercase; opacity: 0; transition: opacity 500ms var(--ease);
+}
+.boot__cue.on { opacity: 1; }
+.boot__cue .chev { display: block; margin-top: 2px; color: var(--green); animation: bob 1.5s ease-in-out infinite; }
+@keyframes bob { 0%,100% { transform: translateY(0); opacity: .45; } 50% { transform: translateY(5px); opacity: 1; } }
+.boot__scan {
+  position: absolute; left: 0; right: 0; height: 120px; top: -120px; pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(87,195,212,0.06) 50%, transparent);
+  animation: bootScan 3.1s linear infinite;
+}
+@keyframes bootScan { to { top: 100%; } }
+
+/* =============================================================
+   ASCII SEPARATORS between command blocks
+   ============================================================= */
+.rule {
+  font-size: 12px; line-height: 16px; height: 16px; color: var(--faint);
+  white-space: nowrap; overflow: hidden; user-select: none; margin: 4px 0 22px;
+}
+
+.spin { display: inline-block; width: 1ch; }
+
+@media (prefers-reduced-motion: reduce) {
+  .boot__scan, .boot__cue .chev { animation: none; }
+  #matrix { display: none; }
+}
+
+/* =============================================================
    NO-JS
    ============================================================= */
+html.no-js .boot, html.no-js #matrix { display: none; }
 html.no-js [data-open-palette], html.no-js .rolepick, html.no-js .trace__ctl { display: none; }
 html.no-js .op__out [data-line], html.no-js [data-line] { opacity: 1; }

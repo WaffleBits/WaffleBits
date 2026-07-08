@@ -22,10 +22,26 @@ const metrics = [
 
 <Base>
   <div id="live" class="sr-only" aria-live="polite"></div>
+  <canvas id="matrix" aria-hidden="true"></canvas>
+
+  <!-- ===== SENTINEL LOADER ===== -->
+  <div id="boot" class="boot" role="dialog" aria-label="Sentinel loading sequence" aria-hidden="true" hidden>
+    <div class="boot__inner">
+      <pre id="boot-eye" class="boot__eye" aria-hidden="true"></pre>
+      <p class="boot__title">SENTINEL // OBSERVABILITY CORE</p>
+      <pre id="boot-bar" class="boot__bar" aria-hidden="true"></pre>
+      <ul id="boot-loadlog" class="boot__log" aria-hidden="true"></ul>
+      <p id="boot-cue" class="boot__cue">
+        scroll to enter
+        <span class="chev" aria-hidden="true">▼</span>
+      </p>
+    </div>
+    <div class="boot__scan" aria-hidden="true"></div>
+  </div>
 
   <header class="status" id="top">
     <span class="seg"><b>{identity.handle}</b><span style="opacity:.7">@{identity.host}</span></span>
-    <span class="seg grow hideS">session://active :: secure-ai-infrastructure</span>
+    <span class="seg grow hideS"><span id="spin" class="spin" aria-hidden="true">|</span> session://active :: secure-ai-infrastructure</span>
     <span class="seg"><span class="clk" id="clk">--:--:--</span></span>
     <span class="seg"><button class="tok" style="color:inherit" data-open-palette aria-haspopup="dialog" aria-controls="palette">cmd ⌘K</button></span>
   </header>
