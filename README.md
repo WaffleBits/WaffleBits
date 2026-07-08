@@ -1,8 +1,13 @@
+# Adnan Berik
+
+**Platform Security & AI Infrastructure Engineer** ([WaffleBits](https://github.com/WaffleBits))
+
 Cleared U.S. cyber operations specialist building the platform and security software layer around AI infrastructure: secure model access, token-budget controls, distributed-limiter readiness evidence, deployment-readiness gates, OTLP collector trace export, workload-readiness replay, capacity/cost planning, LLM serving reliability tooling, inference runtime validation, token-path telemetry, mission decision systems, and performance-sensitive engineering projects.
 
 I am strongest where backend/platform engineering meets high-stakes operations: securing model-serving paths, turning policy and audit requirements into software controls, measuring inference reliability, translating ambiguous workflows into operational software, and building deterministic systems that can be tested under pressure.
 
 **Resume website:** [wafflebits.github.io/WaffleBits](https://wafflebits.github.io/WaffleBits/)
+**LinkedIn:** [linkedin.com/in/adnanberik](https://www.linkedin.com/in/adnanberik/)
 
 ## Target Engineering Lane
 

@@ -6,7 +6,8 @@
 export const identity = {
   handle: "wafflebits",
   host: "sentinel",
-  name: "WaffleBits",
+  name: "Adnan Berik",
+  alias: "WaffleBits",
   clearance: "TS/SCI",
   location: "VA",
   open: "New York, NY / Washington, D.C.",
@@ -24,7 +25,7 @@ export const identity = {
   ],
   links: {
     github: "https://github.com/WaffleBits",
-    linkedin: "https://www.linkedin.com/in/wafflebits/",
+    linkedin: "https://www.linkedin.com/in/adnanberik/",
   },
 };
 

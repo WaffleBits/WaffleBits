@@ -1,9 +1,21 @@
 ---
 import "../styles/global.css";
+import { identity } from "../data/portfolio";
 const base = import.meta.env.BASE_URL;
-const title = "WaffleBits // Secure AI Infrastructure Terminal";
+const title = `${identity.name} // Secure AI Infrastructure Terminal`;
 const desc =
-  "Cleared cyber operations specialist building the secure control layer around AI infrastructure: secure access, policy enforcement, inference reliability, observability, audit trails, and mission software. Rendered as a live terminal.";
+  `${identity.name} (${identity.alias}). Cleared cyber operations specialist building the secure control layer around AI infrastructure: secure access, policy enforcement, inference reliability, observability, audit trails, and mission software. Rendered as a live terminal.`;
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: identity.name,
+  alternateName: identity.alias,
+  jobTitle: identity.role,
+  address: { "@type": "PostalAddress", addressRegion: identity.location, addressCountry: "US" },
+  url: identity.links.github,
+  sameAs: [identity.links.linkedin, identity.links.github],
+  knowsAbout: identity.domains,
+};
 ---
 
 <!doctype html>
@@ -13,12 +25,14 @@ const desc =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={desc} />
+    <meta name="author" content={identity.name} />
     <meta name="theme-color" content="#05070a" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={desc} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="profile" />
     <meta property="og:image" content={`${base}assets/avatar.jpg`} />
     <link rel="icon" href={`${base}assets/avatar.jpg`} type="image/jpeg" />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(person)} />
     <script is:inline>
       document.documentElement.classList.remove("no-js");
       document.documentElement.classList.add("js");
