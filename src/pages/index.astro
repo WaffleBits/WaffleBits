@@ -60,6 +60,7 @@ const metrics = [
       <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>load identity.profile</span></p>
       <div id="hero-identity" class="hero__id">
         <p data-line><span class="name">{identity.name}</span> <span class="fl">::</span> <span class="role">{identity.role}</span></p>
+        <p data-line style="color:var(--faint)">alias <span class="fl">::</span> {identity.alias} <span class="fl">//</span> loc <span class="fl">::</span> {identity.location} <span class="fl">//</span> open <span class="fl">::</span> {identity.open}</p>
         <p data-line class="tags">{identity.clearance} cleared <span class="fl">//</span> Security+ <span class="fl">//</span> {identity.domains.slice(0, 3).join(" · ")}</p>
         <p data-line class="sum">{identity.summary}</p>
         <p data-line class="tokrow"><span class="lbl">goto::</span>
@@ -201,7 +202,8 @@ const metrics = [
         <div class="contact">
           <div class="contact__eye" aria-hidden="true"><pre id="contact-eye"></pre></div>
           <div>
-            <p data-line>channel <span class="ok">open</span>. best reached on LinkedIn; every system here is open on GitHub, so read the code and judge the work directly.</p>
+            <p data-line><span class="fl">endpoint</span> <span class="hl">{identity.name}</span> <span class="fl">::</span> channel <span class="ok">open</span></p>
+            <p data-line>best reached on LinkedIn; every system here is open on GitHub, so read the code and judge the work directly.</p>
             <p data-line class="tokrow">
               <a class="tok" href={identity.links.linkedin} target="_blank" rel="noreferrer">linkedin</a>
               <a class="tok" href={identity.links.github} target="_blank" rel="noreferrer">github</a>
