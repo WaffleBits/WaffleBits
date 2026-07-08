@@ -244,6 +244,20 @@ export const education = [
   "Northern Virginia Community College :: Computer Science coursework (60+ credits)",
 ];
 
+export type Impact = { id: string; metric: string; value: string; source: string };
+export const impact: Impact[] = [
+  { id: "01", metric: "enterprise_terrain", value: "$1.3B", source: "live cyber dashboard engineering" },
+  { id: "02", metric: "threat_resolution_cycle", value: "5d -> 2d", source: "dashboard workflow improvement" },
+  { id: "03", metric: "urgent_change_execution", value: "21d -> 5d", source: "combat-readiness support" },
+  { id: "04", metric: "assets_hardened", value: "30K", source: "18 tasking orders" },
+];
+
+export const volunteer = [
+  "Booster Club concessions committee :: 80 hours",
+  "Food bank volunteer :: packaged 11K lbs",
+  "AFCEA event support :: base appearance team",
+];
+
 export const bootLog = [
   { lbl: "auth boundary", val: "rbac ok" },
   { lbl: "policy engine", val: "loaded" },

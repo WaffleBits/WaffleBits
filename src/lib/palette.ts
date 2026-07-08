@@ -1,5 +1,5 @@
 /* =============================================================
-   Command palette // terminal navigation
+   Command palette // terminal navigation + role filter
    ============================================================= */
 import { caseFiles, identity } from "../data/portfolio";
 import { pulseSentinel, replayIntro } from "./boot";
@@ -14,17 +14,17 @@ const scrollTo = (sel: string) =>
   document.querySelector(sel)?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
 
 function openFile(id: string) {
-  const el = document.getElementById("file-" + id);
+  const el = document.getElementById("case-" + id);
   if (!el) return;
   el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
-  const det = el.querySelector<HTMLDetailsElement>("details");
+  const det = el as HTMLDetailsElement;
   if (det) det.open = true;
   el.classList.add("flash");
   setTimeout(() => el.classList.remove("flash"), 800);
 }
 
 export function setRole(role: string) {
-  $$<HTMLElement>(".view").forEach((b) => b.classList.toggle("on", b.dataset.role === role));
+  $$<HTMLElement>(".rolepick .tok").forEach((b) => b.classList.toggle("is-active", b.dataset.role === role));
   const show = role === "all" || role === "recruiter";
   $$<HTMLElement>("[data-roles]").forEach((el) => {
     el.classList.toggle("dim", !show && !el.dataset.roles!.split(" ").includes(role));
@@ -32,7 +32,7 @@ export function setRole(role: string) {
   const live = $<HTMLElement>("#live");
   if (live) live.textContent = role === "all" ? "view :: full spectrum" : "view :: " + role;
   if (role === "recruiter") {
-    $$<HTMLDetailsElement>(".file details[open]").forEach((d) => (d.open = false));
+    $$<HTMLDetailsElement>(".fentry[open]").forEach((d) => (d.open = false));
     scrollTo("#impact");
   }
 }
@@ -43,9 +43,9 @@ function build(): Cmd[] {
     cmds.push({ g: cf.id.replace("CF-", ""), n: "open " + cf.title.toLowerCase(), d: "case file", keys: cf.title + " " + cf.tags.join(" "), run: () => openFile(cf.id) })
   );
   ([["ai", "ai infrastructure"], ["security", "platform security"], ["mission", "mission engineering"], ["recruiter", "recruiter fast-scan"], ["all", "full spectrum"]] as const).forEach(
-    ([r, label]) => cmds.push({ g: "◱", n: "view " + label, d: "filter", keys: "view role " + label, run: () => setRole(r) })
+    ([r, label]) => cmds.push({ g: "▲", n: "view " + label, d: "filter", keys: "view role " + label, run: () => setRole(r) })
   );
-  ([["request path", "#request"], ["case files", "#files"], ["evidence", "#evidence"], ["service record", "#service"], ["capability", "#capability"], ["contact", "#contact"]] as const).forEach(
+  ([["impact", "#impact"], ["trace", "#request"], ["cases", "#files"], ["evidence", "#evidence"], ["service", "#service"], ["capability", "#capability"], ["recognition", "#recognition"], ["contact", "#contact"]] as const).forEach(
     ([label, sel]) => cmds.push({ g: "→", n: "goto " + label, d: "jump", keys: "goto " + label, run: () => scrollTo(sel) })
   );
   cmds.push({ g: "↗", n: "open github", d: "external", keys: "github repo", run: () => window.open(identity.links.github, "_blank", "noopener") });
@@ -64,8 +64,6 @@ export function initPalette() {
   let filtered = cmds.slice();
 
   const paint = () => $$<HTMLElement>(".palette__item", list).forEach((el, i) => el.classList.toggle("on", i === active));
-  const scrollActive = () => $$<HTMLElement>(".palette__item", list)[active]?.scrollIntoView({ block: "nearest" });
-
   const render = () => {
     if (!filtered.length) { list.innerHTML = `<li class="palette__empty">command not found</li>`; return; }
     list.innerHTML = filtered
@@ -76,7 +74,6 @@ export function initPalette() {
       li.addEventListener("mousemove", () => { active = i; paint(); });
     });
   };
-
   const filter = (q: string) => {
     q = q.trim().toLowerCase();
     filtered = !q ? cmds.slice() : cmds.filter((c) => (c.n + " " + c.keys).toLowerCase().includes(q));
@@ -90,8 +87,8 @@ export function initPalette() {
   input.addEventListener("input", () => filter(input.value));
   input.addEventListener("keydown", (e) => {
     const n = Math.max(1, filtered.length);
-    if (e.key === "ArrowDown") { e.preventDefault(); active = (active + 1) % n; paint(); scrollActive(); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); active = (active - 1 + n) % n; paint(); scrollActive(); }
+    if (e.key === "ArrowDown") { e.preventDefault(); active = (active + 1) % n; paint(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); active = (active - 1 + n) % n; paint(); }
     else if (e.key === "Enter") { e.preventDefault(); exec(active); }
     else if (e.key === "Escape") { e.preventDefault(); close(); }
   });
@@ -102,9 +99,13 @@ export function initPalette() {
   });
   $$<HTMLElement>("[data-open-palette]").forEach((b) => b.addEventListener("click", open));
 
-  // role buttons
-  $$<HTMLElement>(".view").forEach((b) => b.addEventListener("click", () => setRole(b.dataset.role!)));
+  // role tokens
+  $$(".rolepick .tok").forEach((b) => b.addEventListener("click", () => setRole(b.dataset.role!)));
 
-  // sentinel reappears when an evidence item opens
-  $$<HTMLDetailsElement>(".ev").forEach((d) => d.addEventListener("toggle", () => { if (d.open) pulseSentinel(); }));
+  // single-open inspection: opening one file/evidence closes its siblings
+  ["fentry", "eentry"].forEach((cls) => {
+    $$<HTMLDetailsElement>("." + cls).forEach((d) =>
+      d.addEventListener("toggle", () => { if (d.open) { pulseSentinel(); $$<HTMLDetailsElement>("." + cls).forEach((o) => { if (o !== d) o.open = false; }); } })
+    );
+  });
 }

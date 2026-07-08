@@ -1,45 +1,28 @@
 /* =============================================================
-   Client entry // wires the terminal together
+   Client entry // wires the terminal session together
    ============================================================= */
 import { initBoot } from "./boot";
-import { initReveal, typeNow } from "./reveal";
+import { initReveal, forceRevealAll } from "./reveal";
 import { initRequestPath } from "./requestPath";
 import { initPalette } from "./palette";
 
-const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = <T extends Element>(s: string) => document.querySelector<T>(s);
-const $$ = <T extends Element>(s: string) => Array.from(document.querySelectorAll<T>(s));
 
-/* ASCII rules that fill to width, with a slow-moving scan marker */
-function initDividers() {
-  const dvs = $$<HTMLElement>("[data-rule]");
-  const build = (d: HTMLElement) => {
-    const n = Math.max(12, Math.floor(d.clientWidth / 7.2));
-    (d as any)._n = n;
-    (d as any)._base = "·".repeat(n);
-    d.textContent = (d as any)._base;
-  };
-  dvs.forEach((d) => { build(d); (d as any)._pos = Math.floor(Math.random() * ((d as any)._n || 40)); });
-  window.addEventListener("resize", () => dvs.forEach(build));
-  if (reduced || !dvs.length) return;
-  let last = 0;
-  const loop = (ts: number) => {
-    if (ts - last > 90) {
-      last = ts;
-      dvs.forEach((d) => {
-        const n = (d as any)._n as number;
-        if (!n) return;
-        (d as any)._pos = ((d as any)._pos + 1) % n;
-        const arr = ((d as any)._base as string).split("");
-        const p = (d as any)._pos as number;
-        arr[p] = "◄";
-        if (arr[p + 1] !== undefined) arr[p + 1] = "►";
-        d.textContent = arr.join("");
-      });
+/* Active section indicator in the command nav */
+function initSectionNav() {
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>(".tnav a"));
+  const map = new Map<string, HTMLAnchorElement>();
+  links.forEach((a) => { const id = (a.getAttribute("href") || "").slice(1); if (id) map.set(id, a); });
+  const sections = Array.from(document.querySelectorAll<HTMLElement>("section[id]"));
+  if (!sections.length || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      links.forEach((l) => l.classList.remove("on"));
+      map.get((e.target as HTMLElement).id)?.classList.add("on");
     }
-    requestAnimationFrame(loop);
-  };
-  requestAnimationFrame(loop);
+  }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+  sections.forEach((s) => io.observe(s));
 }
 
 function initClock() {
@@ -58,10 +41,11 @@ function init() {
   initReveal();
   initRequestPath();
   initPalette();
-  initDividers();
+  initSectionNav();
   initClock();
-  typeNow($<HTMLElement>("#hero-prompt"));
-  initBoot(); // gates the intro, then starts ambient eyes
+  initBoot();
+  // safety net: if any observer/animation stalled, force the buffer visible
+  setTimeout(forceRevealAll, 3500);
 }
 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

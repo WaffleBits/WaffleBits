@@ -1,0 +1,9 @@
+---
+/* TerminalCommand — a `$ bin args # comment` prompt line. */
+interface Props { bin: string; args?: string; comment?: string; }
+const { bin, args, comment } = Astro.props;
+const text = `${bin}${args ? " " + args : ""}`;
+---
+<p class="cmd">
+  <span class="cmd__ps1" aria-hidden="true">$</span><span class="cmd__txt" data-type={text}>{text}</span>{comment && <span class="cmd__cmt"> # {comment}</span>}
+</p>
