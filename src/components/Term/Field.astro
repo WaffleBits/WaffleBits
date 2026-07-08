@@ -1,0 +1,6 @@
+---
+/* A dot-leader record row:  key ............ value */
+interface Props { k: string; in?: boolean; }
+const { k, in: withIn } = Astro.props;
+---
+<p class="ln fld" data-in={withIn ? "" : undefined}><span class="fld__k">{k}</span><span class="fld__lead" aria-hidden="true"></span><span class="fld__v"><slot /></span></p>

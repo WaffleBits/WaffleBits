@@ -1,43 +1,37 @@
 /* =============================================================
-   Request path // interactive terminal trace
+   Request path // interactive terminal trace (tree selection)
    ============================================================= */
 import { requestPath, fault } from "../data/portfolio";
 import { pulseSentinel } from "./boot";
 
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = <T extends Element>(s: string, r: ParentNode = document) => r.querySelector<T>(s);
-const $$ = <T extends Element>(s: string, r: ParentNode = document) => Array.from(r.querySelectorAll<T>(s));
 const byId = Object.fromEntries(requestPath.map((s) => [s.id, s]));
 const order = requestPath.map((s) => s.id);
 let busy = false;
 
 export function initRequestPath() {
   const track = $<HTMLElement>("#pipe-stages");
-  const packet = $<HTMLElement>("#packet");
   const out = $<HTMLElement>("#pipe-out");
-  if (!track || !packet || !out) return;
-  const stages = $$<HTMLElement>(".stage", track);
+  if (!track || !out) return;
+  const lines = Array.from(track.querySelectorAll<HTMLElement>(".tline"));
 
-  const setOut = (title: string, body: string, isFault = false) => {
-    out.classList.toggle("fault", isFault);
-    out.innerHTML = `<p class="lbl">${title}</p><p class="txt">${body}</p>`;
+  const render = (title: string, body: string, isFault = false) => {
+    out.classList.toggle("is-fault", isFault);
+    const lblCls = isFault ? "tout__lbl" : "tout__lbl";
+    const lblInner = isFault ? `<span class="w">${title}</span>` : title;
+    out.innerHTML = `<p class="${lblCls}">${lblInner}</p><p class="tout__txt">${body}</p>`;
   };
 
   const select = (el: HTMLElement) => {
-    stages.forEach((s) => s.classList.remove("on"));
+    lines.forEach((l) => l.classList.remove("on"));
     el.classList.add("on");
     const d = byId[el.dataset.stage!];
-    if (d) setOut(d.name, d.body);
+    if (d) render(`# stage ${d.seq} :: ${d.id}`, d.body);
   };
-  stages.forEach((s) => s.addEventListener("click", () => select(s)));
+  lines.forEach((l) => l.addEventListener("click", () => select(l)));
 
-  const move = (el: HTMLElement, isFault: boolean) => {
-    packet.style.opacity = "1";
-    packet.classList.toggle("fault", isFault);
-    packet.style.left = el.offsetLeft + el.offsetWidth / 2 - 5 + "px";
-    packet.style.top = el.offsetTop + 10 + "px";
-  };
-  const clear = () => stages.forEach((s) => s.classList.remove("on", "live", "fault"));
+  const clear = () => lines.forEach((l) => l.classList.remove("on", "live", "fault"));
 
   const run = (withFault: boolean) => {
     if (busy) return;
@@ -45,27 +39,29 @@ export function initRequestPath() {
     clear();
     let i = 0;
     const step = () => {
-      if (i > 0) $(`.stage[data-stage="${order[i - 1]}"]`, track)?.classList.remove("live");
-      if (i >= order.length) { busy = false; setTimeout(() => (packet.style.opacity = "0"), 600); return; }
+      if (i > 0) {
+        const prev = track.querySelector<HTMLElement>(`.tline[data-stage="${order[i - 1]}"]`);
+        prev?.classList.remove("live");
+      }
+      if (i >= order.length) { busy = false; return; }
       const id = order[i];
-      const el = $<HTMLElement>(`.stage[data-stage="${id}"]`, track)!;
+      const el = track.querySelector<HTMLElement>(`.tline[data-stage="${id}"]`)!;
       const isFaultNode = withFault && id === fault.stage;
       el.classList.add(isFaultNode ? "fault" : "live");
-      move(el, isFaultNode);
       if (isFaultNode) {
-        setOut(fault.title, fault.body, true);
+        render(fault.title, fault.body, true);
         pulseSentinel();
         busy = false;
         return;
       }
-      setOut(byId[id].name, byId[id].body);
+      const d = byId[id];
+      render(`# stage ${d.seq} :: ${d.id}`, d.body);
       i++;
-      setTimeout(step, reduced ? 130 : 620);
+      setTimeout(step, reduced ? 120 : 560);
     };
     step();
   };
 
-  $<HTMLElement>("#run-trace")?.addEventListener("click", () => run(false));
-  $<HTMLElement>("#fault-trace")?.addEventListener("click", () => run(true));
-  window.addEventListener("resize", () => { if (!busy) packet.style.opacity = "0"; });
+  $("#run-trace")?.addEventListener("click", () => run(false));
+  $("#fault-trace")?.addEventListener("click", () => run(true));
 }

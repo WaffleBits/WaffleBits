@@ -1,0 +1,6 @@
+---
+/* TerminalOutput — wraps printed output rows ([data-in] children stagger). */
+interface Props { id?: string; }
+const { id } = Astro.props;
+---
+<div class="out" id={id}><slot /></div>

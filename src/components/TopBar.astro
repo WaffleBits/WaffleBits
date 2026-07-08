@@ -2,22 +2,20 @@
 import { identity } from "../data/portfolio";
 ---
 <header class="topbar" id="top">
-  <a class="topbar__brand" href="#top">
-    <b>{identity.name}</b><span class="path">// {identity.host}</span>
-  </a>
-  <nav class="topbar__nav" aria-label="Sections">
-    <a href="#request">request_path</a>
-    <a href="#files">case_files</a>
-    <a href="#evidence">evidence</a>
-    <a href="#service">service</a>
-    <a href="#contact">contact</a>
+  <a class="tbrand" href="#top"><span class="u">{identity.handle}</span><span class="ps">@</span><span class="host">{identity.host}</span><span class="ps">:~$</span></a>
+  <nav class="tnav" aria-label="Sections">
+    <a href="#impact">/impact</a>
+    <a href="#request">/trace</a>
+    <a href="#files">/cases</a>
+    <a href="#evidence">/evidence</a>
+    <a href="#service">/service</a>
+    <a href="#capability">/capability</a>
+    <a href="#contact">/contact</a>
   </nav>
-  <div class="topbar__status">
-    <span class="dot" aria-hidden="true"></span>
-    <span>SYSTEM NOMINAL</span>
+  <div class="tstatus">
+    <span class="tdot" aria-hidden="true"></span>
+    <span>NOMINAL</span>
     <time id="clk" class="clk" aria-label="Session clock">--:--:--</time>
   </div>
-  <button class="cmdbtn" type="button" data-open-palette aria-haspopup="dialog" aria-controls="palette">
-    <span class="p">&gt;_</span><span>command</span><kbd>⌘K</kbd>
-  </button>
+  <button class="tok" type="button" data-open-palette aria-haspopup="dialog" aria-controls="palette">command <kbd style="color:var(--amber)">⌘K</kbd></button>
 </header>
