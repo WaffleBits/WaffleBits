@@ -78,7 +78,7 @@ export const caseFiles: CaseFile[] = [
     tags: ["Platform Security", "AI Infra", "Policy"],
     problem: "Model-serving paths are high-value and under-governed: who may call which model, at what budget, with what audit trail?",
     system: "Authenticated gateway enforcing RBAC and reason-for-access policy, request and token-budget limits, and a distributed-limiter readiness path for Redis/Envoy migration.",
-    evidence: "Sanitized trace JSONL, OTLP collector-ready payloads, deployment-readiness gates (shadow / canary / staged / rollback), resilience-drill evidence for backend degradation paths, Grafana provisioning, SLO notes, and incident runbooks.",
+    evidence: "Sanitized trace JSONL, OTLP collector-ready payloads, deployment-readiness gates (shadow / canary / staged / rollback), resilience-drill evidence for backend degradation paths, an optional OpenAI-compatible vLLM/SGLang-style completion adapter with timeout and response validation, Grafana provisioning, SLO notes, and incident runbooks.",
     impact: "A defensible, observable model-access boundary with a roadmap to policy-as-code, redaction, and external authorization engines.",
     url: "https://github.com/WaffleBits/secure-gpu-inference-gateway",
   },
