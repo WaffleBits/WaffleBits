@@ -62,6 +62,11 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 
 ## Featured Work
 
+The Secure GPU Inference Gateway now also includes an optional, mock-by-default
+OpenAI-compatible completion adapter for vLLM/SGLang-style endpoints. It
+validates response shapes, bounds backend timeouts, and returns generic backend
+errors without widening audit or trace records.
+
 ### [Triton Kernel Lab](https://github.com/WaffleBits/triton-kernel-lab)
 
 Correctness-first GPU kernel lab with fused Triton RMSNorm and SwiGLU implementations, FP32 oracles, and controlled comparison with PyTorch eager and `torch.compile`.
@@ -110,7 +115,7 @@ Covers price-time priority, integer tick prices, partial fills, market orders, c
 
 1. Extend the Triton kernel lab with Nsight Compute counters, roofline analysis, and controlled hardware-counter reports.
 2. Connect the Rust runtime streaming mirror adapter to live vLLM/SGLang traces with production traffic provenance and audited rollout metadata.
-3. Extend the secure GPU inference gateway from checked trace/workload/capacity/OTLP/distributed-limiter/deployment-readiness/resilience-drill proof to live Redis or Envoy request/token-budget controls, measured backend capacity profiles, profiling hooks, real backend degradation telemetry, and captured collector/Grafana screenshots.
+3. Exercise the secure GPU inference gateway's optional vLLM/SGLang-compatible adapter against a real endpoint, then replace synthetic capacity/resilience assumptions with measured backend telemetry, live Redis or Envoy controls, profiling hooks, and captured collector/Grafana screenshots.
 4. Load compiler-generated HeteroCore tiles through a host interface and record physical FPGA timing, utilization, and wall-power measurements.
 5. Extend the Kubernetes, metrics, SLO, rollback, and runbook pattern into the readiness repo.
 6. Add Linux performance-counter capture, cache-aware data-structure comparisons, and replay-style market data ingestion to the C++20 matching engine.
