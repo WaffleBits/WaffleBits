@@ -19,7 +19,7 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 
 - Inference runtime validation: Rust scheduler core with continuous batching, paged KV-cache admission, deterministic replay, workload-pressure replay summaries, replay capacity envelopes, prefill/decode utilization, KV-page occupancy, backend-scoped numeric tolerance, vLLM/SGLang mirror normalization, streaming-token event ingestion, route/scheduler provenance coverage, segmented release reports, TTFT and decode-token p95 checks, KV memory-pressure reporting, model-version transitions, token-trace fingerprints, structured release-triage owner hints, and `promote`, `hold`, and `rollback` gates.
 - GPU performance evidence: Triton RMSNorm and SwiGLU kernels with FP32 oracles, launch autotuning, cache-controlled CUDA-event measurement, raw p50/p95/p99 timing artifacts, and `torch.compile` baselines.
-- AI reliability and operations: inference benchmark reports for latency, throughput, failures, token/GPU-hour capacity, cost-to-serve estimates, Prometheus output, batch-invariance gates, deterministic trace artifacts, and Kubernetes-shaped execution.
+- AI reliability and operations: inference benchmark reports for latency, throughput, failures, token/GPU-hour capacity, cost-to-serve estimates, Prometheus output, batch-invariance gates, deterministic trace artifacts, a bounded aggregate backend probe, and Kubernetes-shaped execution.
 - Secure mission delivery: TS/SCI operational context combined with authenticated model access, RBAC, policy controls, request and token-budget limits, distributed-limiter readiness evidence, deployment-readiness gates, resilience-drill evidence, workload-readiness replay, audit trails, sanitized trace export, OTLP collector payload generation, synthetic capacity/cost planning, Grafana/Prometheus observability evidence, incident runbooks, and mission decision software.
 
 ## Technical Focus
@@ -63,9 +63,10 @@ I am strongest where backend/platform engineering meets high-stakes operations: 
 ## Featured Work
 
 The Secure GPU Inference Gateway now also includes an optional, mock-by-default
-OpenAI-compatible completion adapter for vLLM/SGLang-style endpoints. It
-validates response shapes, bounds backend timeouts, and returns generic backend
-errors without widening audit or trace records.
+OpenAI-compatible completion adapter for vLLM/SGLang-style endpoints and a
+bounded aggregate backend probe. The adapter validates response shapes and
+timeouts; the probe records success, latency, and reported token totals without
+widening audit or trace records.
 
 ### [Triton Kernel Lab](https://github.com/WaffleBits/triton-kernel-lab)
 
@@ -103,7 +104,7 @@ Includes Prometheus text export, baseline-versus-candidate regression reporting,
 
 Security-focused AI infrastructure project for authenticated model access, RBAC, request and token-budget limiting, audit logs, policy checks, and observability.
 
-Covers authenticated model access, per-model authorization, reason-for-access enforcement, request and token-budget limiting, distributed-limiter readiness evidence for Redis/Envoy migration, deployment-readiness gates for shadow, canary, staged rollout, and rollback review, resilience-drill evidence for latency spike, backend error burst, queue saturation, and audit backpressure checks, deterministic workload-readiness replay, structured audit logs, Prometheus-compatible metrics, estimated input-token throughput, opt-in sanitized trace export that omits prompts, outputs, access reasons, and principal identifiers, OTLP collector-ready trace payloads, checked trace, workload-readiness, collector-payload, distributed-limiter, deployment-readiness, resilience-drill, and capacity-plan artifacts, synthetic cost-to-serve estimates, Grafana dashboard provisioning, Kubernetes health/scrape posture, SLO notes, incident runbooks, policy checks, tests, and production extension points such as OIDC, mTLS, KMS, policy-as-code, prompt/output redaction, GPU telemetry, and external policy engines.
+Covers authenticated model access, per-model authorization, reason-for-access enforcement, request and token-budget limiting, distributed-limiter readiness evidence for Redis/Envoy migration, deployment-readiness gates for shadow, canary, staged rollout, and rollback review, resilience-drill evidence for latency spike, backend error burst, queue saturation, and audit backpressure checks, deterministic workload-readiness replay, bounded aggregate backend-probe evidence for success and latency, structured audit logs, Prometheus-compatible metrics, estimated input-token throughput, opt-in sanitized trace export that omits prompts, outputs, access reasons, and principal identifiers, OTLP collector-ready trace payloads, checked trace, workload-readiness, collector-payload, distributed-limiter, deployment-readiness, resilience-drill, backend-probe, and capacity-plan artifacts, synthetic cost-to-serve estimates, Grafana dashboard provisioning, Kubernetes health/scrape posture, SLO notes, incident runbooks, policy checks, tests, and production extension points such as OIDC, mTLS, KMS, policy-as-code, prompt/output redaction, GPU telemetry, and external policy engines.
 
 ### [Market Microstructure Engine](https://github.com/WaffleBits/market-microstructure-engine)
 
