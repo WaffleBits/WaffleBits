@@ -78,7 +78,7 @@ export const caseFiles: CaseFile[] = [
     tags: ["Platform Security", "AI Infra", "Policy"],
     problem: "Model-serving paths are high-value and under-governed: who may call which model, at what budget, with what audit trail?",
     system: "Authenticated gateway enforcing RBAC and reason-for-access policy, request and token-budget limits, and a distributed-limiter readiness path for Redis/Envoy migration.",
-    evidence: "Sanitized trace JSONL, OTLP collector-ready payloads, deployment-readiness gates (shadow / canary / staged / rollback), resilience-drill evidence for backend degradation paths, an optional OpenAI-compatible vLLM/SGLang-style completion adapter with timeout and response validation, Grafana provisioning, SLO notes, and incident runbooks.",
+    evidence: "Sanitized trace JSONL, OTLP collector-ready payloads, deployment-readiness gates (shadow / canary / staged / rollback), resilience-drill evidence for backend degradation paths, an optional OpenAI-compatible vLLM/SGLang-style completion adapter with timeout and response validation, a bounded aggregate backend probe for success and latency evidence, Grafana provisioning, SLO notes, and incident runbooks.",
     impact: "A defensible, observable model-access boundary with a roadmap to policy-as-code, redaction, and external authorization engines.",
     url: "https://github.com/WaffleBits/secure-gpu-inference-gateway",
   },
@@ -217,7 +217,7 @@ export const serviceRecord: ServiceEntry[] = [
 export type CapabilityGroup = { code: string; title: string; items: string };
 
 export const capability: CapabilityGroup[] = [
-  { code: "AI", title: "AI Infrastructure", items: "inference benchmarking / model-serving gateways / latency percentiles / throughput / token & GPU-hour capacity / cost-to-serve / Triton GPU kernels / autotuning / CUDA events / vLLM/SGLang adapters / workload-readiness replay / prefill-decode utilization / KV-page occupancy" },
+  { code: "AI", title: "AI Infrastructure", items: "inference benchmarking / model-serving gateways / latency percentiles / throughput / token & GPU-hour capacity / cost-to-serve / Triton GPU kernels / autotuning / CUDA events / vLLM/SGLang adapters / bounded backend probes / workload-readiness replay / prefill-decode utilization / KV-page occupancy" },
   { code: "SEC", title: "Platform / Security", items: "authenticated service boundaries / RBAC / policy enforcement / request & token-budget limits / audit trails / threat modeling / secure CI-CD direction / OIDC-mTLS-external-policy roadmap / sanitized trace evidence" },
   { code: "OBS", title: "Observability / Reliability", items: "Prometheus / OpenTelemetry / OTLP collector export / Grafana provisioning / SLOs / release gates / deterministic fixtures / distributed-limiter readiness / deployment-readiness gates / resilience-drill evidence / incident runbooks" },
   { code: "SYS", title: "Systems / Low-Level", items: "Rust scheduling / continuous batching / paged KV admission / ONNX / SystemVerilog / FPGA flows / analytical accelerator models / C++20 / cross-language oracle testing / Linux performance counters / cache-aware benchmarking" },
