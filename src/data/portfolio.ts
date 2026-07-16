@@ -26,6 +26,7 @@ export const identity = {
   links: {
     github: "https://github.com/WaffleBits",
     linkedin: "https://www.linkedin.com/in/adnanberik/",
+    email: "adnanberik@hotmail.com",
   },
 };
 

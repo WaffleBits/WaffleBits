@@ -22,6 +22,18 @@ const metrics = [
 
 <Base>
   <div id="live" class="sr-only" aria-live="polite"></div>
+
+  <!-- ===== IDENTITY STRIP (always visible, above loader, never animated) ===== -->
+  <div class="idbar" id="idbar">
+    <span class="idbar__who"><b>{identity.name}</b><span class="sep"> :: </span>Platform Security &amp; AI Infrastructure<span class="sep"> :: </span>{identity.clearance}</span>
+    <span class="idbar__links">
+      <a class="tok" href={`${import.meta.env.BASE_URL}assets/AdnanBerik-Resume.pdf`} target="_blank" rel="noreferrer">resume</a>
+      <a class="tok" href={identity.links.linkedin} target="_blank" rel="noreferrer">linkedin</a>
+      <a class="tok" href={identity.links.github} target="_blank" rel="noreferrer">github</a>
+      <a class="tok" href={`mailto:${identity.links.email}`}>email</a>
+    </span>
+  </div>
+
   <canvas id="matrix" aria-hidden="true"></canvas>
 
   <!-- ===== SENTINEL LOADER ===== -->
@@ -34,6 +46,7 @@ const metrics = [
       <p id="boot-cue" class="boot__cue">
         scroll to enter
         <span class="chev" aria-hidden="true">▼</span>
+        <button class="tok boot__fast" type="button" id="boot-recruiter">recruiter view</button>
       </p>
     </div>
     <div class="boot__scan" aria-hidden="true"></div>
@@ -51,13 +64,13 @@ const metrics = [
     <!-- ===== HERO / boot ===== -->
     <section class="op" data-hero>
       <pre id="hero-eye" class="hero__eye" aria-hidden="true"></pre>
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd">boot sentinel --observe</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd">boot sentinel --observe</span><span class="plain">System check</span></p>
       <ul id="boot-log" style="list-style:none;margin:6px 0 14px;padding:0">
         {bootLog.map((b) => (
           <li data-line><span class="ok">▸</span> {b.lbl} <span class="fl">::</span> <span class="ok">{b.val}</span></li>
         ))}
       </ul>
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>load identity.profile</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>load identity.profile</span><span class="plain">About</span></p>
       <div id="hero-identity" class="hero__id">
         <p data-line><span class="name">{identity.name}</span> <span class="fl">::</span> <span class="role">{identity.role}</span></p>
         <p data-line style="color:var(--faint)">alias <span class="fl">::</span> {identity.alias} <span class="fl">//</span> loc <span class="fl">::</span> {identity.location} <span class="fl">//</span> open <span class="fl">::</span> {identity.open}</p>
@@ -74,7 +87,7 @@ const metrics = [
 
     <!-- ===== MISSION IMPACT ===== -->
     <section class="op" data-op id="impact">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>query mission_impact --public-safe</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>query mission_impact --summary</span><span class="plain">Impact highlights</span></p>
       <div class="op__out recs" data-out>
         {metrics.map((m) => (
           <div class="rec" data-line>
@@ -87,7 +100,7 @@ const metrics = [
 
     <!-- ===== REQUEST PATH ===== -->
     <section class="op" data-op id="request">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>trace inference_request --inspect</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>trace inference_request --inspect</span><span class="plain">How a request flows through the system</span></p>
       <div class="op__out" data-out data-gap="70">
         <div class="trace" id="trace" role="list">
           {requestPath.map((s, i) => (
@@ -109,7 +122,7 @@ const metrics = [
 
     <!-- ===== CASE FILES ===== -->
     <section class="op" data-op id="files">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /case-files && inspect &lt;file&gt;</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /case-files && inspect &lt;file&gt;</span><span class="plain">Projects</span></p>
       <div class="op__out" data-out data-gap="60">
         {caseFiles.map((cf, i) => (
           <details class="fentry" id={`case-${cf.id}`} data-line data-roles={cf.roles}>
@@ -134,7 +147,7 @@ const metrics = [
 
     <!-- ===== EVIDENCE LOCKER ===== -->
     <section class="op" data-op id="evidence">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>mount /evidence-locker --readonly</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>mount /evidence-locker --readonly</span><span class="plain">Evidence and artifacts</span></p>
       <div class="op__out" data-out data-gap="55">
         {evidence.map((ev) => (
           <details class="eentry" data-line data-roles={evRoles[ev.code]}>
@@ -153,7 +166,7 @@ const metrics = [
 
     <!-- ===== SERVICE RECORD ===== -->
     <section class="op" data-op id="service">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>read service_record.log</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>read service_record.log</span><span class="plain">Experience</span></p>
       <div class="op__out log" data-out data-gap="42">
         {serviceRecord.map((r, i) => (
           <>
@@ -171,7 +184,7 @@ const metrics = [
 
     <!-- ===== CAPABILITY MATRIX ===== -->
     <section class="op" data-op id="capability">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>query capability_matrix</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>query capability_matrix</span><span class="plain">Skills</span></p>
       <div class="op__out recs" data-out data-gap="46">
         {capability.map((c) => (
           <div class="rec two" data-line data-roles={capRoles[c.code]}>
@@ -184,7 +197,7 @@ const metrics = [
 
     <!-- ===== RECOGNITION ===== -->
     <section class="op" data-op id="recognition">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /recognition -la</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /recognition -la</span><span class="plain">Awards and education</span></p>
       <div class="op__out" data-out data-gap="34">
         <div data-line><span class="cy">awards/</span></div>
         {awards.map((a) => <div data-line><span class="fl">  ·</span> {a}</div>)}
@@ -197,16 +210,18 @@ const metrics = [
 
     <!-- ===== CONTACT ===== -->
     <section class="op" data-op id="contact">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>open outbound_channel</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>open outbound_channel</span><span class="plain">Contact</span></p>
       <div class="op__out" data-out data-gap="40">
         <div class="contact">
           <div class="contact__eye" aria-hidden="true"><pre id="contact-eye"></pre></div>
           <div>
             <p data-line><span class="fl">endpoint</span> <span class="hl">{identity.name}</span> <span class="fl">::</span> channel <span class="ok">open</span></p>
-            <p data-line>best reached on LinkedIn; every system here is open on GitHub, so read the code and judge the work directly.</p>
+            <p data-line>reach me by email or LinkedIn; every system here is open on GitHub, so read the code and judge the work directly.</p>
             <p data-line class="tokrow">
+              <a class="tok" href={`mailto:${identity.links.email}`}>{identity.links.email}</a>
               <a class="tok" href={identity.links.linkedin} target="_blank" rel="noreferrer">linkedin</a>
               <a class="tok" href={identity.links.github} target="_blank" rel="noreferrer">github</a>
+              <a class="tok" href={`${import.meta.env.BASE_URL}assets/AdnanBerik-Resume.pdf`} target="_blank" rel="noreferrer">resume.pdf</a>
             </p>
             <p data-line style="color:var(--faint)">{ps} <span class="prompt-cur"></span></p>
           </div>

@@ -30,7 +30,17 @@ export function setRole(role: string) {
   });
   const live = $<HTMLElement>("#live");
   if (live) live.textContent = role === "all" ? "view :: full spectrum" : "view :: " + role;
+  document.body.classList.toggle("recruiter", role === "recruiter");
   if (role === "recruiter") {
+    // true fast path: render everything instantly, plain headers, no ambience
+    $$<HTMLElement>("[data-line]").forEach((el) => el.classList.add("is-in"));
+    $$<HTMLElement>("[data-type]").forEach((el) => {
+      if (el.dataset.text) el.textContent = el.dataset.text;
+      el.classList.remove("typing");
+      el.classList.add("done");
+    });
+    $$<HTMLElement>("[data-op]").forEach((op) => { op.dataset.ran = "1"; op.classList.add("live", "done"); });
+    $$<HTMLElement>("[data-out]").forEach((out) => out.classList.add("is-in"));
     $$<HTMLDetailsElement>(".fentry[open]").forEach((d) => (d.open = false));
     scrollTo("#impact");
   }

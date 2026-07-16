@@ -4,7 +4,7 @@
 import { initBoot } from "./boot";
 import { initReveal, reduced } from "./reveal";
 import { initRequestPath } from "./requestPath";
-import { initPalette } from "./palette";
+import { initPalette, setRole } from "./palette";
 
 const $ = <T extends Element>(s: string) => document.querySelector<T>(s);
 const $$ = <T extends Element>(s: string) => Array.from(document.querySelectorAll<T>(s));
@@ -74,6 +74,13 @@ function initRules() {
 }
 
 function init() {
+  // recruiter fast path via URL: skip the loader entirely, render instantly
+  const wantsRecruiter =
+    location.hash === "#recruiter" || new URLSearchParams(location.search).get("view") === "recruiter";
+  if (wantsRecruiter) {
+    try { sessionStorage.setItem("wb_eye", "1"); } catch {}
+  }
+
   initReveal();
   initRequestPath();
   initPalette();
@@ -81,6 +88,9 @@ function init() {
   initClock();
   initSpinner();
   initBoot();
+
+  if (wantsRecruiter) setRole("recruiter");
+  document.getElementById("boot-recruiter")?.addEventListener("click", () => setRole("recruiter"));
 }
 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
