@@ -84,13 +84,13 @@ export const caseFiles: CaseFile[] = [
     url: "https://github.com/WaffleBits/secure-gpu-inference-gateway",
   },
   {
-    id: "CF-02", roles: "ai", title: "Rust Inference Runtime",
+    id: "CF-02", roles: "ai", title: "Deterministic Inference Scheduler",
     tags: ["Rust", "Scheduling", "Determinism"],
     problem: "Serving reliability breaks silently: non-deterministic batching and cache admission make regressions hard to catch before promotion.",
     system: "Continuous batching with stable priority ordering, paged KV-cache admission, round-robin decode progress, and vLLM/SGLang-style mirror normalization.",
     evidence: "Deterministic replay fingerprints, workload-pressure summaries, replay capacity envelopes, prefill/decode utilization, KV-page occupancy, TTFT and decode-token p95 checks, and structured hold/rollback triage.",
     impact: "Promote / hold / rollback decisions backed by reproducible evidence. A runtime that catches the bad path before it ships.",
-    url: "https://github.com/WaffleBits/rust-inference-runtime",
+    url: "https://github.com/WaffleBits/deterministic-inference-scheduler",
   },
   {
     id: "CF-03", roles: "ai", title: "Triton Kernel Lab",
