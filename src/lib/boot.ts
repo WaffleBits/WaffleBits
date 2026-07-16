@@ -87,11 +87,9 @@ function revealHero() {
   const hero = $<HTMLElement>("[data-hero]");
   if (!hero) return;
   hero.classList.add("live");
-  staggerIn($<HTMLElement>("#boot-log"), 90, () => {
-    typeEl($<HTMLElement>("[data-hero] [data-type]"), () =>
-      staggerIn($<HTMLElement>("#hero-identity"), 34, () => hero.classList.add("done"))
-    );
-  });
+  typeEl($<HTMLElement>("[data-hero] [data-type]"), () =>
+    staggerIn($<HTMLElement>("#hero-identity"), 34, () => hero.classList.add("done"))
+  );
 }
 
 let woke = false;

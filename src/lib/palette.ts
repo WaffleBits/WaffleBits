@@ -110,7 +110,7 @@ export function initPalette() {
   $$(".rolepick .tok").forEach((b) => b.addEventListener("click", () => setRole((b as HTMLElement).dataset.role!)));
 
   // single-open inspection: opening one entry closes its siblings
-  ["fentry", "eentry"].forEach((cls) => {
+  ["fentry"].forEach((cls) => {
     $$<HTMLDetailsElement>("." + cls).forEach((d) =>
       d.addEventListener("toggle", () => { if (d.open) { pulseSentinel(); $$<HTMLDetailsElement>("." + cls).forEach((o) => { if (o !== d) o.open = false; }); } })
     );

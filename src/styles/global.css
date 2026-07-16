@@ -363,3 +363,42 @@ body.recruiter .op__cmd .ps { opacity: 0.45; }
 body.recruiter .op__cmd .plain { display: inline; color: var(--green); font-weight: 700; letter-spacing: 0.4px; }
 body.recruiter #matrix { display: none; }
 body.recruiter .prompt-cur::after, body.recruiter .typing::after { animation: none; content: ""; }
+
+/* =============================================================
+   PLAIN-LANGUAGE REDESIGN
+   Every section leads with a sentence anyone can read; the
+   terminal remains the frame, not the content.
+   ============================================================= */
+.hero__id .tagline { color: var(--ink); font-size: clamp(16px, 2.4vw, 21px); font-weight: 700; max-width: 60ch; }
+.hero__id .plainbox {
+  border-left: 2px solid var(--amber); padding: 6px 12px; margin: 10px 0;
+  background: rgba(224, 178, 87, 0.05); color: var(--ink); max-width: 78ch;
+}
+.hero__id .plainbox .acc { color: var(--amber); font-weight: 700; }
+
+.secintro { color: var(--ink); max-width: 72ch; margin: 2px 0 10px; }
+.secintro .hl { color: var(--green); font-weight: 700; }
+
+/* project rows: plain sentence leads, inspect holds the detail */
+.fwrap { margin: 0 0 16px; }
+.fwrap .fplain { margin: 2px 0 2px 6px; color: var(--ink); max-width: 76ch; }
+.fwrap .flinks { margin: 0 0 0 6px; display: flex; gap: 10px; flex-wrap: wrap; }
+.fwrap .flinks .demo { color: var(--green); font-weight: 700; }
+.fentry > summary { grid-template-columns: 2.6em auto 1fr; }
+.fentry .fname { font-weight: 700; }
+.fentry > summary::after { content: "inspect"; color: var(--faint); justify-self: end; font-size: 12px; }
+.fentry[open] > summary::after { content: "close"; }
+.fentry > summary:hover::after { color: var(--sel-fg); }
+
+/* proof rows: kind tag + link + plain sentence */
+.prow { display: grid; grid-template-columns: 9.5em auto 1fr; gap: 0 1em; align-items: baseline; margin: 0 0 6px; }
+.prow .pkind { color: var(--faint); font-size: 12px; }
+.prow .pplain { color: var(--dim); }
+@media (max-width: 720px) {
+  .prow { grid-template-columns: 1fr; }
+  .prow .pkind { display: none; }
+}
+
+/* capability rows: plain sentence over small tech list */
+.caprow .capplain { color: var(--ink); }
+.caprow .captech { color: var(--faint); font-size: 12px; }

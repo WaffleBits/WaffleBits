@@ -1,22 +1,20 @@
 ---
 import Base from "../layouts/Base.astro";
 import {
-  identity, requestPath, caseFiles, evidence,
-  serviceRecord, capability, awards, certifications, education, bootLog,
+  identity, requestPath, caseFiles, proof,
+  serviceRecord, capability, awards, certifications, education,
 } from "../data/portfolio";
 
 const ps = `${identity.handle}@${identity.host}:~$`;
-const slug = (u: string) => u.split("/").pop() || "case";
-const evDir: Record<string, string> = { BNCH: "/benchmarks", RPLY: "/replay-fixtures", TRCE: "/traces", DASH: "/dashboards", GATE: "/promotion-gates", AUDT: "/runbooks-audit" };
-const evRoles: Record<string, string> = { BNCH: "ai", RPLY: "ai", TRCE: "ai security", DASH: "security ai", GATE: "ai", AUDT: "security mission" };
 const capRoles: Record<string, string> = { AI: "ai", SEC: "security", OBS: "ai security", SYS: "ai mission", OPS: "security mission", LNG: "ai security mission" };
 const svcRoles = ["security mission", "ai security mission"];
+const resumeHref = `${import.meta.env.BASE_URL}assets/AdnanBerik-Resume.pdf`;
 
 const metrics = [
-  { id: "01", k: "enterprise_terrain", v: "$1.3B", note: "cyber dashboard environment monitored" },
-  { id: "02", k: "threat_resolution_cycle", v: "5d > 2d", note: "dashboard + tracking workflow engineering" },
-  { id: "03", k: "urgent_change_execution", v: "21d > 5d", note: "combat-readiness exercise support" },
-  { id: "04", k: "assets_hardened", v: "30K", note: "18 AFCYBER tasking orders" },
+  { id: "01", k: "network_defended", v: "$1.3B", note: "value of the Air Force network environment I helped monitor and defend" },
+  { id: "02", k: "threat_fix_time", v: "5d > 2d", note: "how much faster threats got resolved after I built the tracking dashboards" },
+  { id: "03", k: "urgent_changes", v: "21d > 5d", note: "urgent network changes sped up during a major combat exercise" },
+  { id: "04", k: "systems_hardened", v: "30K", note: "computers and systems hardened against attack, leading 11 Airmen" },
 ];
 ---
 
@@ -27,7 +25,7 @@ const metrics = [
   <div class="idbar" id="idbar">
     <span class="idbar__who"><b>{identity.name}</b><span class="sep"> :: </span>Platform Security &amp; AI Infrastructure<span class="sep"> :: </span>{identity.clearance}</span>
     <span class="idbar__links">
-      <a class="tok" href={`${import.meta.env.BASE_URL}assets/AdnanBerik-Resume.pdf`} target="_blank" rel="noreferrer">resume</a>
+      <a class="tok" href={resumeHref} target="_blank" rel="noreferrer">resume</a>
       <a class="tok" href={identity.links.linkedin} target="_blank" rel="noreferrer">linkedin</a>
       <a class="tok" href={identity.links.github} target="_blank" rel="noreferrer">github</a>
       <a class="tok" href={`mailto:${identity.links.email}`}>email</a>
@@ -61,34 +59,30 @@ const metrics = [
 
   <main class="term" id="main">
 
-    <!-- ===== HERO / boot ===== -->
+    <!-- ===== HERO ===== -->
     <section class="op" data-hero>
       <pre id="hero-eye" class="hero__eye" aria-hidden="true"></pre>
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd">boot sentinel --observe</span><span class="plain">System check</span></p>
-      <ul id="boot-log" style="list-style:none;margin:6px 0 14px;padding:0">
-        {bootLog.map((b) => (
-          <li data-line><span class="ok">▸</span> {b.lbl} <span class="fl">::</span> <span class="ok">{b.val}</span></li>
-        ))}
-      </ul>
       <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>load identity.profile</span><span class="plain">About</span></p>
       <div id="hero-identity" class="hero__id">
         <p data-line><span class="name">{identity.name}</span> <span class="fl">::</span> <span class="role">{identity.role}</span></p>
-        <p data-line style="color:var(--faint)">alias <span class="fl">::</span> {identity.alias} <span class="fl">//</span> loc <span class="fl">::</span> {identity.location} <span class="fl">//</span> open <span class="fl">::</span> {identity.open}</p>
-        <p data-line class="tags">{identity.clearance} cleared <span class="fl">//</span> Security+ <span class="fl">//</span> {identity.domains.slice(0, 3).join(" · ")}</p>
+        <p data-line class="tagline">{identity.tagline}</p>
         <p data-line class="sum">{identity.summary}</p>
+        <p data-line class="sum plainbox"><span class="acc">in plain terms ::</span> {identity.plain}</p>
+        <p data-line style="color:var(--faint)">{identity.location} <span class="fl">//</span> open to {identity.open} <span class="fl">//</span> <a class="tok" href={resumeHref} target="_blank" rel="noreferrer">resume.pdf</a></p>
         <p data-line class="tokrow"><span class="lbl">goto::</span>
-          <a class="tok" href="#impact">impact</a><a class="tok" href="#request">trace</a><a class="tok" href="#files">cases</a><a class="tok" href="#evidence">evidence</a><a class="tok" href="#service">service</a><a class="tok" href="#capability">capability</a><a class="tok" href="#contact">contact</a>
+          <a class="tok" href="#impact">impact</a><a class="tok" href="#request">how it works</a><a class="tok" href="#files">projects</a><a class="tok" href="#evidence">proof</a><a class="tok" href="#service">experience</a><a class="tok" href="#contact">contact</a>
         </p>
         <p data-line class="tokrow rolepick"><span class="lbl">view::</span>
-          <button class="tok on" data-role="all">full</button><button class="tok" data-role="ai">ai_infra</button><button class="tok" data-role="security">platform_sec</button><button class="tok" data-role="mission">mission_eng</button><button class="tok" data-role="recruiter">recruiter</button>
+          <button class="tok on" data-role="all">everything</button><button class="tok" data-role="ai">ai_infra</button><button class="tok" data-role="security">security</button><button class="tok" data-role="mission">mission</button><button class="tok" data-role="recruiter">recruiter</button>
         </p>
       </div>
     </section>
 
-    <!-- ===== MISSION IMPACT ===== -->
+    <!-- ===== IMPACT ===== -->
     <section class="op" data-op id="impact">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>query mission_impact --summary</span><span class="plain">Impact highlights</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>query impact --summary</span><span class="plain">Impact highlights</span></p>
       <div class="op__out recs" data-out>
+        <p data-line class="secintro">Numbers from my Air Force cyber defense work. Each one is on my resume and stands up to questions.</p>
         {metrics.map((m) => (
           <div class="rec" data-line>
             <span class="id">[{m.id}]</span><span class="k">{m.k}</span><span class="v">{m.v}</span>
@@ -100,8 +94,9 @@ const metrics = [
 
     <!-- ===== REQUEST PATH ===== -->
     <section class="op" data-op id="request">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>trace inference_request --inspect</span><span class="plain">How a request flows through the system</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>trace one_ai_request</span><span class="plain">How my work fits together</span></p>
       <div class="op__out" data-out data-gap="70">
+        <p data-line class="secintro">This is the layer I build, shown as one AI request passing through it. Click any stage, or <span class="hl">run the trace</span> and watch it catch a failure.</p>
         <div class="trace" id="trace" role="list">
           {requestPath.map((s, i) => (
             <button class="tl" data-line data-stage={s.id} role="listitem">
@@ -120,51 +115,55 @@ const metrics = [
       </div>
     </section>
 
-    <!-- ===== CASE FILES ===== -->
+    <!-- ===== PROJECTS ===== -->
     <section class="op" data-op id="files">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /case-files && inspect &lt;file&gt;</span><span class="plain">Projects</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /projects</span><span class="plain">Projects</span></p>
       <div class="op__out" data-out data-gap="60">
+        <p data-line class="secintro">Seven systems, all public on GitHub. One plain sentence each; open <span class="hl">inspect</span> for the engineering detail.</p>
         {caseFiles.map((cf, i) => (
-          <details class="fentry" id={`case-${cf.id}`} data-line data-roles={cf.roles}>
-            <summary>
-              <span class="fid">{String(i + 1).padStart(2, "0")}</span>
-              <span class="fname">{slug(cf.url)}.case</span>
-              <span class="ftags">{cf.tags.join(" ")}</span>
-            </summary>
-            <div class="finspect">
-              <dl>
-                <div class="blk"><dt>problem</dt><dd>{cf.problem}</dd></div>
-                <div class="blk"><dt>system</dt><dd>{cf.system}</dd></div>
-                <div class="blk"><dt>evidence</dt><dd>{cf.evidence}</dd></div>
-                <div class="blk"><dt>impact</dt><dd>{cf.impact}</dd></div>
-              </dl>
-              <a class="tok repo" href={cf.url} target="_blank" rel="noreferrer">open repository</a>
-            </div>
-          </details>
+          <div class="fwrap" data-line data-roles={cf.roles}>
+            <details class="fentry" id={`case-${cf.id}`}>
+              <summary>
+                <span class="fid">{String(i + 1).padStart(2, "0")}</span>
+                <span class="fname">{cf.title}</span>
+                <span class="ftags">{cf.tags.join(" · ")}</span>
+              </summary>
+              <div class="finspect">
+                <dl>
+                  <div class="blk"><dt>problem</dt><dd>{cf.problem}</dd></div>
+                  <div class="blk"><dt>built</dt><dd>{cf.system}</dd></div>
+                  <div class="blk"><dt>proof</dt><dd>{cf.evidence}</dd></div>
+                  <div class="blk"><dt>result</dt><dd>{cf.impact}</dd></div>
+                </dl>
+              </div>
+            </details>
+            <p class="fplain">{cf.plain}</p>
+            <p class="flinks">
+              {cf.demo && <a class="tok demo" href={cf.demo} target="_blank" rel="noreferrer">live demo</a>}
+              {cf.chart && <a class="tok" href={cf.chart} target="_blank" rel="noreferrer">see the chart</a>}
+              <a class="tok" href={cf.url} target="_blank" rel="noreferrer">source code</a>
+            </p>
+          </div>
         ))}
       </div>
     </section>
 
-    <!-- ===== EVIDENCE LOCKER ===== -->
+    <!-- ===== PROOF ===== -->
     <section class="op" data-op id="evidence">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>mount /evidence-locker --readonly</span><span class="plain">Evidence and artifacts</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /proof</span><span class="plain">Proof, not promises</span></p>
       <div class="op__out" data-out data-gap="55">
-        {evidence.map((ev) => (
-          <details class="eentry" data-line data-roles={evRoles[ev.code]}>
-            <summary>
-              <span class="eid">{ev.code}</span>
-              <span class="ename">{evDir[ev.code]}</span>
-              <span class="emeta">{String(ev.items.length).padStart(2, "0")} records</span>
-            </summary>
-            <div class="ebody">
-              {ev.items.map((it) => <div data-line>{it}</div>)}
-            </div>
-          </details>
+        <p data-line class="secintro">Everything above is checkable. These links go straight to the artifacts.</p>
+        {proof.map((p) => (
+          <div class="prow" data-line>
+            <span class="pkind">[{p.kind}]</span>
+            <a class="tok" href={p.href} target="_blank" rel="noreferrer">{p.label}</a>
+            <span class="pplain">{p.plain}</span>
+          </div>
         ))}
       </div>
     </section>
 
-    <!-- ===== SERVICE RECORD ===== -->
+    <!-- ===== EXPERIENCE ===== -->
     <section class="op" data-op id="service">
       <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>read service_record.log</span><span class="plain">Experience</span></p>
       <div class="op__out log" data-out data-gap="42">
@@ -182,14 +181,14 @@ const metrics = [
       </div>
     </section>
 
-    <!-- ===== CAPABILITY MATRIX ===== -->
+    <!-- ===== SKILLS ===== -->
     <section class="op" data-op id="capability">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>query capability_matrix</span><span class="plain">Skills</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>query capability</span><span class="plain">What I can do for you</span></p>
       <div class="op__out recs" data-out data-gap="46">
         {capability.map((c) => (
-          <div class="rec two" data-line data-roles={capRoles[c.code]}>
+          <div class="rec two caprow" data-line data-roles={capRoles[c.code]}>
             <span class="id">{c.code}</span><span class="k2">{c.title}</span>
-            <span class="note">{c.items}</span>
+            <span class="note"><span class="capplain">{c.plain}</span><br /><span class="captech">{c.items}</span></span>
           </div>
         ))}
       </div>
@@ -197,7 +196,7 @@ const metrics = [
 
     <!-- ===== RECOGNITION ===== -->
     <section class="op" data-op id="recognition">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /recognition -la</span><span class="plain">Awards and education</span></p>
+      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /recognition</span><span class="plain">Awards and education</span></p>
       <div class="op__out" data-out data-gap="34">
         <div data-line><span class="cy">awards/</span></div>
         {awards.map((a) => <div data-line><span class="fl">  ·</span> {a}</div>)}
@@ -216,12 +215,12 @@ const metrics = [
           <div class="contact__eye" aria-hidden="true"><pre id="contact-eye"></pre></div>
           <div>
             <p data-line><span class="fl">endpoint</span> <span class="hl">{identity.name}</span> <span class="fl">::</span> channel <span class="ok">open</span></p>
-            <p data-line>reach me by email or LinkedIn; every system here is open on GitHub, so read the code and judge the work directly.</p>
+            <p data-line>If you are hiring for AI infrastructure, platform security, or mission software, I would like to talk.</p>
             <p data-line class="tokrow">
               <a class="tok" href={`mailto:${identity.links.email}`}>{identity.links.email}</a>
               <a class="tok" href={identity.links.linkedin} target="_blank" rel="noreferrer">linkedin</a>
               <a class="tok" href={identity.links.github} target="_blank" rel="noreferrer">github</a>
-              <a class="tok" href={`${import.meta.env.BASE_URL}assets/AdnanBerik-Resume.pdf`} target="_blank" rel="noreferrer">resume.pdf</a>
+              <a class="tok" href={resumeHref} target="_blank" rel="noreferrer">resume.pdf</a>
             </p>
             <p data-line style="color:var(--faint)">{ps} <span class="prompt-cur"></span></p>
           </div>
@@ -234,7 +233,7 @@ const metrics = [
   <!-- ===== COMMAND PALETTE ===== -->
   <div id="palette" class="palette" role="dialog" aria-modal="true" aria-label="Command palette" hidden>
     <div class="palette__box">
-      <div class="palette__bar"><span class="u">{identity.handle}</span><span class="host">@{identity.host}</span><span class="ps">:~$ command</span></div>
+      <div class="palette__bar"><span class="u">{identity.handle}</span><span class="ps">@</span><span class="host">{identity.host}</span><span class="ps">:~$ command</span></div>
       <div class="palette__inp">
         <span class="p">&gt;_</span>
         <input id="palette-input" type="text" autocomplete="off" spellcheck="false" placeholder="open · goto · view · contact" aria-label="Command input" />
