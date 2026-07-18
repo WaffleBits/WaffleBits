@@ -25,6 +25,15 @@ export const identity = {
     linkedin: "https://www.linkedin.com/in/adnanberik/",
     email: "adnanberik@hotmail.com",
   },
+  domains: [
+    "AI infrastructure",
+    "platform security",
+    "inference serving",
+    "GPU performance",
+    "distributed systems",
+    "observability",
+    "cyber defense",
+  ],
 };
 
 export type Stage = {
@@ -82,7 +91,7 @@ export const caseFiles: CaseFile[] = [
     plain: "A security checkpoint for AI models. It decides who may use which model, enforces spending limits, writes an audit record for every request, and exports live health metrics.",
     problem: "Model-serving paths are high-value and under-governed: who may call which model, at what budget, with what audit trail?",
     system: "Authenticated gateway enforcing role-based access and reason-for-access policy, with request and token budgets (distributed-limiter ready for Redis/Envoy).",
-    evidence: "Sanitized trace logs, OTLP trace export, deployment-readiness gates (shadow / canary / staged / rollback), resilience-drill evidence, Grafana dashboards, and incident runbooks.",
+    evidence: "Sanitized trace logs, OTLP trace export, deployment-readiness gates (shadow / canary / staged / rollback), resilience-drill evidence, a bounded aggregate endpoint probe, Grafana dashboards, and incident runbooks.",
     impact: "A defensible, observable model-access boundary with a clear path to policy-as-code and external authorization.",
     url: "https://github.com/WaffleBits/secure-gpu-inference-gateway",
   },
@@ -169,6 +178,9 @@ export const proof: Proof[] = [
   { label: "observability configs", kind: "operational",
     plain: "Grafana dashboards, Prometheus metrics, and incident runbooks in the gateway repo.",
     href: "https://github.com/WaffleBits/secure-gpu-inference-gateway" },
+  { label: "backend probe", kind: "measured",
+    plain: "A bounded local endpoint sample with response validation, aggregate latency, and success evidence.",
+    href: "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/main/artifacts/backend-probe-evidence.json" },
   { label: "energy projection model", kind: "research",
     plain: "The analog-chip cost model and its projected 68% energy savings, math included.",
     href: "https://github.com/WaffleBits/heterocore-compiler" },
