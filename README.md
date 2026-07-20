@@ -6,7 +6,7 @@ I build the security and platform layer around model serving. My work covers aut
 
 ## Selected work
 
-- [secure-gpu-inference-gateway](https://github.com/WaffleBits/secure-gpu-inference-gateway): inference gateway demo showing the security control plane around a mock backend, plus bounded endpoint and deployment-safety evidence.
+- [secure-gpu-inference-gateway](https://github.com/WaffleBits/secure-gpu-inference-gateway): inference gateway demo showing the security control plane around a mock backend, plus bounded endpoint, telemetry-correlation, and deployment-safety evidence.
 - [deterministic-inference-scheduler](https://github.com/WaffleBits/deterministic-inference-scheduler): deterministic continuous-batching and paged KV-cache scheduler with replayable traces and release gates.
 - [triton-kernel-lab](https://github.com/WaffleBits/triton-kernel-lab): fused Triton RMSNorm and SwiGLU kernels with FP32 oracles and measured latency comparisons.
 - [triton-inference-benchmark](https://github.com/WaffleBits/triton-inference-benchmark): load-generation and benchmarking toolkit for Triton-compatible serving.
