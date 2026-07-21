@@ -178,7 +178,7 @@ export const proof: Proof[] = [
   { label: "observability configs", kind: "operational",
     plain: "Grafana dashboards, Prometheus metrics, and incident runbooks in the gateway repo.",
     href: "https://github.com/WaffleBits/secure-gpu-inference-gateway" },
-  { label: "distributed limiter", kind: "operational",
+  { label: "distributed-limiter", kind: "operational",
     plain: "An optional Redis path that applies request and token budgets atomically without storing principal identifiers in keys.",
     href: "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/main/gateway/rate_limit.py" },
   { label: "backend probe", kind: "measured",
