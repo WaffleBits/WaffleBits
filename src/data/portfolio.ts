@@ -1,5 +1,5 @@
 /* =============================================================
-   WaffleBits // content model  (single source of truth)
+   Adnan Berik // content model  (single source of truth)
    Real portfolio content. No invented claims.
    Writing rule: every visible line leads with plain language a
    non-specialist understands; deep technical detail lives behind
@@ -7,10 +7,9 @@
    ============================================================= */
 
 export const identity = {
-  handle: "wafflebits",
+  handle: "adnanberik",
   host: "sentinel",
   name: "Adnan Berik",
-  alias: "WaffleBits",
   clearance: "TS/SCI",
   location: "Hampton, VA",
   open: "New York, NY / Washington, D.C.",
