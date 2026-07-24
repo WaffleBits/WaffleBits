@@ -6,10 +6,10 @@ I build the security and platform layer around model serving. My work covers aut
 
 ## Selected work
 
-- [secure-gpu-inference-gateway](https://github.com/WaffleBits/secure-gpu-inference-gateway): inference gateway demo showing the security control plane around a mock backend, plus bounded endpoint, telemetry-correlation, deployment-safety, and optional Redis-backed rate-limit evidence.
+- [secure-gpu-inference-gateway](https://github.com/WaffleBits/secure-gpu-inference-gateway): inference gateway demo showing the security control plane around a mock backend: access control, spending limits, audit logs, and supply-chain checks.
 - [deterministic-inference-scheduler](https://github.com/WaffleBits/deterministic-inference-scheduler): deterministic continuous-batching and paged KV-cache scheduler with replayable traces and release gates.
 - [triton-kernel-lab](https://github.com/WaffleBits/triton-kernel-lab): fused Triton RMSNorm and SwiGLU kernels with FP32 oracles and measured latency comparisons.
-- [triton-inference-benchmark](https://github.com/WaffleBits/triton-inference-benchmark): workload-shaped load generation for Triton-compatible serving, with interactive, long-context, and throughput profiles plus regression artifacts.
+- [triton-inference-benchmark](https://github.com/WaffleBits/triton-inference-benchmark): load-generation and benchmarking toolkit for Triton-compatible serving, with interactive, long-context, and high-throughput workload profiles.
 - [heterocore-compiler](https://github.com/WaffleBits/heterocore-compiler): compiler and cost model for mixed analog-digital inference accelerators.
 - [market-microstructure-engine](https://github.com/WaffleBits/market-microstructure-engine): limit-order-book matching engine with a C++20 core and Python parity checks.
 - [readiness-control-tower](https://github.com/WaffleBits/readiness-control-tower): mission readiness decision tool built on synthetic operational data.
