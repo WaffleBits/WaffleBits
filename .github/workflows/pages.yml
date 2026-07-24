@@ -44,9 +44,22 @@ jobs:
           test -f dist/index.html
           test -f dist/.nojekyll
           test -f dist/assets/avatar.jpg
-          grep -q "distributed-limiter" dist/index.html
-          grep -q "deployment-readiness" dist/index.html
-          grep -q "resilience-drill" dist/index.html
+          test -f dist/assets/AdnanBerik-Resume.pdf
+          # Validate the things a visitor actually needs, not specific jargon.
+          grep -q "Adnan Berik" dist/index.html
+          grep -q "AdnanBerik-Resume.pdf" dist/index.html
+          grep -q "adnanberik@hotmail.com" dist/index.html
+          grep -q "linkedin.com/in/adnanberik" dist/index.html
+          grep -q "wafflebits.github.io/readiness-control-tower" dist/index.html
+          # Every project must still link to its repository.
+          for r in secure-gpu-inference-gateway deterministic-inference-scheduler \
+                   triton-kernel-lab triton-inference-benchmark \
+                   readiness-control-tower heterocore-compiler \
+                   market-microstructure-engine; do
+            grep -q "$r" dist/index.html || { echo "missing project link: $r"; exit 1; }
+          done
+          # No em dashes anywhere in the rendered page.
+          if grep -q "$(printf '—')" dist/index.html; then echo "em dash found"; exit 1; fi
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
