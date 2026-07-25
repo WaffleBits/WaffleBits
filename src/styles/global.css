@@ -402,3 +402,44 @@ body.recruiter .prompt-cur::after, body.recruiter .typing::after { animation: no
 /* capability rows: plain sentence over small tech list */
 .caprow .capplain { color: var(--ink); }
 .caprow .captech { color: var(--faint); font-size: 12px; }
+
+/* =============================================================
+   SCROLL RAIL  (fixed ASCII gauge, desktop only, decorative)
+   Fills as the transcript is read and names the current section.
+   ============================================================= */
+.rail {
+  position: fixed; left: 18px; top: 50%; transform: translateY(-50%);
+  z-index: 5; display: none; pointer-events: none; user-select: none;
+  flex-direction: column; align-items: center; gap: 10px;
+  opacity: 0; transition: opacity 900ms ease;
+}
+.rail.on { opacity: 1; }
+.rail__gauge {
+  margin: 0; font-size: 9px; line-height: 0.85; color: var(--rail);
+  letter-spacing: 0; white-space: pre;
+}
+.rail__label {
+  writing-mode: vertical-rl; text-orientation: mixed;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--green); opacity: 0.75;
+}
+.rail__pct { font-size: 10px; color: var(--faint); }
+@media (min-width: 1120px) { .rail { display: flex; } }
+@media (prefers-reduced-motion: reduce) { .rail { display: none; } }
+html.no-js .rail, body.recruiter .rail { display: none; }
+
+/* =============================================================
+   TRACE PACKET  (marker travelling the request pipeline)
+   ============================================================= */
+.trace { position: relative; }
+.pkt {
+  position: absolute; left: -0.95em; top: 0;
+  font-size: 11px; line-height: 1; color: var(--rail);
+  opacity: 0; pointer-events: none;
+  transition: transform 420ms cubic-bezier(.22,.61,.36,1), color 200ms linear, opacity 200ms linear;
+}
+.pkt.live { color: var(--cyan); }
+.pkt.bad { color: var(--warn); animation: pktbad 500ms steps(2, end) infinite; }
+@keyframes pktbad { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+@media (max-width: 620px) { .pkt { display: none; } }
+@media (prefers-reduced-motion: reduce) { .pkt { transition: none; animation: none; } }

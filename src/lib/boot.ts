@@ -38,25 +38,48 @@ function bar(p: number) {
 }
 
 /* ---------- ambient eyes (hero + contact) ---------- */
-interface Amb { el: HTMLElement; cols: number; rows: number; pulseUntil: number; }
+/* The eyes track the pointer. Idle drift takes over a few seconds
+   after the visitor stops moving, so they never look frozen. */
+interface Amb { el: HTMLElement; cols: number; rows: number; pulseUntil: number; lx: number; ly: number; }
 const ambient: Amb[] = [];
+
+let ptrX = -1, ptrY = -1, ptrAge = 1e6;
 
 function ambientFrame(ts: number) {
   if (aStart == null) aStart = ts;
   const e = ts - aStart;
   if (e - aLast > 46) {
+    const dt = e - aLast;
     aLast = e;
+    ptrAge += dt;
+    const track = ptrX >= 0 && ptrAge < 2600 ? 1 : 0;
     for (const a of ambient) {
       if (document.hidden) continue;
       let open = 1;
       const bt = e % 5400;
       if (bt > 5100) open = 1 - (bt - 5100) / 300;
       else if (bt < 300 && e > 5400) open = bt / 300;
-      const lookX = Math.sin(e / 900 + a.cols) * (a.cols * 0.02);
-      const lookY = Math.cos(e / 1400) * 0.4;
+
+      // where this eye wants to look
+      let tx = Math.sin(e / 900 + a.cols) * (a.cols * 0.02);
+      let ty = Math.cos(e / 1400) * 0.4;
+      if (track) {
+        const r = a.el.getBoundingClientRect();
+        if (r.width > 0) {
+          const nx = clamp(((ptrX - (r.left + r.width / 2)) / (r.width * 0.9)), -1, 1);
+          const ny = clamp(((ptrY - (r.top + r.height / 2)) / (r.height * 1.6)), -1, 1);
+          tx = nx * a.cols * 0.075;
+          ty = ny * 1.5;
+        }
+      }
+      a.lx += (tx - a.lx) * 0.16;
+      a.ly += (ty - a.ly) * 0.16;
+
       let scanY: number | undefined;
       if (e < a.pulseUntil) scanY = (1 - (a.pulseUntil - e) / 900) * a.rows;
-      a.el.textContent = renderEye(a.cols, a.rows, { t: e / 1000, open: clamp(open, 0.05, 1), lookX, lookY, scanY });
+      a.el.textContent = renderEye(a.cols, a.rows, {
+        t: e / 1000, open: clamp(open, 0.05, 1), lookX: a.lx, lookY: a.ly, scanY,
+      });
     }
   }
   requestAnimationFrame(ambientFrame);
@@ -71,10 +94,14 @@ function startAmbient() {
     const el = $<HTMLElement>(d.sel);
     if (!el) continue;
     const { cols, rows } = fitEye(el, d.cols, d.ratio);
-    ambient.push({ el, cols, rows, pulseUntil: 0 });
+    ambient.push({ el, cols, rows, pulseUntil: 0, lx: 0, ly: 0 });
     if (reduced) el.textContent = renderEye(cols, rows, { open: 1 });
   }
-  if (!reduced && ambient.length) requestAnimationFrame(ambientFrame);
+  if (reduced || !ambient.length) return;
+  window.addEventListener("pointermove", (ev) => {
+    ptrX = ev.clientX; ptrY = ev.clientY; ptrAge = 0;
+  }, { passive: true });
+  requestAnimationFrame(ambientFrame);
 }
 
 export function pulseSentinel() {

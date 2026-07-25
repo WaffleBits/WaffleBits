@@ -5,6 +5,7 @@ import { initBoot } from "./boot";
 import { initReveal, reduced } from "./reveal";
 import { initRequestPath } from "./requestPath";
 import { initPalette, setRole } from "./palette";
+import { initRail } from "./rail";
 
 const $ = <T extends Element>(s: string) => document.querySelector<T>(s);
 const $$ = <T extends Element>(s: string) => Array.from(document.querySelectorAll<T>(s));
@@ -85,6 +86,7 @@ function init() {
   initRequestPath();
   initPalette();
   initRules();
+  initRail();
   initClock();
   initSpinner();
   initBoot();
