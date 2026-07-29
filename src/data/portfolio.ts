@@ -121,7 +121,7 @@ export const caseFiles: CaseFile[] = [
     plain: "A stress-testing tool for AI serving: how fast is it, how often does it fail, and what does each request cost. It turns 'it feels fast' into numbers you can defend.",
     problem: "Serving decisions need repeatable numbers: latency, throughput, failure accounting, and cost-to-serve.",
     system: "Repeatable load-generation harness for NVIDIA Triton-style serving with concurrency controls and retry/failure accounting.",
-    evidence: "Latency percentiles, throughput, cost per request, and Prometheus export. Three workload shapes (interactive, long-context, high-throughput) each record their assumptions so runs can be compared fairly.",
+    evidence: "Latency, throughput, cost, and Prometheus results across three explicit workload shapes, plus OpenAI-compatible streaming TTFT/inter-chunk measurements, Triton/DCGM telemetry correlation, batch-invariance checks, and regression gates.",
     impact: "Capacity and cost tradeoffs expressed as defensible numbers.",
     url: "https://github.com/WaffleBits/triton-inference-benchmark",
   },

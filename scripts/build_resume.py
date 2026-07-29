@@ -46,10 +46,9 @@ story = [
 
     Paragraph("SUMMARY", styles["h2"]), rule,
     Paragraph(
-        "Active-duty US Air Force Cyber Defense Operations specialist (1D7X1Q, TS/SCI) securing mission-critical "
-        "networks and services for combat and training operations. Strong software and data background (Python, "
-        "Java, SQL, Linux, automation) and systems-thinking mindset, focused on building reliable systems under "
-        "real-world constraints.",
+        "TS/SCI-cleared US Air Force Cyber Defense Operations specialist building secure AI inference systems, "
+        "GPU performance tooling, and deterministic low-level software in Python, Rust, and C++20. Operational "
+        "experience spans enterprise incident response, vulnerability management, and automation across mission-critical networks.",
         styles["body"],
     ),
 
@@ -62,20 +61,22 @@ story = [
         "Configured switches and managed 50+ SIPR assets during RED FLAG 24-3, sustaining 2K members from 39 joint units in 8 classified areas and enabling 1.1K aircraft sorties.",
         "Led 11 Airmen to manage 18 AFCYBER tasking orders, strengthening 5 vulnerable sites and 30K assets and ensuring C4ISR capabilities for 1.3K units at 262 locations.",
     ]),
-    Paragraph("Selected Community &amp; Leadership", styles["roleline"]),
-    *bullets([
-        "Led Booster Club concessions committee, dedicating 80+ hours to fund 3 morale events for 132 personnel.",
-        "Volunteered at local food bank, packaging 11K lbs of food; supported AFCEA by escorting distinguished visitors on base.",
-    ]),
 
     Paragraph("TECHNICAL PROJECTS", styles["h2"]), rule,
-    Paragraph("Options &amp; Market Data Analytics (Personal)", styles["roleline"]),
+    Paragraph("Secure AI Inference Gateway (Python)", styles["roleline"]),
     *bullets([
-        "Built Python tooling to screen equities and options using technical indicators (MACD, Supertrend, volatility, OI) and macro data; designed backtests to evaluate robustness and risk.",
+        "Built an authenticated model-serving gateway with role and reason-for-access policy, request/token budgets, structured audit evidence, Prometheus/OpenTelemetry telemetry, and optional Redis-backed atomic rate limits.",
+        "Added deployment posture checks, dependency auditing, SPDX SBOM generation, container vulnerability gates, resilience drills, and bounded backend probes with aggregate-only artifacts.",
     ]),
-    Paragraph("Minecraft Infrastructure &amp; Scale (Personal)", styles["roleline"]),
+    Paragraph("Inference Runtime &amp; GPU Performance (Rust, Triton, Python)", styles["roleline"]),
     *bullets([
-        "Deployed and administered Linux-based Minecraft servers on Docker and Oracle Cloud ARM, serving 29,323+ unique players and 600+ concurrent players; automated backups, monitoring, and performance tuning via scripts and plugins.",
+        "Implemented a deterministic continuous-batching and paged KV-cache scheduler in Rust with replay fingerprints and promote/hold/rollback release gates.",
+        "Developed correctness-gated Triton RMSNorm, SwiGLU, attention, KV-movement, and INT4 kernels; published raw RTX 5070 Ti measurements up to 2.2x faster than torch.compile for the primary kernel set.",
+        "Extended a serving benchmark with workload profiles, regression gates, Triton/DCGM telemetry correlation, and measured OpenAI-compatible streaming TTFT and inter-chunk latency.",
+    ]),
+    Paragraph("Low-Latency Matching Engine (C++20, Python)", styles["roleline"]),
+    *bullets([
+        "Built price-time-priority matching engines in C++20 and Python with deterministic parity tests; measured the Python reference at 312K orders/second on a Ryzen 9800X3D.",
     ]),
 
     Paragraph("EDUCATION", styles["h2"]), rule,
@@ -89,10 +90,10 @@ story = [
 
     Paragraph("TECHNICAL SKILLS", styles["h2"]), rule,
     Paragraph(
-        "<b>Languages &amp; Data:</b> Python, Java, SQL, Bash. <b>Infrastructure &amp; OS:</b> Linux, Docker, Git, "
-        "networking fundamentals. <b>Security &amp; Tools:</b> ACAS, Tanium, ServiceNow, Remedy, eMASS, vulnerability "
-        "management, incident response. <b>Concepts:</b> Distributed systems basics, data pipelines, systems thinking "
-        "under operational constraints.",
+        "<b>Languages:</b> Python, Rust, C++20, TypeScript, SQL, Bash. <b>AI &amp; Performance:</b> "
+        "OpenAI Triton, PyTorch, model-serving benchmarks, latency profiling, continuous batching, KV-cache systems. "
+        "<b>Platform:</b> Linux, Docker, Kubernetes, Redis, Prometheus, Grafana, OpenTelemetry, Git. "
+        "<b>Security:</b> access control, audit logging, vulnerability management, incident response, threat modeling, ACAS, Tanium, eMASS.",
         styles["body"],
     ),
 ]
