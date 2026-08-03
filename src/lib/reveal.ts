@@ -23,6 +23,20 @@ export function initReveal() {
     { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
   );
   items.forEach((e) => io.observe(e));
+
+  // Failsafe: an entrance animation must never be the reason content is
+  // unreadable. If the observer has not fired for what is already on screen
+  // (throttled background tab, restored session), reveal it anyway.
+  window.setTimeout(() => {
+    for (const e of items) {
+      if (e.classList.contains("is-in")) continue;
+      const r = e.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        io.unobserve(e);
+        e.classList.add("is-in");
+      }
+    }
+  }, 1400);
 }
 
 /* The two replay strips must show the same pattern: that is the claim. */
