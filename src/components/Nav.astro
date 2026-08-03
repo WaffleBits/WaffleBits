@@ -1,6 +1,7 @@
 ---
 import { identity } from "../data/portfolio";
-const resume = `${import.meta.env.BASE_URL}assets/AdnanBerik-Resume.pdf`;
+import { asset } from "../lib/url";
+const resume = asset("assets/AdnanBerik-Resume.pdf");
 const links = [
   ["#work", "Work"],
   ["#system", "System"],

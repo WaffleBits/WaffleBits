@@ -10,8 +10,9 @@ import {
   awards, certifications, education,
 } from "../data/portfolio";
 import { figures, signalClaim, studies, tenets, limiterCode, limiterWhy, about } from "../data/site";
+import { asset } from "../lib/url";
 
-const resume = `${import.meta.env.BASE_URL}assets/AdnanBerik-Resume.pdf`;
+const resume = asset("assets/AdnanBerik-Resume.pdf");
 const byId = Object.fromEntries(caseFiles.map((c) => [c.id, c]));
 
 const tower = byId["CF-05"];
