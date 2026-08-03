@@ -15,7 +15,7 @@ const independent = {
   role: "Independent engineering",
   org: "Remote",
   lines: [
-    "AI serving infrastructure: gateway, scheduler, GPU kernels, benchmarks. Public with their measurements.",
+    "AI serving infrastructure: gateway, scheduler, GPU kernels, benchmarks.",
     "Linux game-server infrastructure for a community of about 29,000 players. Monitoring, backups, performance tuning.",
   ],
 };
@@ -62,7 +62,7 @@ const code = limiterCode
         <dl class="hero__side">
           <div><dt>Based</dt><dd>{identity.location}</dd></div>
           <div><dt>Open to</dt><dd>{openTo}</dd></div>
-          <div><dt>Clearance</dt><dd>{identity.clearance}, active</dd></div>
+          <div><dt>Clearance</dt><dd>Active {identity.clearance}</dd></div>
         </dl>
       </div>
     </section>
@@ -98,7 +98,7 @@ const code = limiterCode
           <span class="proj__tag">Access control and audit</span>
           <p class="proj__line">
             An authenticated gateway in front of model endpoints. It decides who may call which model,
-            at what budget, and what record exists afterward.
+            at what budget, and what gets recorded.
           </p>
         </div>
 
@@ -168,7 +168,7 @@ const code = limiterCode
         <div class="kern">
           <div>
             <span class="kern__n">2.2<i>×</i></span>
-            <span class="kern__cap">RMSNorm &middot; RTX 5070 Ti</span>
+            <span class="kern__cap">RMSNorm · RTX 5070 Ti</span>
           </div>
           <div>
             <div class="bars">
@@ -215,7 +215,7 @@ const code = limiterCode
             <p class="trace__l">Run B, replayed from fingerprint</p>
             <div class="trace__t" data-trace></div>
           </div>
-          <p class="trace__eq">Identical fingerprints. A failing run replays exactly.</p>
+          <p class="trace__eq">Identical fingerprints, so a failing run replays exactly.</p>
         </div>
 
         <div class="proj__foot">
@@ -305,8 +305,7 @@ const code = limiterCode
             </div>
           </div>
           <p class="end__note" data-in>
-            Open to platform security and AI infrastructure roles in New York or
-            Washington, D.C. The clearance is active and transfers.
+            Open to platform security and AI infrastructure roles in New York or Washington, D.C.
           </p>
         </div>
       </div>

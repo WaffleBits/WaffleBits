@@ -10,7 +10,7 @@ export const role = "Platform security and AI infrastructure";
 export const openTo = "New York · Washington, D.C.";
 
 export const intro =
-  "Cyber defense operations for the US Air Force, TS/SCI cleared. Outside that I build and measure the layer around AI model serving.";
+  "Cyber defense operations for the U.S. Air Force, TS/SCI cleared. Independently, I build and benchmark infrastructure around AI model serving.";
 
 /* Two measured results, both reproducible from the repositories. */
 export const measured = [
@@ -51,7 +51,7 @@ end
 return {1, current, tonumber(ARGV[3])}`;
 
 export const limiterNote =
-  "Budgets have to hold with the gateway on several machines. Read, increment and expire as separate calls lets two servers both pass. One script, expiry set only by the call that opened the window, decision returned with the counter. The key is a hash, so the limiter stores no caller identity.";
+  "Separate read, increment and expire calls can race across gateway replicas. The Lua script makes the fixed-window counter atomic, sets expiry only on the call that opens the window, and returns the decision with the updated counter. The principal id is SHA-256 hashed into the key rather than stored.";
 
 /* Everything not given a full section. */
 export const index = [

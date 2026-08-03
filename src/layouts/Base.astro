@@ -2,9 +2,10 @@
 import "../styles/global.css";
 import { identity } from "../data/portfolio";
 import { asset } from "../lib/url";
-const title = `${identity.name} // Platform Security and AI Infrastructure`;
+const site = "https://wafflebits.github.io/WaffleBits/";
+const title = `${identity.name} · Platform security and AI infrastructure`;
 const desc =
-  "Adnan Berik. Cyber defense operations for the US Air Force, TS/SCI cleared. Public work on AI serving infrastructure: access control and audit, deterministic scheduling, measured GPU kernels.";
+  "Adnan Berik. Cyber defense operations for the U.S. Air Force, TS/SCI cleared. Public work on AI serving infrastructure: access control and audit, deterministic scheduling, measured GPU kernels.";
 
 const person = {
   "@context": "https://schema.org",
@@ -13,7 +14,7 @@ const person = {
   jobTitle: "Cyber Defense Operations Specialist",
   email: `mailto:${identity.links.email}`,
   address: { "@type": "PostalAddress", addressLocality: "Hampton", addressRegion: "VA", addressCountry: "US" },
-  url: "https://wafflebits.github.io/WaffleBits/",
+  url: site,
   sameAs: [identity.links.linkedin, identity.links.github],
   knowsAbout: identity.domains,
 };
@@ -29,7 +30,9 @@ const person = {
     <meta name="author" content={identity.name} />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#0a0a0b" />
+    <link rel="canonical" href={site} />
     <meta property="og:type" content="profile" />
+    <meta property="og:url" content={site} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={desc} />
     <meta property="og:image" content={asset("assets/avatar.jpg")} />
