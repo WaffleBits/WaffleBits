@@ -50,16 +50,16 @@ const code = limiterCode
     <section class="hero wrap">
       <div class="hero__grid">
         <div>
-          <h1 class="name" data-in>{identity.name}</h1>
-          <p class="hero__role" data-in>{role}</p>
-          <p class="hero__intro" data-in>{intro}</p>
-          <div class="hero__acts lks" data-in>
+          <h1 class="name">{identity.name}</h1>
+          <p class="hero__role">{role}</p>
+          <p class="hero__intro">{intro}</p>
+          <div class="hero__acts lks">
             <a class="lk" href="#work">Selected work</a>
             <a class="lk" href={identity.links.github} target="_blank" rel="noreferrer">GitHub</a>
             <a class="lk" href={resume} target="_blank" rel="noreferrer">Resume</a>
           </div>
         </div>
-        <dl class="hero__side" data-in>
+        <dl class="hero__side">
           <div><dt>Based</dt><dd>{identity.location}</dd></div>
           <div><dt>Open to</dt><dd>{openTo}</dd></div>
           <div><dt>Clearance</dt><dd>{identity.clearance}, active</dd></div>
@@ -72,7 +72,7 @@ const code = limiterCode
       <div class="wrap">
         <div class="mband__in">
           {measured.map((m) => (
-            <a class="mres" href={m.href} target="_blank" rel="noreferrer" data-in>
+            <a class="mres" href={m.href} target="_blank" rel="noreferrer">
               <span class="mres__n">{m.n}<i>{m.unit}</i></span>
               <span class="mres__w">{m.what}</span>
               <span class="mres__h">{m.how}</span>
