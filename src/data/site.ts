@@ -1,75 +1,47 @@
 /* =============================================================
-   Presentation layer // how the material in portfolio.ts is
-   sequenced, weighted, and framed on the page.
-   Facts here are drawn from the resume and the public repos.
-   Nothing is invented. Projections are labelled as projections.
+   Page content. Facts come from the resume and the public repos.
+   Nothing is invented, projections are labelled as projections,
+   and the professional record is kept separate from the personal
+   projects rather than blended into one claim.
    ============================================================= */
 
-/* ---- figures: all from Air Force service, all on the resume ---- */
-export type Figure = { n: string; u?: string; l: string };
+export const role = "Platform security and AI infrastructure";
 
-export const figures: Figure[] = [
-  { n: "$1.3", u: "B", l: "Value of the Air Force network environment under the watch I help run." },
-  { n: "27,000", l: "Users defended around the clock across 26 wings and 15 bases." },
-  { n: "5→2", u: "days", l: "Threat resolution time after I built the tracking dashboards." },
-  { n: "30,000", l: "Systems hardened through 18 cyber tasking orders, leading 11 Airmen." },
-];
+export const openTo = "New York · Washington, D.C.";
 
-export const signalClaim =
-  "None of this is a side project at scale. It is <em>live enterprise cyber defense</em>, run on a watch floor, with a TS/SCI clearance and an award trail behind it.";
+export const intro =
+  "Cyber defense operations for the US Air Force, TS/SCI cleared. Outside that I build and measure the layer around AI model serving.";
 
-/* ---- work: three studies, one live demo, three in the archive ---- */
-export type Study = {
-  cf: string;                    // caseFiles id
-  kind: string;                  // label above the title
-  why: string;                   // why it exists
-  hard: string;                  // the hard part
-  out: string;                   // outcome
-  stack: string;
-  media: "gateway" | "kernels" | "replay";
-};
-
-export const studies: Study[] = [
+/* Two measured results, both reproducible from the repositories. */
+export const measured = [
   {
-    cf: "CF-01",
-    kind: "Platform security // AI serving",
-    why: "Model endpoints are the most valuable and least governed surface in an AI company. Anyone with a key can spend money and read answers, and afterwards nobody can say who did what.",
-    hard: "Enforcing identity, budget, and reason-for-access on the request path without adding latency the serving layer cannot afford, and keeping the limiter correct when it runs on many servers at once.",
-    out: "Every call arrives authenticated, priced, and recorded. Denials are logged rather than dropped, and the release path covers shadow, canary, staged rollout, and rollback.",
-    stack: "Python / FastAPI / Redis / OpenTelemetry / Prometheus / Grafana / Docker",
-    media: "gateway",
+    n: "2.2",
+    unit: "×",
+    what: "faster than compiled PyTorch",
+    how: "Fused Triton RMSNorm, RTX 5070 Ti, validated against an FP32 reference",
+    href: "https://github.com/WaffleBits/triton-kernel-lab#readme",
   },
   {
-    cf: "CF-03",
-    kind: "GPU performance // measured",
-    why: "Kernel speed claims are the easiest thing in machine learning to overstate. Most published numbers have no correctness oracle and no cache control, so they measure the benchmark rather than the kernel.",
-    hard: "Fusing RMSNorm and autotuning SwiGLU so they beat a compiled PyTorch baseline, while validating every output against an FP32 reference and flushing cache between runs so the numbers mean something.",
-    out: "Up to 2.2x faster than the PyTorch baseline on an RTX 5070 Ti, with full latency distributions, machine-readable reports, and a regression gate in CI.",
-    stack: "OpenAI Triton / PyTorch / CUDA / pytest",
-    media: "kernels",
-  },
-  {
-    cf: "CF-02",
-    kind: "Serving internals // Rust",
-    why: "Serving regressions hide. Batching and cache admission drift between runs, so a version that is quietly worse can pass review and reach production before anyone notices.",
-    hard: "Rebuilding continuous batching, paged KV-cache admission, and decode scheduling so that identical input produces a byte-identical trace, then turning that trace into a promotion decision.",
-    out: "Replay fingerprints that let a failure be reproduced instead of argued about, plus structured hold and rollback triage backed by capacity envelopes.",
-    stack: "Rust / deterministic replay / vLLM and SGLang observations",
-    media: "replay",
+    n: "312",
+    unit: "K/s",
+    what: "orders matched, p50 1.7 microseconds",
+    how: "C++20 matching core, Ryzen 9800X3D, checked against a Python oracle",
+    href: "https://github.com/WaffleBits/market-microstructure-engine#readme",
   },
 ];
 
-/* ---- how I think: each line is a rule one of the repos enforces ---- */
-export const tenets = [
-  { t: "If it is not measured, it does not ship.", b: "Latency percentiles, throughput, cost per request, and failure accounting exist before a change is called an improvement." },
-  { t: "Reproduce, then fix.", b: "Deterministic replay turns a flaky report into a fingerprint. Debugging a recording beats debugging a memory of production." },
-  { t: "A denial is a record, not a dead end.", b: "Refused requests are written down with a reason. The interesting question after an incident is always what was blocked and why." },
-  { t: "The fast path needs an oracle.", b: "The C++ matching engine is checked against an independent Python model. Speed only counts once something else agrees with the answer." },
+/* The gateway request path. Short technical labels, no narration. */
+export const gates = [
+  ["01", "Identity", "caller authenticated, model allowlist checked"],
+  ["02", "Policy", "token and request budgets, rate limit, reason for access"],
+  ["03", "Route", "batched, dispatched, path recorded with the response"],
+  ["04", "Execute", "memory and capacity budgets, replayable"],
+  ["05", "Measure", "latency, cost and failures to Prometheus"],
+  ["06", "Record", "who asked, what ran, what it cost"],
+  ["07", "Gate", "promote, hold or roll back on regression"],
 ];
 
-/* ---- the real Lua limiter from the gateway repo ---- */
-export const limiterCode = `-- gateway/rate_limit.py :: the Redis path, one round trip
-local current = redis.call("INCRBY", KEYS[1], ARGV[1])
+export const limiterCode = `local current = redis.call("INCRBY", KEYS[1], ARGV[1])
 if current == tonumber(ARGV[1]) then
   redis.call("PEXPIRE", KEYS[1], ARGV[2])
 end
@@ -78,12 +50,37 @@ if current > tonumber(ARGV[3]) then
 end
 return {1, current, tonumber(ARGV[3])}`;
 
-export const limiterWhy =
-  "Spending limits have to hold when the gateway is running on ten machines at once. Doing the read, the increment, and the expiry as three separate calls lets two servers both believe they are under budget. This runs as one atomic script, sets the expiry only on the call that created the window, and returns the decision with the counter, so the caller can be told exactly how much budget is left. The key is a hash, so the limiter never stores who made the request.";
+export const limiterNote =
+  "Budgets have to hold with the gateway on several machines. Read, increment and expire as separate calls lets two servers both pass. One script, expiry set only by the call that opened the window, decision returned with the counter. The key is a hash, so the limiter stores no caller identity.";
 
-/* ---- about ---- */
-export const about = [
-  "I spend my working hours on an Air Force watch floor, defending a network that covers 26 wings and 15 bases. It is where I learned that the systems worth building are the ones people still trust at three in the morning.",
-  "The rest of my time goes to the layer above AI model serving. <strong>Who is allowed to call this model, what did it cost, was it fast, and what record exists afterward.</strong> Everything on this page is public on GitHub with the measurements attached, including the ones that were not flattering.",
-  "Before any of it I ran Linux game servers for a community of 29,000 players, who complain within seconds of anything breaking. Still the most useful operations training I have had.",
+/* Everything not given a full section. */
+export const index = [
+  {
+    title: "Market Microstructure Engine",
+    line: "Limit order book with price-time priority. C++20 core, Python model checking every fill.",
+    fig: "312K orders/s",
+    stack: "C++20, Python",
+    href: "https://github.com/WaffleBits/market-microstructure-engine",
+  },
+  {
+    title: "Readiness Control Tower",
+    line: "Root-cause scoring and what-if analysis over synthetic operational data. Runs in the browser.",
+    fig: "Live demo",
+    stack: "FastAPI, React",
+    href: "https://wafflebits.github.io/readiness-control-tower/",
+  },
+  {
+    title: "Inference Load Benchmark",
+    line: "Load generation for Triton-compatible serving. Warmup and measurement are separate phases.",
+    fig: "3 workload shapes",
+    stack: "Python",
+    href: "https://github.com/WaffleBits/triton-inference-benchmark",
+  },
+  {
+    title: "HeteroCore Compiler",
+    line: "ONNX compiler and cost model for mixed analog-digital accelerators, linked to RTL and an FPGA prototype.",
+    fig: "68% projected",
+    stack: "ONNX, RTL",
+    href: "https://github.com/WaffleBits/heterocore-compiler",
+  },
 ];

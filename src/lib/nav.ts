@@ -2,8 +2,8 @@
 
 export function initNav() {
   const bar = document.getElementById("navbar");
-  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-navlink]"));
-  const secs = links.map((l) => document.getElementById(l.dataset.navlink || ""));
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-nav]"));
+  const secs = links.map((l) => document.getElementById(l.dataset.nav || ""));
 
   let queued = false;
   const paint = () => {
@@ -15,7 +15,7 @@ export function initNav() {
     const line = window.scrollY + window.innerHeight * 0.3;
     let cur = -1;
     secs.forEach((s, i) => { if (s && s.offsetTop <= line) cur = i; });
-    links.forEach((l, i) => l.classList.toggle("here", i === cur));
+    links.forEach((l, i) => l.classList.toggle("on", i === cur));
   };
 
   paint();

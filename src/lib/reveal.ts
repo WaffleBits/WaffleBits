@@ -1,13 +1,10 @@
-/* Entrance choreography. Opacity and transform only, so nothing reflows. */
+/* Entrance, trace strips, and the one piece of motion that explains
+   something: a marker running the gateway request path once. */
 
 export const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export function initReveal() {
-  document.querySelectorAll<HTMLElement>("[data-stagger]").forEach((g) => {
-    Array.from(g.children).forEach((c, i) => (c as HTMLElement).style.setProperty("--i", String(i)));
-  });
-
-  const items = Array.from(document.querySelectorAll<HTMLElement>("[data-in], [data-stagger]"));
+  const items = Array.from(document.querySelectorAll<HTMLElement>("[data-in]"));
   if (reduced || !("IntersectionObserver" in window)) {
     items.forEach((e) => e.classList.add("is-in"));
     return;
@@ -20,13 +17,11 @@ export function initReveal() {
         e.target.classList.add("is-in");
       }
     },
-    { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
+    { threshold: 0.06, rootMargin: "0px 0px -5% 0px" }
   );
   items.forEach((e) => io.observe(e));
 
-  // Failsafe: an entrance animation must never be the reason content is
-  // unreadable. If the observer has not fired for what is already on screen
-  // (throttled background tab, restored session), reveal it anyway.
+  // An entrance animation must never be why content is unreadable.
   window.setTimeout(() => {
     for (const e of items) {
       if (e.classList.contains("is-in")) continue;
@@ -39,18 +34,36 @@ export function initReveal() {
   }, 1400);
 }
 
-/* The two replay strips must show the same pattern: that is the claim. */
-export function initStrips() {
-  const strips = Array.from(document.querySelectorAll<HTMLElement>("[data-strip]"));
+/* Both strips carry the same pattern: that is the claim being made. */
+export function initTrace() {
+  const strips = Array.from(document.querySelectorAll<HTMLElement>("[data-trace]"));
   if (!strips.length) return;
-  const N = 28;
-  const pattern = Array.from({ length: N }, (_, i) => (i * 7 + ((i * i) % 5)) % 3 === 0);
+  const pattern = Array.from({ length: 40 }, (_, i) => (i * 7 + ((i * i) % 5)) % 3 === 0);
   for (const s of strips) {
-    s.innerHTML = "";
-    for (const on of pattern) {
-      const i = document.createElement("i");
-      if (on) i.className = "on";
-      s.appendChild(i);
-    }
+    s.replaceChildren(
+      ...pattern.map((on) => {
+        const i = document.createElement("i");
+        if (on) i.className = "on";
+        return i;
+      })
+    );
   }
+}
+
+/* One request travelling the path, once, when the list is first seen. */
+export function initGates() {
+  const list = document.getElementById("gates");
+  if (!list || reduced || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(
+    ([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      const rows = list.querySelectorAll<HTMLElement>(".gate");
+      const last = rows[rows.length - 1];
+      if (last) list.style.setProperty("--travel", `${last.offsetTop + last.offsetHeight - 44}px`);
+      list.classList.add("run");
+    },
+    { threshold: 0.15 }
+  );
+  io.observe(list);
 }
