@@ -54,13 +54,21 @@ export function initTrace() {
 export function initGates() {
   const list = document.getElementById("gates");
   if (!list || reduced || !("IntersectionObserver" in window)) return;
+
+  // Measure up front. Doing it inside the observer callback raced the
+  // animation start and left the marker on its fallback distance.
+  const measure = () => {
+    const rows = list.querySelectorAll<HTMLElement>(".gate");
+    const last = rows[rows.length - 1];
+    if (last) list.style.setProperty("--travel", `${last.offsetTop + last.offsetHeight - 44}px`);
+  };
+  measure();
+  window.addEventListener("resize", measure, { passive: true });
+
   const io = new IntersectionObserver(
     ([e]) => {
       if (!e.isIntersecting) return;
       io.disconnect();
-      const rows = list.querySelectorAll<HTMLElement>(".gate");
-      const last = rows[rows.length - 1];
-      if (last) list.style.setProperty("--travel", `${last.offsetTop + last.offsetHeight - 44}px`);
       list.classList.add("run");
     },
     { threshold: 0.15 }
