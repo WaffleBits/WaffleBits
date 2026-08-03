@@ -1,0 +1,14 @@
+---
+/* Hero instrument: the shape of the audit record the gateway writes for
+   every model call. Rows are generated in the browser from a synthetic
+   trace, and the frame says so. */
+---
+<div class="ledger" data-in>
+  <div class="ledger__bar">
+    <span class="pip" aria-hidden="true"></span>
+    <span>gateway :: request ledger</span>
+    <span class="grow" id="lg-count">0 records</span>
+  </div>
+  <div class="ledger__rows" id="lg-rows" aria-hidden="true"></div>
+  <p class="ledger__note">Synthetic trace. This is the record shape the gateway emits, not live traffic.</p>
+</div>

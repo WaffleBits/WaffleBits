@@ -1,118 +1,123 @@
 /* =============================================================
-   Command palette // terminal navigation + role filter
+   Command palette // keyboard-first navigation.
+   Cmd-K or Ctrl-K. Jump to a section, open a repository, grab the
+   email. Fuzzy-ish substring match, arrow keys, focus restored on
+   close.
    ============================================================= */
-import { caseFiles, identity } from "../data/portfolio";
-import { pulseSentinel, replayIntro } from "./boot";
-import { reduced } from "./reveal";
+import { identity, caseFiles } from "../data/portfolio";
 
-const $ = <T extends Element>(s: string, r: ParentNode = document) => r.querySelector<T>(s);
-const $$ = <T extends Element>(s: string, r: ParentNode = document) => Array.from(r.querySelectorAll<T>(s));
+type Cmd = { kind: string; label: string; hint?: string; run: () => void };
 
-interface Cmd { g: string; n: string; d: string; keys: string; run: () => void; }
-
-const scrollTo = (sel: string) =>
-  document.querySelector(sel)?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-
-function openFile(id: string) {
-  const el = document.getElementById("case-" + id) as HTMLDetailsElement | null;
-  if (!el) return;
-  el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
-  el.open = true;
-  el.classList.add("flash");
-  setTimeout(() => el.classList.remove("flash"), 800);
-}
-
-export function setRole(role: string) {
-  $$<HTMLElement>(".rolepick .tok").forEach((b) => b.classList.toggle("on", b.dataset.role === role));
-  const show = role === "all" || role === "recruiter";
-  $$<HTMLElement>("[data-roles]").forEach((el) => {
-    el.classList.toggle("dim", !show && !el.dataset.roles!.split(" ").includes(role));
-  });
-  const live = $<HTMLElement>("#live");
-  if (live) live.textContent = role === "all" ? "view :: full spectrum" : "view :: " + role;
-  document.body.classList.toggle("recruiter", role === "recruiter");
-  if (role === "recruiter") {
-    // true fast path: render everything instantly, plain headers, no ambience
-    $$<HTMLElement>("[data-line]").forEach((el) => el.classList.add("is-in"));
-    $$<HTMLElement>("[data-type]").forEach((el) => {
-      if (el.dataset.text) el.textContent = el.dataset.text;
-      el.classList.remove("typing");
-      el.classList.add("done");
-    });
-    $$<HTMLElement>("[data-op]").forEach((op) => { op.dataset.ran = "1"; op.classList.add("live", "done"); });
-    $$<HTMLElement>("[data-out]").forEach((out) => out.classList.add("is-in"));
-    $$<HTMLDetailsElement>(".fentry[open]").forEach((d) => (d.open = false));
-    scrollTo("#impact");
-  }
-}
-
-function build(): Cmd[] {
-  const cmds: Cmd[] = [];
-  caseFiles.forEach((cf) =>
-    cmds.push({ g: cf.id.replace("CF-", ""), n: "open " + cf.title.toLowerCase(), d: "case", keys: cf.title + " " + cf.tags.join(" "), run: () => openFile(cf.id) })
-  );
-  ([["ai", "ai_infra"], ["security", "platform_sec"], ["mission", "mission_eng"], ["recruiter", "recruiter"], ["all", "full"]] as const).forEach(
-    ([r, label]) => cmds.push({ g: "#", n: "view " + label, d: "filter", keys: "view role " + label, run: () => setRole(r) })
-  );
-  ([["impact", "#impact"], ["trace", "#request"], ["cases", "#files"], ["evidence", "#evidence"], ["service", "#service"], ["capability", "#capability"], ["recognition", "#recognition"], ["contact", "#contact"]] as const).forEach(
-    ([label, sel]) => cmds.push({ g: ">", n: "goto " + label, d: "jump", keys: "goto cd " + label, run: () => scrollTo(sel) })
-  );
-  cmds.push({ g: "^", n: "open github", d: "link", keys: "github repo", run: () => window.open(identity.links.github, "_blank", "noopener") });
-  cmds.push({ g: "^", n: "open linkedin", d: "link", keys: "linkedin contact", run: () => window.open(identity.links.linkedin, "_blank", "noopener") });
-  cmds.push({ g: "~", n: "replay sentinel", d: "sys", keys: "replay intro boot eye", run: () => replayIntro() });
-  return cmds;
-}
+const goto = (id: string) => () => {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+const open = (url: string) => () => window.open(url, "_blank", "noopener,noreferrer");
 
 export function initPalette() {
-  const overlay = $<HTMLElement>("#palette");
-  const input = $<HTMLInputElement>("#palette-input");
-  const list = $<HTMLElement>("#palette-list");
-  if (!overlay || !input || !list) return;
-  const cmds = build();
-  let active = 0;
-  let filtered = cmds.slice();
+  const pal = document.getElementById("pal");
+  const input = document.getElementById("pal-input") as HTMLInputElement | null;
+  const list = document.getElementById("pal-list");
+  if (!pal || !input || !list) return;
 
-  const paint = () => $$<HTMLElement>(".palette__item", list).forEach((el, i) => el.classList.toggle("on", i === active));
+  const resume = document.querySelector<HTMLAnchorElement>('a[href$="AdnanBerik-Resume.pdf"]')?.href || "";
+
+  const cmds: Cmd[] = [
+    { kind: "go", label: "Work", hint: "section", run: goto("work") },
+    { kind: "go", label: "System", hint: "section", run: goto("system") },
+    { kind: "go", label: "Experience", hint: "section", run: goto("experience") },
+    { kind: "go", label: "About", hint: "section", run: goto("about") },
+    { kind: "go", label: "Contact", hint: "section", run: goto("contact") },
+    { kind: "open", label: "Resume (PDF)", hint: "download", run: open(resume) },
+    { kind: "open", label: "GitHub profile", hint: "external", run: open(identity.links.github) },
+    { kind: "open", label: "LinkedIn", hint: "external", run: open(identity.links.linkedin) },
+    { kind: "mail", label: identity.links.email, hint: "compose", run: () => { location.href = `mailto:${identity.links.email}`; } },
+    {
+      kind: "copy", label: "Copy email address", hint: "clipboard",
+      run: () => { navigator.clipboard?.writeText(identity.links.email); },
+    },
+    ...caseFiles.map((c) => ({ kind: "repo", label: c.title, hint: "repository", run: open(c.url) })),
+  ];
+
+  let shown: Cmd[] = cmds;
+  let cur = 0;
+  let opener: HTMLElement | null = null;
+
   const render = () => {
-    if (!filtered.length) { list.innerHTML = `<li class="palette__empty">command not found</li>`; return; }
-    list.innerHTML = filtered
-      .map((c, i) => `<li class="palette__item${i === active ? " on" : ""}" role="option"><span class="g">${c.g}</span><span class="n">${c.n}</span><span class="d">${c.d}</span></li>`)
-      .join("");
-    $$<HTMLElement>(".palette__item", list).forEach((li, i) => {
-      li.addEventListener("click", () => exec(i));
-      li.addEventListener("mousemove", () => { active = i; paint(); });
+    list.innerHTML = "";
+    if (!shown.length) {
+      const li = document.createElement("li");
+      li.className = "pal__none";
+      li.textContent = "Nothing matches that.";
+      list.appendChild(li);
+      return;
+    }
+    shown.forEach((c, i) => {
+      const li = document.createElement("li");
+      li.className = "pal__item";
+      li.setAttribute("role", "option");
+      li.setAttribute("aria-selected", String(i === cur));
+      li.innerHTML = `<span class="ic">${c.kind}</span><span class="lb"></span><span class="hn">${c.hint || ""}</span>`;
+      li.querySelector(".lb")!.textContent = c.label;
+      li.addEventListener("mouseenter", () => { cur = i; mark(); });
+      li.addEventListener("click", () => fire(i));
+      list.appendChild(li);
     });
   };
-  const filter = (q: string) => {
-    q = q.trim().toLowerCase();
-    filtered = !q ? cmds.slice() : cmds.filter((c) => (c.n + " " + c.keys).toLowerCase().includes(q));
-    active = 0;
+
+  const mark = () => {
+    Array.from(list.children).forEach((li, i) =>
+      (li as HTMLElement).setAttribute("aria-selected", String(i === cur))
+    );
+    (list.children[cur] as HTMLElement | undefined)?.scrollIntoView({ block: "nearest" });
+  };
+
+  const filter = () => {
+    const q = input.value.trim().toLowerCase();
+    shown = q ? cmds.filter((c) => (c.kind + " " + c.label + " " + (c.hint || "")).toLowerCase().includes(q)) : cmds;
+    cur = 0;
     render();
   };
-  const exec = (i: number) => { const c = filtered[i]; if (!c) return; close(); setTimeout(() => c.run(), 40); };
-  const open = () => { overlay.hidden = false; input.value = ""; filter(""); setTimeout(() => input.focus(), 20); };
-  const close = () => { overlay.hidden = true; };
 
-  input.addEventListener("input", () => filter(input.value));
+  const close = () => {
+    pal.hidden = true;
+    document.body.style.removeProperty("overflow");
+    opener?.focus();
+  };
+
+  const show = (from?: HTMLElement) => {
+    opener = from || null;
+    pal.hidden = false;
+    document.body.style.overflow = "hidden";
+    input.value = "";
+    filter();
+    input.focus();
+  };
+
+  const fire = (i: number) => {
+    const c = shown[i];
+    if (!c) return;
+    close();
+    c.run();
+  };
+
+  input.addEventListener("input", filter);
+  pal.querySelector("[data-pal-close]")?.addEventListener("click", close);
+  document.querySelectorAll("[data-open-pal]").forEach((b) =>
+    b.addEventListener("click", () => show(b as HTMLElement))
+  );
+
   input.addEventListener("keydown", (e) => {
-    const n = Math.max(1, filtered.length);
-    if (e.key === "ArrowDown") { e.preventDefault(); active = (active + 1) % n; paint(); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); active = (active - 1 + n) % n; paint(); }
-    else if (e.key === "Enter") { e.preventDefault(); exec(active); }
-    else if (e.key === "Escape") { e.preventDefault(); close(); }
+    if (e.key === "ArrowDown") { e.preventDefault(); cur = Math.min(cur + 1, shown.length - 1); mark(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); cur = Math.max(cur - 1, 0); mark(); }
+    else if (e.key === "Enter") { e.preventDefault(); fire(cur); }
   });
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
-  document.addEventListener("keydown", (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); overlay.hidden ? open() : close(); }
-    else if (e.key === "/" && overlay.hidden && !/input|textarea/i.test((document.activeElement as HTMLElement)?.tagName || "")) { e.preventDefault(); open(); }
-  });
-  $$<HTMLElement>("[data-open-palette]").forEach((b) => b.addEventListener("click", open));
-  $$(".rolepick .tok").forEach((b) => b.addEventListener("click", () => setRole((b as HTMLElement).dataset.role!)));
 
-  // single-open inspection: opening one entry closes its siblings
-  ["fentry"].forEach((cls) => {
-    $$<HTMLDetailsElement>("." + cls).forEach((d) =>
-      d.addEventListener("toggle", () => { if (d.open) { pulseSentinel(); $$<HTMLDetailsElement>("." + cls).forEach((o) => { if (o !== d) o.open = false; }); } })
-    );
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      pal.hidden ? show(document.activeElement as HTMLElement) : close();
+    } else if (e.key === "Escape" && !pal.hidden) {
+      close();
+    }
   });
 }

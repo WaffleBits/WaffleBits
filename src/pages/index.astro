@@ -1,254 +1,406 @@
 ---
 import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Media from "../components/Media.astro";
+import Ledger from "../components/Ledger.astro";
+import Palette from "../components/Palette.astro";
 import {
-  identity, requestPath, caseFiles, proof,
-  serviceRecord, capability, awards, certifications, education,
+  identity, requestPath, caseFiles, serviceRecord,
+  awards, certifications, education,
 } from "../data/portfolio";
+import { figures, signalClaim, studies, tenets, limiterCode, limiterWhy, about } from "../data/site";
 
-const ps = `${identity.handle}@${identity.host}:~$`;
-const capRoles: Record<string, string> = { AI: "ai", SEC: "security", OBS: "ai security", SYS: "ai mission", OPS: "security mission", LNG: "ai security mission" };
-const svcRoles = ["security mission", "ai security mission"];
-const resumeHref = `${import.meta.env.BASE_URL}assets/AdnanBerik-Resume.pdf`;
+const resume = `${import.meta.env.BASE_URL}assets/AdnanBerik-Resume.pdf`;
+const byId = Object.fromEntries(caseFiles.map((c) => [c.id, c]));
 
-const metrics = [
-  { id: "01", k: "network_defended", v: "$1.3B", note: "value of the Air Force network environment I helped monitor and defend" },
-  { id: "02", k: "threat_fix_time", v: "5d > 2d", note: "how much faster threats got resolved after I built the tracking dashboards" },
-  { id: "03", k: "urgent_changes", v: "21d > 5d", note: "urgent network changes sped up during a major combat exercise" },
-  { id: "04", k: "systems_hardened", v: "30K", note: "computers and systems hardened against attack, leading 11 Airmen" },
-];
+const tower = byId["CF-05"];
+const archive = ["CF-07", "CF-04", "CF-06"].map((id) => byId[id]);
+const archiveFigure: Record<string, string> = {
+  "CF-07": "312K orders/s",
+  "CF-04": "3 workload shapes",
+  "CF-06": "68% projected",
+};
+const archiveStack: Record<string, string> = {
+  "CF-07": "C++20 / Python",
+  "CF-04": "Python / Triton",
+  "CF-06": "ONNX / RTL / FPGA",
+};
+
+/* Minimal Lua highlighter. Strings and comments are matched first so a
+   keyword pass can never rewrite the markup the string pass just wrote. */
+const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const KW = /\b(local|if|then|end|return|tonumber|elseif|else)\b/g;
+const mark = (s: string) => esc(s).replace(KW, '<span class="kw">$1</span>');
+
+const highlighted = limiterCode
+  .split("\n")
+  .map((line) => {
+    if (/^\s*--/.test(line)) return `<span class="cm">${esc(line)}</span>`;
+    const re = /"[^"]*"/g;
+    let out = "";
+    let at = 0;
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(line)) !== null) {
+      out += mark(line.slice(at, m.index)) + `<span class="st">${esc(m[0])}</span>`;
+      at = m.index + m[0].length;
+    }
+    return out + mark(line.slice(at));
+  })
+  .join("\n");
 ---
 
 <Base>
-  <div id="live" class="sr-only" aria-live="polite"></div>
+  <Nav />
 
-  <!-- ===== IDENTITY STRIP (always visible, above loader, never animated) ===== -->
-  <div class="idbar" id="idbar">
-    <span class="idbar__who"><b>{identity.name}</b><span class="sep"> :: </span>Platform Security &amp; AI Infrastructure<span class="sep"> :: </span>{identity.clearance}</span>
-    <span class="idbar__links">
-      <a class="tok" href={resumeHref} target="_blank" rel="noreferrer">resume</a>
-      <a class="tok" href={identity.links.linkedin} target="_blank" rel="noreferrer">linkedin</a>
-      <a class="tok" href={identity.links.github} target="_blank" rel="noreferrer">github</a>
-      <a class="tok" href={`mailto:${identity.links.email}`}>email</a>
-    </span>
-  </div>
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero wrap">
+      <div class="hero__grid">
+        <div>
+          <div class="hero__eyebrow" data-in>
+            <span class="chip chip--key">TS/SCI cleared</span>
+            <span class="chip">{identity.role}</span>
+          </div>
+          <h1 class="display" data-in>{identity.tagline}</h1>
+          <p class="hero__sub" data-in>{identity.plain}</p>
+          <div class="hero__acts" data-in>
+            <a class="btn btn--key" href="#work">See the work <span class="btn__arrow" aria-hidden="true">→</span></a>
+            <a class="btn" href={identity.links.github} target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn" href={`mailto:${identity.links.email}`}>Email</a>
+          </div>
+        </div>
+        <Ledger />
+      </div>
 
-  <canvas id="matrix" aria-hidden="true"></canvas>
-
-  <!-- ===== SCROLL RAIL (desktop gauge, decorative) ===== -->
-  <aside id="rail" class="rail" aria-hidden="true">
-    <pre class="rail__gauge"></pre>
-    <span class="rail__label">identity</span>
-    <span class="rail__pct">00</span>
-  </aside>
-
-  <!-- ===== SENTINEL LOADER ===== -->
-  <div id="boot" class="boot" role="dialog" aria-label="Sentinel loading sequence" aria-hidden="true" hidden>
-    <div class="boot__inner">
-      <pre id="boot-eye" class="boot__eye" aria-hidden="true"></pre>
-      <p class="boot__title">SENTINEL // OBSERVABILITY CORE</p>
-      <pre id="boot-bar" class="boot__bar" aria-hidden="true"></pre>
-      <ul id="boot-loadlog" class="boot__log" aria-hidden="true"></ul>
-      <p id="boot-cue" class="boot__cue">
-        scroll to enter
-        <span class="chev" aria-hidden="true">▼</span>
-        <button class="tok boot__fast" type="button" id="boot-recruiter">recruiter view</button>
-      </p>
-    </div>
-    <div class="boot__scan" aria-hidden="true"></div>
-  </div>
-
-  <header class="status" id="top">
-    <span class="seg"><b>{identity.handle}</b><span style="opacity:.7">@{identity.host}</span></span>
-    <span class="seg grow hideS"><span id="spin" class="spin" aria-hidden="true">|</span> session://active :: secure-ai-infrastructure</span>
-    <span class="seg"><span class="clk" id="clk">--:--:--</span></span>
-    <span class="seg"><button class="tok" style="color:inherit" data-open-palette aria-haspopup="dialog" aria-controls="palette">cmd ⌘K</button></span>
-  </header>
-
-  <main class="term" id="main">
-
-    <!-- ===== HERO ===== -->
-    <section class="op" data-hero>
-      <pre id="hero-eye" class="hero__eye" aria-hidden="true"></pre>
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>load identity.profile</span><span class="plain">About</span></p>
-      <div id="hero-identity" class="hero__id">
-        <p data-line><span class="name">{identity.name}</span> <span class="fl">::</span> <span class="role">{identity.role}</span></p>
-        <p data-line class="tagline">{identity.tagline}</p>
-        <p data-line class="sum">{identity.summary}</p>
-        <p data-line class="sum plainbox"><span class="acc">in plain terms ::</span> {identity.plain}</p>
-        <p data-line style="color:var(--faint)">{identity.location} <span class="fl">//</span> open to {identity.open} <span class="fl">//</span> <a class="tok" href={resumeHref} target="_blank" rel="noreferrer">resume.pdf</a></p>
-        <p data-line class="tokrow"><span class="lbl">goto::</span>
-          <a class="tok" href="#impact">impact</a><a class="tok" href="#request">how it works</a><a class="tok" href="#files">projects</a><a class="tok" href="#evidence">proof</a><a class="tok" href="#service">experience</a><a class="tok" href="#contact">contact</a>
-        </p>
-        <p data-line class="tokrow rolepick"><span class="lbl">view::</span>
-          <button class="tok on" data-role="all">everything</button><button class="tok" data-role="ai">ai_infra</button><button class="tok" data-role="security">security</button><button class="tok" data-role="mission">mission</button><button class="tok" data-role="recruiter">recruiter</button>
-        </p>
+      <div class="hero__facts" data-in>
+        <span><b>Now</b> · US Air Force cyber defense</span>
+        <span><b>Based</b> · {identity.location}</span>
+        <span><b>Open to</b> · {identity.open}</span>
       </div>
     </section>
 
-    <!-- ===== IMPACT ===== -->
-    <section class="op" data-op id="impact">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>query impact --summary</span><span class="plain">Impact highlights</span></p>
-      <div class="op__out recs" data-out>
-        <p data-line class="secintro">Numbers from my Air Force cyber defense work. Each one is on my resume and stands up to questions.</p>
-        {metrics.map((m) => (
-          <div class="rec" data-line>
-            <span class="id">[{m.id}]</span><span class="k">{m.k}</span><span class="v">{m.v}</span>
-            <span class="note">{m.note}</span>
+    <!-- ============ SIGNAL ============ -->
+    <section class="signal-band">
+      <div class="wrap bay">
+        <div class="signal__grid">
+          <div data-in>
+            <p class="meta" style="margin-bottom:22px">01 / On the record</p>
+            <p class="signal__claim" set:html={signalClaim} />
+            <p class="meta signal__src">Source: service record and awards, US Air Force, 2023 to present</p>
           </div>
+          <div class="figs" data-stagger>
+            {figures.map((f, i) => (
+              <div class="fig" style={`--i:${i}`}>
+                <span class="fig__n">{f.n}{f.u && <span class="u">{f.u}</span>}</span>
+                <span class="fig__l">{f.l}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section id="work" class="wrap bay">
+      <div class="workhead">
+        <SectionHead idx="02 / Work" title="Three systems, taken seriously">
+          <p class="lede">
+            Each one exists because something in AI serving is normally left unmeasured or ungoverned.
+            All of them are public, and the numbers below come from the repositories, not from memory.
+          </p>
+        </SectionHead>
+        <ol class="widx" data-in>
+          {studies.map((s, i) => (
+            <li><span>{String(i + 1).padStart(2, "0")}</span>{byId[s.cf].title}</li>
+          ))}
+          <li><span>04</span>{tower.title}, live demo</li>
+          <li class="rest"><span>+{archive.length}</span>in the archive below</li>
+        </ol>
+      </div>
+
+      {studies.map((s, i) => {
+        const cf = byId[s.cf];
+        return (
+          <article class={`case${i === 1 ? " case--flip" : ""}`} data-in>
+            <div class="case__idx">
+              <span class="n">{String(i + 1).padStart(2, "0")}</span>
+              <span class="r" aria-hidden="true"></span>
+              <span class="t">{s.kind}</span>
+            </div>
+            <div class="case__grid">
+              <div class="case__body">
+                <h3 class="h3">{cf.title}</h3>
+                <p class="case__plain">{cf.plain}</p>
+                <dl class="case__facets">
+                  <div class="facet"><dt>Why it exists</dt><dd>{s.why}</dd></div>
+                  <div class="facet"><dt>The hard part</dt><dd>{s.hard}</dd></div>
+                  <div class="facet"><dt>Where it landed</dt><dd>{s.out}</dd></div>
+                </dl>
+                <div class="case__foot">
+                  <span class="case__stack">{s.stack}</span>
+                  <span class="case__links">
+                    <a class="ilink" href={cf.url} target="_blank" rel="noreferrer">Repository ↗</a>
+                    {cf.chart && <a class="ilink" href={cf.chart} target="_blank" rel="noreferrer">Measurements ↗</a>}
+                  </span>
+                </div>
+              </div>
+
+              <div class="case__media">
+                {s.media === "gateway" && (
+                  <Media cap="Control plane" right="request path" foot="Every stage writes to the same audit record.">
+                    <svg class="dg" viewBox="0 0 480 268" role="img" aria-labelledby="dg-t dg-d">
+                      <title id="dg-t">Secure inference gateway architecture</title>
+                      <desc id="dg-d">A caller enters the gateway, passes identity, policy and budget, routing, then reaches model servers, while every stage writes to an audit store and a metrics pipeline.</desc>
+                      <g class="dg-l">
+                        <path d="M62 84 H104" /><path d="M62 84 V134 H104" />
+                        <path d="M330 84 H392" /><path d="M330 134 H392" />
+                        <path d="M217 196 V226 H392 V206" />
+                      </g>
+                      <g class="dg-box">
+                        <rect x="8" y="66" width="54" height="36" /><rect x="104" y="40" width="226" height="150" class="dg-hull" />
+                        <rect x="392" y="66" width="80" height="36" /><rect x="392" y="116" width="80" height="36" />
+                        <rect x="392" y="188" width="80" height="36" />
+                      </g>
+                      <g class="dg-node">
+                        <rect x="120" y="60" width="90" height="26" /><rect x="224" y="60" width="90" height="26" />
+                        <rect x="120" y="98" width="90" height="26" /><rect x="224" y="98" width="90" height="26" />
+                        <rect x="120" y="136" width="194" height="26" class="dg-accent" />
+                      </g>
+                      <g class="dg-t">
+                        <text x="35" y="88" text-anchor="middle">CALLER</text>
+                        <text x="165" y="77" text-anchor="middle">IDENTITY</text>
+                        <text x="269" y="77" text-anchor="middle">POLICY</text>
+                        <text x="165" y="115" text-anchor="middle">BUDGET</text>
+                        <text x="269" y="115" text-anchor="middle">ROUTE</text>
+                        <text x="217" y="153" text-anchor="middle" class="dg-on">AUDIT RECORD</text>
+                        <text x="432" y="88" text-anchor="middle">MODEL</text>
+                        <text x="432" y="138" text-anchor="middle">FALLBACK</text>
+                        <text x="432" y="210" text-anchor="middle">METRICS</text>
+                      </g>
+                    </svg>
+                  </Media>
+                )}
+
+                {s.media === "kernels" && (
+                  <Media cap="Fused RMSNorm" right="RTX 5070 Ti" foot="p50 of the published run. Raw distributions and the CI regression gate are in the repository.">
+                    <div class="bars">
+                      <div>
+                        <p class="bar__top"><span>torch.compile baseline</span><b>1.00x</b></p>
+                        <div class="bar__track"><span class="bar__fill" style="--w:45%"></span></div>
+                      </div>
+                      <div class="bar--key">
+                        <p class="bar__top"><span>fused Triton kernel</span><b>up to 2.2x</b></p>
+                        <div class="bar__track"><span class="bar__fill" style="--w:100%"></span></div>
+                      </div>
+                      <p class="strip__eq" style="margin-top:4px">
+                        <span aria-hidden="true">✓</span> every output checked against an FP32 reference
+                      </p>
+                    </div>
+                  </Media>
+                )}
+
+                {s.media === "replay" && (
+                  <Media cap="Deterministic replay" right="same input, twice" foot="Identical fingerprints are the precondition for trusting a promotion decision.">
+                    <div class="strips">
+                      <div>
+                        <p class="strip__l">RUN A :: batch admission trace</p>
+                        <div class="strip__t" data-strip></div>
+                      </div>
+                      <div>
+                        <p class="strip__l">RUN B :: replayed from fingerprint</p>
+                        <div class="strip__t" data-strip></div>
+                      </div>
+                      <p class="strip__eq"><span aria-hidden="true">=</span> fingerprints match :: promotion may proceed</p>
+                    </div>
+                  </Media>
+                )}
+              </div>
+            </div>
+          </article>
+        );
+      })}
+
+      <!-- live demo strip -->
+      <aside class="demo" data-in>
+        <div>
+          <p class="demo__tag"><span class="pip" aria-hidden="true"></span>Running in your browser</p>
+          <h3 class="h3" style="margin-bottom:12px">{tower.title}</h3>
+          <p class="case__plain">{tower.plain}</p>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <a class="btn btn--key" href={tower.demo} target="_blank" rel="noreferrer">Open the demo <span class="btn__arrow" aria-hidden="true">→</span></a>
+          <a class="btn" href={tower.url} target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </aside>
+
+      <!-- archive -->
+      <div class="archive" data-in>
+        <p class="meta" style="margin-bottom:18px">Also public</p>
+        <div class="archive__head meta">
+          <span></span><span>Project</span><span>Headline</span><span>Stack</span><span></span>
+        </div>
+        {archive.map((cf, i) => (
+          <a class="arow" href={cf.url} target="_blank" rel="noreferrer">
+            <span class="arow__n">{String(i + 4).padStart(2, "0")}</span>
+            <span class="arow__t">{cf.title}</span>
+            <span class="arow__f">{archiveFigure[cf.id]}</span>
+            <span class="arow__s">{archiveStack[cf.id]}</span>
+            <span class="arow__a" aria-hidden="true">↗</span>
+            <span class="arow__d">{cf.plain}</span>
+          </a>
         ))}
       </div>
     </section>
 
-    <!-- ===== REQUEST PATH ===== -->
-    <section class="op" data-op id="request">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>trace one_ai_request</span><span class="plain">How my work fits together</span></p>
-      <div class="op__out" data-out data-gap="70">
-        <p data-line class="secintro">This is the layer I build, shown as one AI request passing through it. Click any stage, or <span class="hl">run the trace</span> and watch it catch a failure.</p>
-        <div class="trace" id="trace" role="list">
-          <span class="pkt" id="trace-pkt" aria-hidden="true">◆</span>
-          {requestPath.map((s, i) => (
-            <button class="tl" data-line data-stage={s.id} role="listitem">
-              <span class="br">{i === requestPath.length - 1 ? "└─" : "├─"}</span>
-              <span class="sq">{s.seq}</span>
-              <span class="nm">{s.name}</span>
-              <span class="mt">{s.meta}</span>
-            </button>
+    <!-- ============ SYSTEM ============ -->
+    <section id="system" class="signal-band">
+      <div class="wrap bay">
+        <SectionHead idx="03 / System" title="What the layer actually does">
+          <p class="lede">
+            One request, seven gates. Step through it, or inject the failure the last gate exists to catch.
+          </p>
+        </SectionHead>
+
+        <div class="sys__grid">
+          <div class="pipe" data-in>
+            <div class="pipe__list" id="pipe">
+              <span class="pipe__pkt" id="pkt" aria-hidden="true"></span>
+              {requestPath.map((s) => (
+                <button class="stage" type="button" data-stage={s.id}>
+                  <span class="stage__n">{s.seq}</span>
+                  <span class="stage__t">{s.name}</span>
+                  <span class="stage__m">{s.meta}</span>
+                </button>
+              ))}
+            </div>
+            <div class="pipe__ctl">
+              <button type="button" id="pipe-run">Run the trace</button>
+              <button type="button" id="pipe-fault">Inject a bad version</button>
+            </div>
+          </div>
+
+          <div data-in>
+            <div class="sysout" id="sysout">
+              <p class="sysout__t" id="sysout-t">{requestPath[0].name}</p>
+              <p class="sysout__b" id="sysout-b">{requestPath[0].body}</p>
+              <p class="sysout__hint">Click any gate to read it</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="tenets" data-in>
+          {tenets.map((t) => (
+            <div class="tenet"><h4>{t.t}</h4><p>{t.b}</p></div>
           ))}
         </div>
-        <div class="trace__ctl" data-line>
-          <button class="tok" id="trace-run">run trace</button>
-          <button class="tok" id="trace-fault">inject fault</button>
+
+        <div class="code" data-in>
+          <pre><code set:html={highlighted} /></pre>
+          <p class="code__why">{limiterWhy}</p>
         </div>
-        <div class="trace__out" id="trace-out" data-line aria-live="polite"><span class="k">&gt;&gt;</span> <span class="t">{requestPath[0].name}</span>{"\n   "}{requestPath[0].body}</div>
       </div>
     </section>
 
-    <!-- ===== PROJECTS ===== -->
-    <section class="op" data-op id="files">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /projects</span><span class="plain">Projects</span></p>
-      <div class="op__out" data-out data-gap="60">
-        <p data-line class="secintro">Seven systems, all public on GitHub. One plain sentence each; open <span class="hl">inspect</span> for the engineering detail.</p>
-        {caseFiles.map((cf, i) => (
-          <div class="fwrap" data-line data-roles={cf.roles}>
-            <details class="fentry" id={`case-${cf.id}`}>
-              <summary>
-                <span class="fid">{String(i + 1).padStart(2, "0")}</span>
-                <span class="fname">{cf.title}</span>
-                <span class="ftags">{cf.tags.join(" · ")}</span>
-              </summary>
-              <div class="finspect">
-                <dl>
-                  <div class="blk"><dt>problem</dt><dd>{cf.problem}</dd></div>
-                  <div class="blk"><dt>built</dt><dd>{cf.system}</dd></div>
-                  <div class="blk"><dt>proof</dt><dd>{cf.evidence}</dd></div>
-                  <div class="blk"><dt>result</dt><dd>{cf.impact}</dd></div>
-                </dl>
-              </div>
-            </details>
-            <p class="fplain">{cf.plain}</p>
-            <p class="flinks">
-              {cf.demo && <a class="tok demo" href={cf.demo} target="_blank" rel="noreferrer">live demo</a>}
-              {cf.chart && <a class="tok" href={cf.chart} target="_blank" rel="noreferrer">see the chart</a>}
-              <a class="tok" href={cf.url} target="_blank" rel="noreferrer">source code</a>
-            </p>
-          </div>
-        ))}
-      </div>
-    </section>
+    <!-- ============ EXPERIENCE ============ -->
+    <section id="experience" class="wrap bay">
+      <SectionHead idx="04 / Experience" title="Where this was learned">
+        <p class="lede">Two tracks, running at the same time: the watch floor, and everything built after hours.</p>
+      </SectionHead>
 
-    <!-- ===== PROOF ===== -->
-    <section class="op" data-op id="evidence">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /proof</span><span class="plain">Proof, not promises</span></p>
-      <div class="op__out" data-out data-gap="55">
-        <p data-line class="secintro">Everything above is checkable. These links go straight to the artifacts.</p>
-        {proof.map((p) => (
-          <div class="prow" data-line>
-            <span class="pkind">[{p.kind}]</span>
-            <a class="tok" href={p.href} target="_blank" rel="noreferrer">{p.label}</a>
-            <span class="pplain">{p.plain}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- ===== EXPERIENCE ===== -->
-    <section class="op" data-op id="service">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>read service_record.log</span><span class="plain">Experience</span></p>
-      <div class="op__out log" data-out data-gap="42">
-        {serviceRecord.map((r, i) => (
-          <>
-            <div data-line data-roles={svcRoles[i]}>
-              <span class="ts">[{r.span}]</span>
-              <span class="hd"><span class="org">{r.org}</span> :: {r.role}<br />{r.unit}</span>
-            </div>
-            {r.lines.map((l) => (
-              <div data-line data-roles={svcRoles[i]}><span class="ts">  ·</span><span>{l}</span></div>
-            ))}
-          </>
-        ))}
-      </div>
-    </section>
-
-    <!-- ===== SKILLS ===== -->
-    <section class="op" data-op id="capability">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>query capability</span><span class="plain">What I can do for you</span></p>
-      <div class="op__out recs" data-out data-gap="46">
-        {capability.map((c) => (
-          <div class="rec two caprow" data-line data-roles={capRoles[c.code]}>
-            <span class="id">{c.code}</span><span class="k2">{c.title}</span>
-            <span class="note"><span class="capplain">{c.plain}</span><br /><span class="captech">{c.items}</span></span>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- ===== RECOGNITION ===== -->
-    <section class="op" data-op id="recognition">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>ls /recognition</span><span class="plain">Awards and education</span></p>
-      <div class="op__out" data-out data-gap="34">
-        <div data-line><span class="cy">awards/</span></div>
-        {awards.map((a) => <div data-line><span class="fl">  ·</span> {a}</div>)}
-        <div data-line><span class="cy">certifications/</span></div>
-        {certifications.map((c) => <div data-line><span class="fl">  ·</span> {c}</div>)}
-        <div data-line><span class="cy">education/</span></div>
-        {education.map((e) => <div data-line><span class="fl">  ·</span> {e}</div>)}
-      </div>
-    </section>
-
-    <!-- ===== CONTACT ===== -->
-    <section class="op" data-op id="contact">
-      <p class="op__cmd"><span class="ps">{ps}</span> <span class="cmd" data-type>open outbound_channel</span><span class="plain">Contact</span></p>
-      <div class="op__out" data-out data-gap="40">
-        <div class="contact">
-          <div class="contact__eye" aria-hidden="true"><pre id="contact-eye"></pre></div>
+      {serviceRecord.map((j) => (
+        <article class="job" data-in>
+          <p class="job__when">{j.span}</p>
           <div>
-            <p data-line><span class="fl">endpoint</span> <span class="hl">{identity.name}</span> <span class="fl">::</span> channel <span class="ok">open</span></p>
-            <p data-line>If you are hiring for AI infrastructure, platform security, or mission software, I would like to talk.</p>
-            <p data-line class="tokrow">
-              <a class="tok" href={`mailto:${identity.links.email}`}>{identity.links.email}</a>
-              <a class="tok" href={identity.links.linkedin} target="_blank" rel="noreferrer">linkedin</a>
-              <a class="tok" href={identity.links.github} target="_blank" rel="noreferrer">github</a>
-              <a class="tok" href={resumeHref} target="_blank" rel="noreferrer">resume.pdf</a>
-            </p>
-            <p data-line style="color:var(--faint)">{ps} <span class="prompt-cur"></span></p>
+            <h3 class="job__role">{j.role}</h3>
+            <p class="job__org">{j.org} :: {j.unit}</p>
+            <ul class="job__lines">{j.lines.map((l) => <li>{l}</li>)}</ul>
+          </div>
+        </article>
+      ))}
+
+      <div class="creds" data-in>
+        <div class="cred">
+          <h4>Recognition</h4>
+          <ul>{awards.map((a) => <li>{a}</li>)}</ul>
+        </div>
+        <div class="cred">
+          <h4>Clearance and certification</h4>
+          <ul>{certifications.map((c) => <li>{c}</li>)}</ul>
+        </div>
+        <div class="cred">
+          <h4>Education</h4>
+          <ul>{education.map((e) => <li>{e}</li>)}</ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="signal-band">
+      <div class="wrap bay">
+        <SectionHead idx="05 / About" title="The person behind the repositories" />
+        <div class="about__grid">
+          <div class="about__body" data-in>
+            {about.map((p) => <p set:html={p} />)}
+          </div>
+          <div class="about__side" data-in>
+            <dl>
+              <div><dt>Based</dt><dd>{identity.location}</dd></div>
+              <div><dt>Open to</dt><dd>{identity.open}</dd></div>
+              <div><dt>Clearance</dt><dd>{identity.clearance}, active</dd></div>
+              <div><dt>Working in</dt><dd>Python, Rust, TypeScript, C++, SQL, Linux, Docker, Kubernetes</dd></div>
+              <div><dt>Reading room</dt><dd>Serving internals, GPU kernels, and anything with a measurement attached</dd></div>
+            </dl>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="contact">
+      <div class="wrap bay">
+        <div class="contact__grid">
+          <div data-in>
+            <p class="meta" style="margin-bottom:24px">06 / Contact</p>
+            <p class="display">Bring me a system that has to stay up.</p>
+            <a class="contact__mail ilink" href={`mailto:${identity.links.email}`}>{identity.links.email}</a>
+            <div class="contact__links">
+              <a class="btn" href={identity.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              <a class="btn" href={identity.links.github} target="_blank" rel="noreferrer">GitHub</a>
+              <a class="btn" href={resume} target="_blank" rel="noreferrer">Resume (PDF)</a>
+            </div>
+          </div>
+          <div class="eyewrap" data-in>
+            <pre class="eye" id="eye" aria-hidden="true"></pre>
+            <span class="meta">sentinel :: idle</span>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- ===== COMMAND PALETTE ===== -->
-  <div id="palette" class="palette" role="dialog" aria-modal="true" aria-label="Command palette" hidden>
-    <div class="palette__box">
-      <div class="palette__bar"><span class="u">{identity.handle}</span><span class="ps">@</span><span class="host">{identity.host}</span><span class="ps">:~$ command</span></div>
-      <div class="palette__inp">
-        <span class="p">&gt;_</span>
-        <input id="palette-input" type="text" autocomplete="off" spellcheck="false" placeholder="open · goto · view · contact" aria-label="Command input" />
-        <kbd>esc</kbd>
-      </div>
-      <ul id="palette-list" class="palette__list" role="listbox" aria-label="Commands"></ul>
-      <p class="palette__hint">↑↓ navigate · ↵ run · esc close</p>
+  <footer class="foot">
+    <div class="foot__in">
+      <span>{identity.name}</span>
+      <span>Hampton, VA</span>
+      <span class="grow">Built with Astro. No trackers.</span>
     </div>
-  </div>
+  </footer>
+
+  <Palette />
 </Base>
+
+<style>
+  /* diagram: the only place SVG needs its own rules */
+  .dg { width: 100%; height: auto; }
+  .dg-l path { fill: none; stroke: var(--line-hard); stroke-width: 1; }
+  .dg-box rect { fill: none; stroke: var(--line-hard); stroke-width: 1; }
+  .dg-box .dg-hull { stroke: var(--fg-4); }
+  .dg-node rect { fill: rgba(255, 255, 255, 0.035); stroke: var(--line); stroke-width: 1; }
+  .dg-node .dg-accent { fill: var(--brass-soft); stroke: rgba(207, 166, 78, 0.45); }
+  .dg-t text {
+    fill: var(--fg-3); font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.13em;
+  }
+  .dg-t .dg-on { fill: var(--brass); }
+</style>
