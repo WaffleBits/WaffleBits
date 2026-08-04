@@ -41,6 +41,18 @@ export const gates = [
   ["07", "Gate", "promote, hold or roll back on regression"],
 ];
 
+/* End-to-end benchmark. Permalinked to the measurement commit so the
+   links survive a merge or a deleted branch. Wording states the null
+   result: the differences sat inside run-to-run variance, so no
+   overhead or speedup figure is claimed. */
+export const measurement = {
+  label: "End-to-end measurement",
+  body:
+    "Benchmarked against direct vLLM on the same host: Qwen2.5-3B on an RTX 5070 Ti, driven by vLLM's own serving client with paired seeds and three repetitions. 3,000 requests, no failures. Gateway throughput tracked direct within run-to-run variance, so no overhead or speedup figure is claimed.",
+  method: "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/e15b9f0/bench/README.md",
+  results: "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/e15b9f0/bench/results/20260803T212059Z-rtx5070ti-qwen25-3b-vllm026/report.md",
+};
+
 export const limiterCode = `local current = redis.call("INCRBY", KEYS[1], ARGV[1])
 if current == tonumber(ARGV[1]) then
   redis.call("PEXPIRE", KEYS[1], ARGV[2])

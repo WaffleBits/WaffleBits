@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import { identity, serviceRecord, awards, certifications, education } from "../data/portfolio";
-import { role, intro, openTo, measured, gates, limiterCode, limiterNote, index } from "../data/site";
+import { role, intro, openTo, measured, gates, limiterCode, limiterNote, measurement, index } from "../data/site";
 import { asset } from "../lib/url";
 
 const resume = asset("assets/AdnanBerik-Resume.pdf");
@@ -147,6 +147,15 @@ const code = limiterCode
           <div class="code__side">
             <span class="proj__tag">gateway/rate_limit.py, Redis path</span>
             <p>{limiterNote}</p>
+          </div>
+        </div>
+
+        <div class="evid">
+          <span class="proj__tag">{measurement.label}</span>
+          <p>{measurement.body}</p>
+          <div class="lks">
+            <a class="lk" href={measurement.results} target="_blank" rel="noreferrer">Results ↗</a>
+            <a class="lk" href={measurement.method} target="_blank" rel="noreferrer">Method ↗</a>
           </div>
         </div>
 
