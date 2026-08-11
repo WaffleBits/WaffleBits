@@ -54,7 +54,7 @@ jobs:
           grep -q "adnanberik@hotmail.com" dist/index.html
           grep -q "linkedin.com/in/adnanberik" dist/index.html
           grep -q "wafflebits.github.io/readiness-control-tower" dist/index.html
-          grep -q "hashed series-membership checks that reject selected-series churn" dist/index.html
+          grep -q "opt-in W3C trace context" dist/index.html
           # Every project must still link to its repository.
           for r in secure-gpu-inference-gateway deterministic-inference-scheduler \
                    triton-kernel-lab triton-inference-benchmark \
