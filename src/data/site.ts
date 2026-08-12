@@ -83,8 +83,8 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "Load generation with separate warmup, opt-in W3C trace context, sampled GPU gauges, and checks that reject selected-series churn.",
-    fig: "3 workload shapes",
+    line: "Load generation with separate warmup, sampled GPU gauges, and an opt-in gate that validates same-trace response context without retaining identifiers.",
+    fig: "Fail-closed trace gate",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
   },
