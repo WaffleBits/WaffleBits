@@ -83,8 +83,8 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "Load generation with separate warmup, sampled GPU gauges, and an opt-in gate that validates same-trace response context without retaining identifiers.",
-    fig: "Fail-closed trace gate",
+    line: "Open-loop request pacing with warmup-separated latency, client queue timing, sampled GPU gauges, and privacy-safe trace-continuation gates.",
+    fig: "Offered load vs completion",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
   },
