@@ -83,7 +83,7 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "Open-loop request pacing with warmup-separated latency, client queue timing, sampled GPU gauges, and privacy-safe trace-continuation gates.",
+    line: "Open-loop request pacing with measured streaming and queue latency, sampled GPU gauges, privacy-safe trace continuation, and exact-by-default numeric batch-output gates with explicit run-scoped tolerances.",
     fig: "Offered load vs completion",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
