@@ -83,8 +83,8 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "Open-loop request pacing with measured client retry attempts and an enforceable amplification budget, streaming and queue latency, sampled GPU gauges, privacy-safe trace continuation, and numeric batch-output gates.",
-    fig: "Client attempts / logical request",
+    line: "Open-loop request pacing with measured retries and privacy-safe ingress, backend, and success counter reconciliation around streamed load.",
+    fig: "Client attempts / path receipts",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
   },
