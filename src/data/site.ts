@@ -83,8 +83,8 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "Open-loop request pacing with measured retries and privacy-safe ingress, backend, and success counter reconciliation around streamed load.",
-    fig: "Client attempts / path receipts",
+    line: "Open-loop streamed load through separate local router and backend fixtures, with controlled failures, measured retries, and privacy-safe independent counters.",
+    fig: "6 attempts / 6 · 5 · 4 path receipts",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
   },
