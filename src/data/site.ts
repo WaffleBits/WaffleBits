@@ -83,8 +83,8 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "Two independent client processes run against one planned start in a deterministic local SSE fixture, with configuration, overlap, start-skew, and trace gates.",
-    fig: "2 clients / 8 requests / 8 traces",
+    line: "CI runs two authenticated loopback agents and benchmark children on one host; wrong-key, replay, clock-uncertainty, skew, overlap, and trace gates are checked.",
+    fig: "2 agents / 8 requests / 8 traces",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
   },
