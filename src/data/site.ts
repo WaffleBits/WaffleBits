@@ -83,7 +83,7 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "CI runs two authenticated loopback agents and benchmark children on one host; wrong-key, replay, clock-uncertainty, skew, overlap, and trace gates are checked.",
+    line: "CI drops one successful response, recovers its completed in-memory result on retry, and keeps target work at eight requests; persistence and multi-host behavior are not claimed.",
     fig: "2 agents / 8 requests / 8 traces",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
