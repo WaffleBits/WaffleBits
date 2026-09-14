@@ -83,8 +83,8 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "CI drops one successful response, recovers its completed in-memory result on retry, and keeps target work at eight requests; persistence and multi-host behavior are not claimed.",
-    fig: "2 agents / 8 requests / 8 traces",
+    line: "A synthetic CI fixture drops a completed response, restarts the agent, and recovers its result from opt-in SQLite state without repeating either target request; multi-host and production behavior are not claimed.",
+    fig: "1 restart / 2 requests / 0 duplicates",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
   },
