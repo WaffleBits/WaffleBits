@@ -72,7 +72,7 @@ story = [
     *bullets([
         "Implemented a deterministic continuous-batching and paged KV-cache scheduler in Rust with replay fingerprints and promote/hold/rollback release gates.",
         "Developed correctness-gated Triton RMSNorm, SwiGLU, attention, KV-movement, and INT4 kernels; published raw RTX 5070 Ti measurements up to 2.2x faster than torch.compile for the primary kernel set.",
-        "Built authenticated remote-agent coordination for serving benchmarks; a synthetic CI fixture drops a completed response, restarts the agent, and recovers its result from opt-in SQLite state without repeating either of two target requests. The fixture checks database integrity, owner-only permissions, and persisted-field privacy.",
+        "Built authenticated remote-agent coordination with HMAC-bound coordinator state and exact-request reconciliation; a single-host synthetic CI fixture terminates the coordinator after two agents complete, then retrieves eight successful requests with zero duplicate target work. Wrong-token, stale-shard, owner-only state, and persisted-field privacy checks fail closed.",
     ]),
     Paragraph("Low-Latency Matching Engine (C++20, Python)", styles["roleline"]),
     *bullets([
