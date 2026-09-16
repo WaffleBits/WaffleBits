@@ -83,8 +83,8 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "A single-host synthetic CI fixture terminates a coordinator after two agents complete, then verifies and retrieves both shards from HMAC-authenticated state while target traffic stays at eight requests; partial, multi-host, and production recovery are not claimed.",
-    fig: "2 coordinators / 8 requests / 0 duplicates",
+    line: "A single-host synthetic CI fixture runs two authenticated TLS 1.2+ HTTPS agents with an explicit CA, then recovers completed shards after response loss/restart; target traffic remains eight requests with zero duplicates. Partial, multi-host, and production recovery are not claimed.",
+    fig: "2 HTTPS agents / 8 requests / 0 duplicates",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
   },
