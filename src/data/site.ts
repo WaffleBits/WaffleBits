@@ -83,7 +83,7 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "A single-host synthetic CI fixture runs two authenticated TLS 1.2+ HTTPS agents with an explicit CA, then recovers completed shards after response loss/restart; target traffic remains eight requests with zero duplicates. Partial, multi-host, and production recovery are not claimed.",
+    line: "A single-host synthetic CI fixture runs two authenticated TLS 1.2+ HTTPS agents with an explicit CA, then recovers completed shards after response loss/restart; the privacy-safe trend report compares ordered saved runs with explicit p95-latency, throughput, success-rate, and retry-amplification gates. Target traffic remains eight requests with zero duplicates. Partial, multi-host, and production recovery are not claimed.",
     fig: "2 HTTPS agents / 8 requests / 0 duplicates",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
