@@ -72,7 +72,7 @@ story = [
     *bullets([
         "Implemented a deterministic continuous-batching and paged KV-cache scheduler in Rust with replay fingerprints and promote/hold/rollback release gates.",
         "Developed correctness-gated Triton RMSNorm, SwiGLU, attention, KV-movement, and INT4 kernels; published raw RTX 5070 Ti measurements up to 2.2x faster than torch.compile for the primary kernel set.",
-        "Built authenticated remote-agent coordination with HMAC-bound state reconciliation and opt-in TLS 1.2+ with explicit CA trust. CI runs two HTTPS agents, rejects wrong credentials and CA, recovers eight requests with zero duplicates, and enforces artifact privacy. Published a privacy-safe trend CLI with p95 latency, throughput, success, and retry-amplification gates.",
+        "Built authenticated remote-agent coordination with HMAC-bound state reconciliation and opt-in TLS 1.2+ CA trust. CI runs two HTTPS agents, rejects wrong credentials/CA, recovers eight requests with zero duplicates. Added privacy-safe trend gates and a shell-free lifecycle qualifier measuring process-launch to HTTP readiness; no model cold-start claim.",
     ]),
     Paragraph("Low-Latency Matching Engine (C++20, Python)", styles["roleline"]),
     *bullets([
