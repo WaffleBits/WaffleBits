@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
-import { identity, serviceRecord, awards, certifications, education } from "../data/portfolio";
+import { identity, serviceRecord, awards, certifications, education, proof } from "../data/portfolio";
 import { role, intro, openTo, measured, gates, limiterCode, limiterNote, measurement, index } from "../data/site";
 import { asset } from "../lib/url";
 
@@ -248,6 +248,38 @@ const code = limiterCode
             <span class="irow__l">{p.line}</span>
           </a>
         ))}
+      </div>
+    </section>
+
+    <!-- ===================== VERIFICATION INDEX ===================== -->
+    <section id="evidence" class="band">
+      <div class="wrap bay">
+        <div class="lead" data-in>
+          <h2 class="h2">Verification index</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="aside">public artifacts</span>
+        </div>
+        <p class="evidence__intro" data-in>
+          The shortest path from a claim to something a reviewer can inspect.
+          Each row links to the existing public code, artifact, or live demo;
+          the category describes the evidence boundary rather than implying production scale.
+        </p>
+        <div class="proof" data-in>
+          {proof.map((item) => (
+            <a class="proof__row" href={item.href} target="_blank" rel="noreferrer">
+              <span class="proof__kind">{item.kind}</span>
+              <span class="proof__body">
+                <strong>{item.label}</strong>
+                <span>{item.plain}</span>
+              </span>
+              <span class="proof__go" aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+        <p class="evidence__note" data-in>
+          Synthetic fixtures, projections, and controlled local measurements stay labelled as such.
+          Production-scale operation is not claimed where the public artifact does not demonstrate it.
+        </p>
       </div>
     </section>
 

@@ -58,6 +58,12 @@ jobs:
           grep -q "privacy-safe trend report compares ordered saved runs" dist/index.html
           grep -q "process-launch to selected HTTP-200 readiness" dist/index.html
           grep -q "2 HTTPS agents / 8 requests / 0 duplicates" dist/index.html
+          grep -q 'id="evidence"' dist/index.html
+          grep -q "Verification index" dist/index.html
+          grep -q "restart reconciliation" dist/index.html
+          grep -q "controlled readiness" dist/index.html
+          grep -q "https://github.com/WaffleBits/triton-inference-benchmark/blob/main/lifecycle_qualification.py" dist/index.html
+          test "$(grep -o 'class="proof__row"' dist/index.html | wc -l)" -eq 12
           # Every project must still link to its repository.
           for r in secure-gpu-inference-gateway deterministic-inference-scheduler \
                    triton-kernel-lab triton-inference-benchmark \
