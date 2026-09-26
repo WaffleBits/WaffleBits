@@ -152,9 +152,25 @@ container using an ephemeral source copy, owner-writable npm directories, and
 - `git diff --check` passed for tracked text changes, excluding only the binary
   PDF path.
 
-Remote publication and CI results will be appended after the branch is pushed,
-the Pages workflow completes, and the merged live page is read back. The
-remaining evidence gap is unchanged: the public work demonstrates controlled and
-synthetic evidence, not production-scale multi-host operation, real GPU-cluster
-ownership, model/accelerator cold-start timing, 24x7 production on-call,
-enterprise adoption, or a production SLO.
+## Publication verification
+
+- PR [#50](https://github.com/WaffleBits/WaffleBits/pull/50) was merged with
+  squash after its pull-request `build` check passed in
+  [run 36238111234](https://github.com/WaffleBits/WaffleBits/actions/runs/36238111234).
+- GitHub main now reads back at commit
+  [`e81ab9f`](https://github.com/WaffleBits/WaffleBits/commit/e81ab9fdca7444f0d80c4e2f60c9dee464379b56).
+  The public contents API returned both the updated page source and this report
+  from `main`.
+- The post-merge Pages workflow
+  [36238144756](https://github.com/WaffleBits/WaffleBits/actions/runs/36238144756)
+  passed both `build` and `deploy`; GitHub Pages reports `built`.
+- The live profile at https://wafflebits.github.io/WaffleBits/ returned HTTP 200
+  after deployment. A cache-busting read found the new `#capabilities` section,
+  the `systems → evidence` label, six capability rows, all 12 proof rows,
+  representative benchmark/gateway/scheduler links, and the `/WaffleBits/`
+  resume asset path.
+
+The remaining evidence gap is unchanged: the public work demonstrates controlled
+and synthetic evidence, not production-scale multi-host operation, real
+GPU-cluster ownership, model/accelerator cold-start timing, 24x7 production
+on-call, enterprise adoption, or a production SLO.
