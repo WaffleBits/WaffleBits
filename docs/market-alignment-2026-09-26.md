@@ -157,12 +157,13 @@ container using an ephemeral source copy, owner-writable npm directories, and
 - PR [#50](https://github.com/WaffleBits/WaffleBits/pull/50) was merged with
   squash after its pull-request `build` check passed in
   [run 36238111234](https://github.com/WaffleBits/WaffleBits/actions/runs/36238111234).
-- GitHub main now reads back at commit
+  Its implementation merge is
   [`e81ab9f`](https://github.com/WaffleBits/WaffleBits/commit/e81ab9fdca7444f0d80c4e2f60c9dee464379b56).
-  The public contents API returned both the updated page source and this report
-  from `main`.
-- The post-merge Pages workflow
-  [36238144756](https://github.com/WaffleBits/WaffleBits/actions/runs/36238144756)
+- PR [#51](https://github.com/WaffleBits/WaffleBits/pull/51) then merged the
+  completed publication record. The public contents API read back both the
+  updated page source and this report from `main` after that merge.
+- The Pages workflow triggered by that final report update,
+  [36238271391](https://github.com/WaffleBits/WaffleBits/actions/runs/36238271391),
   passed both `build` and `deploy`; GitHub Pages reports `built`.
 - The live profile at https://wafflebits.github.io/WaffleBits/ returned HTTP 200
   after deployment. A cache-busting read found the new `#capabilities` section,
