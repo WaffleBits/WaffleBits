@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
-import { identity, serviceRecord, awards, certifications, education, proof } from "../data/portfolio";
+import { identity, serviceRecord, awards, certifications, education, proof, capability } from "../data/portfolio";
 import { role, intro, openTo, measured, gates, limiterCode, limiterNote, measurement, index } from "../data/site";
 import { asset } from "../lib/url";
 
@@ -279,6 +279,45 @@ const code = limiterCode
         <p class="evidence__note" data-in>
           Synthetic fixtures, projections, and controlled local measurements stay labelled as such.
           Production-scale operation is not claimed where the public artifact does not demonstrate it.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== CAPABILITIES ===================== -->
+    <section id="capabilities" class="band">
+      <div class="wrap bay">
+        <div class="lead" data-in>
+          <h2 class="h2">Capabilities</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="aside">systems → evidence</span>
+        </div>
+        <p class="capabilities__intro" data-in>
+          The recurring systems surface behind the projects above. Each row names
+          the boundary in plain language, then points to the existing work or
+          evidence that a reviewer can inspect.
+        </p>
+        <div class="capabilities" data-in>
+          {capability.map((item) => (
+            <a
+              class="capability"
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noreferrer" : undefined}
+              aria-label={`${item.title}: ${item.link}`}
+            >
+              <span class="capability__code">{item.code}</span>
+              <span class="capability__copy">
+                <strong>{item.title}</strong>
+                <span>{item.plain}</span>
+              </span>
+              <span class="capability__items">{item.items}</span>
+              <span class="capability__go">{item.link} ↗</span>
+            </a>
+          ))}
+        </div>
+        <p class="capabilities__note" data-in>
+          This is a map to public artifacts and stated work history, not a claim
+          of production scale or enterprise adoption.
         </p>
       </div>
     </section>

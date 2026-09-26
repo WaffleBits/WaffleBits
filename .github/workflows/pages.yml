@@ -64,6 +64,13 @@ jobs:
           grep -q "controlled readiness" dist/index.html
           grep -q "https://github.com/WaffleBits/triton-inference-benchmark/blob/main/lifecycle_qualification.py" dist/index.html
           test "$(grep -o 'class="proof__row"' dist/index.html | wc -l)" -eq 12
+          grep -q 'id="capabilities"' dist/index.html
+          grep -q "systems → evidence" dist/index.html
+          test "$(grep -o 'class="capability"' dist/index.html | wc -l)" -eq 6
+          grep -q "https://github.com/WaffleBits/triton-inference-benchmark" dist/index.html
+          grep -q "https://github.com/WaffleBits/secure-gpu-inference-gateway" dist/index.html
+          grep -q "https://github.com/WaffleBits/deterministic-inference-scheduler" dist/index.html
+          grep -q "Experience record" dist/index.html
           # Every project must still link to its repository.
           for r in secure-gpu-inference-gateway deterministic-inference-scheduler \
                    triton-kernel-lab triton-inference-benchmark \

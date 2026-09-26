@@ -233,27 +233,47 @@ export const serviceRecord: ServiceEntry[] = [
   },
 ];
 
-export type CapabilityGroup = { code: string; title: string; plain: string; items: string };
+export type CapabilityGroup = {
+  code: string;
+  title: string;
+  plain: string;
+  items: string;
+  href: string;
+  external: boolean;
+  link: string;
+};
 
 export const capability: CapabilityGroup[] = [
   { code: "AI", title: "Run and measure AI serving",
     plain: "Stand up model serving, then prove how fast, reliable, and expensive it is.",
-    items: "latency percentiles / throughput / cost per request / GPU kernels / benchmarking" },
+    items: "latency percentiles / throughput / cost per request / GPU kernels / benchmarking",
+    href: "https://github.com/WaffleBits/triton-inference-benchmark", external: true,
+    link: "Benchmark evidence" },
   { code: "SEC", title: "Lock systems down",
     plain: "Control who gets access, cap what they can spend, and keep records that hold up.",
-    items: "access control / token budgets / audit trails / threat modeling / incident response" },
+    items: "access control / token budgets / audit trails / threat modeling / incident response",
+    href: "https://github.com/WaffleBits/secure-gpu-inference-gateway", external: true,
+    link: "Gateway controls" },
   { code: "OBS", title: "Make systems observable",
     plain: "If something breaks at 3am, the dashboards already know what and why.",
-    items: "Prometheus / Grafana / OpenTelemetry / release gates / runbooks" },
+    items: "Prometheus / Grafana / OpenTelemetry / release gates / runbooks",
+    href: "https://github.com/WaffleBits/secure-gpu-inference-gateway#evidence-artifacts", external: true,
+    link: "Telemetry artifacts" },
   { code: "SYS", title: "Build low-level systems",
     plain: "Write the fast, correct core in Rust or C++ and prove it behaves with tests and replays.",
-    items: "Rust / C++20 / deterministic replay / cross-language testing" },
+    items: "Rust / C++20 / deterministic replay / cross-language testing",
+    href: "https://github.com/WaffleBits/deterministic-inference-scheduler", external: true,
+    link: "Runtime evidence" },
   { code: "OPS", title: "Operate under pressure",
     plain: "My day job: enterprise cyber defense for the Air Force, with a TS/SCI clearance.",
-    items: "vulnerability management / compliance / enterprise tooling" },
+    items: "vulnerability management / compliance / enterprise tooling",
+    href: "#experience", external: false,
+    link: "Experience record" },
   { code: "LNG", title: "Daily tools",
     plain: "The stack I actually work in.",
-    items: "Python / Rust / TypeScript / C++ / SQL / Linux / Docker / Kubernetes / Git" },
+    items: "Python / Rust / TypeScript / C++ / SQL / Linux / Docker / Kubernetes / Git",
+    href: "#work", external: false,
+    link: "Selected work" },
 ];
 
 export const awards = [
