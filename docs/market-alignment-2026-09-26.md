@@ -159,12 +159,17 @@ container using an ephemeral source copy, owner-writable npm directories, and
   [run 36238111234](https://github.com/WaffleBits/WaffleBits/actions/runs/36238111234).
   Its implementation merge is
   [`e81ab9f`](https://github.com/WaffleBits/WaffleBits/commit/e81ab9fdca7444f0d80c4e2f60c9dee464379b56).
-- PR [#51](https://github.com/WaffleBits/WaffleBits/pull/51) then merged the
-  completed publication record. The public contents API read back both the
-  updated page source and this report from `main` after that merge.
-- The Pages workflow triggered by that final report update,
+- PR [#51](https://github.com/WaffleBits/WaffleBits/pull/51) merged the completed
+  publication record. The public contents API read back both the updated page
+  source and this report from `main` after that merge. Its post-merge Pages
+  workflow,
   [36238271391](https://github.com/WaffleBits/WaffleBits/actions/runs/36238271391),
-  passed both `build` and `deploy`; GitHub Pages reports `built`.
+  passed both `build` and `deploy`; GitHub Pages reported `built`.
+- PR [#52](https://github.com/WaffleBits/WaffleBits/pull/52) corrected the
+  publication wording after the report-only merge. Its post-merge Pages
+  workflow,
+  [36238419763](https://github.com/WaffleBits/WaffleBits/actions/runs/36238419763),
+  also passed both `build` and `deploy`.
 - The live profile at https://wafflebits.github.io/WaffleBits/ returned HTTP 200
   after deployment. A cache-busting read found the new `#capabilities` section,
   the `systems → evidence` label, six capability rows, all 12 proof rows,
