@@ -149,9 +149,20 @@ owner-writable generated directories and an ephemeral source copy:
 - The repository's rendered-output assertions from `.github/workflows/pages.yml` also passed in `node:24-bookworm`.
 - `git diff --check` passed for the tracked text changes.
 
-The profile branch is ready for the branch/PR/Pages publication sequence. The
-remote profile commit and live Pages read-back are recorded after that sequence;
-no publication is claimed before those checks pass.
+Publication verification completed after the supporting benchmark merge:
+
+- Profile PR [#54](https://github.com/WaffleBits/WaffleBits/pull/54) merged with squash at
+  [`cf7992b`](https://github.com/WaffleBits/WaffleBits/commit/cf7992b22e3e360b77512abbc951cb59ca3eccfa).
+- The post-merge Pages run
+  [36415103836](https://github.com/WaffleBits/WaffleBits/actions/runs/36415103836)
+  passed both `build` and `deploy` for that commit.
+- The live profile at https://wafflebits.github.io/WaffleBits/ returned HTTP 200
+  with 29,847 bytes. A cache-busting read contained the new `qualification
+  provenance` row, the qualification-manifest link, 13 proof rows, six capability
+  rows, and correct `/WaffleBits/` asset paths with no welded asset path.
+- GitHub contents API read-back confirmed the published report and Pages workflow
+  on `main`; the implementation source is also public in
+  `https://github.com/WaffleBits/triton-inference-benchmark/blob/main/qualification_manifest.py`.
 
 ## Remaining gap
 
