@@ -1,0 +1,60 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+
+const path = process.argv[2] ?? "dist/evidence.json";
+const raw = await readFile(path, "utf8");
+const manifest = JSON.parse(raw);
+
+assert.equal(manifest.schema_version, 1);
+assert.equal(manifest.kind, "public-portfolio-evidence");
+assert.equal(manifest.generated_from, "src/data/portfolio.ts");
+assert.equal(manifest.scope, "Public project, work-history, and on-page evidence links");
+assert.deepEqual(Object.keys(manifest).sort(), [
+  "boundaries",
+  "capabilities",
+  "generated_from",
+  "kind",
+  "proof",
+  "schema_version",
+  "scope",
+].sort());
+assert.equal(manifest.boundaries.length, 3);
+assert.equal(manifest.proof.length, 13);
+assert.equal(manifest.capabilities.length, 6);
+
+const publicHref = (href) =>
+  href.startsWith("#") ||
+  href.startsWith("https://github.com/WaffleBits/") ||
+  href.startsWith("https://wafflebits.github.io/");
+
+const proofIds = new Set();
+for (const item of manifest.proof) {
+  assert.match(item.id, /^proof-[a-z0-9]+(?:-[a-z0-9]+)*$/);
+  assert.equal(proofIds.has(item.id), false, `duplicate proof id: ${item.id}`);
+  proofIds.add(item.id);
+  assert.ok(["interactive", "measured", "deterministic", "operational", "verified", "research"].includes(item.kind));
+  assert.ok(item.label.length > 0);
+  assert.ok(item.statement.length > 0);
+  assert.equal(publicHref(item.href), true, `non-public proof link: ${item.href}`);
+}
+
+const capabilityCodes = new Set();
+for (const item of manifest.capabilities) {
+  assert.match(item.code, /^[A-Z]+$/);
+  assert.equal(capabilityCodes.has(item.code), false, `duplicate capability code: ${item.code}`);
+  capabilityCodes.add(item.code);
+  assert.ok(item.title.length > 0);
+  assert.ok(item.statement.length > 0);
+  assert.ok(Array.isArray(item.topics) && item.topics.length > 0);
+  assert.ok(item.topics.every((topic) => topic.length > 0));
+  assert.ok(item.link_label.length > 0);
+  assert.ok(["public-artifact", "profile-section"].includes(item.link_scope));
+  assert.equal(publicHref(item.href), true, `non-public capability link: ${item.href}`);
+}
+
+// The manifest is shareable evidence metadata, not a request or credential log.
+assert.doesNotMatch(raw, /(?:authorization\s*:\s*bearer|bearer\s+[a-z0-9._-]{16,}|api[_-]?key|password\s*[:=]|-----begin)/i);
+assert.doesNotMatch(raw, /(?:^|["' ])(?:\/home\/|[A-Z]:\\)/);
+assert.doesNotMatch(raw, /adnanberik@hotmail\.com/i);
+
+console.log(`validated ${manifest.proof.length} proof items and ${manifest.capabilities.length} capabilities in ${path}`);
