@@ -7,7 +7,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "test:evidence": "node scripts/validate-evidence.mjs",
+    "test:rendered": "node scripts/validate-rendered.mjs"
   },
   "dependencies": {
     "astro": "^7.1.6"
