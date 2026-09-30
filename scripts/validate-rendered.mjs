@@ -25,7 +25,7 @@ for (const [name, text] of [
   ["provenance evidence", "qualification provenance"],
   ["manifest source link", "https://github.com/WaffleBits/triton-inference-benchmark#create-a-content-addressed-qualification-manifest"],
   ["manifest href", 'href="/WaffleBits/evidence.json"'],
-  ["manifest label", "Structured copy for reviewers and tooling"],
+  ["manifest label", "Structured proof, capability, and project records"],
   ["capabilities section", 'id="capabilities"'],
   ["capabilities label", "systems → evidence"],
   ["benchmark repository", "https://github.com/WaffleBits/triton-inference-benchmark"],
@@ -55,5 +55,6 @@ for (const repository of [
 assert.equal(manifest.kind, "public-portfolio-evidence");
 assert.equal(manifest.proof.length, 13);
 assert.equal(manifest.capabilities.length, 6);
+assert.equal(manifest.projects.length, 7);
 
-console.log(`validated rendered profile (${html.length} bytes) and manifest (${manifest.proof.length} proof / ${manifest.capabilities.length} capabilities)`);
+console.log(`validated rendered profile (${html.length} bytes) and manifest (${manifest.proof.length} proof / ${manifest.capabilities.length} capabilities / ${manifest.projects.length} projects)`);

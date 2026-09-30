@@ -67,7 +67,7 @@ jobs:
           grep -q "qualification provenance" dist/index.html
           grep -q "https://github.com/WaffleBits/triton-inference-benchmark#create-a-content-addressed-qualification-manifest" dist/index.html
           grep -q 'href="/WaffleBits/evidence.json"' dist/index.html
-          grep -q "Structured copy for reviewers and tooling" dist/index.html
+          grep -q "Structured proof, capability, and project records" dist/index.html
           test "$(grep -o 'class="proof__row"' dist/index.html | wc -l)" -eq 13
           grep -q 'id="capabilities"' dist/index.html
           grep -q "systems → evidence" dist/index.html

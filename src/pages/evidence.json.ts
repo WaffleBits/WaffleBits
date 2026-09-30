@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { capability, proof } from "../data/portfolio";
+import { capability, caseFiles, proof } from "../data/portfolio";
 
 const slug = (value: string) =>
   value
@@ -10,6 +10,12 @@ const slug = (value: string) =>
 const topics = (value: string) =>
   value
     .split("/")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+const roles = (value: string) =>
+  value
+    .split(/\s+/)
     .map((item) => item.trim())
     .filter(Boolean);
 
@@ -38,6 +44,20 @@ const manifest = {
     href: item.href,
     link_label: item.link,
     link_scope: item.external ? "public-artifact" : "profile-section",
+  })),
+  projects: caseFiles.map((item) => ({
+    id: item.id,
+    roles: roles(item.roles),
+    title: item.title,
+    summary: item.plain,
+    tags: item.tags,
+    problem: item.problem,
+    system: item.system,
+    evidence: item.evidence,
+    impact: item.impact,
+    href: item.url,
+    ...(item.demo ? { demo: item.demo } : {}),
+    ...(item.chart ? { chart: item.chart } : {}),
   })),
 };
 
