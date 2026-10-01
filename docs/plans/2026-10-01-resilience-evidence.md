@@ -79,7 +79,10 @@ The profile checks were reproduced in a clean, ephemeral `node:24-bookworm` sour
 
 ## Publication verification
 
-To be completed after the scoped commit, pull request, green Pages workflow/deployment, remote read-back, and live profile/manifest read-back. The moderate npm advisories above will remain disclosed; no clean-audit claim will be made.
+- PR [#58](https://github.com/WaffleBits/WaffleBits/pull/58) merged with squash at commit [`fd7871c`](https://github.com/WaffleBits/WaffleBits/commit/fd7871c348e3d28b77488f3da01d76ff574ba752). Its pull-request Pages build passed in [run 36853692727](https://github.com/WaffleBits/WaffleBits/actions/runs/36853692727).
+- The post-merge Pages workflow passed both `build` and `deploy` in [run 36853759610](https://github.com/WaffleBits/WaffleBits/actions/runs/36853759610). GitHub Pages read-back reported `status: built` for `https://wafflebits.github.io/WaffleBits/`.
+- GitHub contents API read-back on `main` confirmed the six scoped files at the merged commit, including the proof source, README link, validator assertions, workflow assertions, and this plan.
+- A cache-busting live read returned HTTP 200 for both `https://wafflebits.github.io/WaffleBits/` and `https://wafflebits.github.io/WaffleBits/evidence.json`. The page was 30,674 bytes with 14 proof rows, the resilience artifact URL, correct `/WaffleBits/` asset paths, and no em dash. The manifest contained the exact `proof-failure-mode-drill` record with `kind: verified`, the public artifact URL, 14 proof items, 6 capabilities, and 7 project records.
 
 ## Remaining gap
 
