@@ -20,7 +20,7 @@ assert.deepEqual(Object.keys(manifest).sort(), [
   "scope",
 ].sort());
 assert.equal(manifest.boundaries.length, 3);
-assert.equal(manifest.proof.length, 13);
+assert.equal(manifest.proof.length, 14);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 
@@ -39,6 +39,15 @@ for (const item of manifest.proof) {
   assert.ok(item.statement.length > 0);
   assert.equal(publicHref(item.href), true, `non-public proof link: ${item.href}`);
 }
+
+const resilienceProof = manifest.proof.find((item) => item.label === "failure-mode drill");
+assert.ok(resilienceProof, "missing failure-mode drill proof");
+assert.equal(
+  resilienceProof.href,
+  "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/main/artifacts/resilience-drill-evidence.json",
+);
+assert.match(resilienceProof.statement, /synthetic gateway drill/i);
+assert.match(resilienceProof.statement, /mitigation, rollback, and recovery thresholds/i);
 
 const capabilityCodes = new Set();
 for (const item of manifest.capabilities) {
