@@ -24,6 +24,8 @@ for (const [name, text] of [
   ["lifecycle link", "https://github.com/WaffleBits/triton-inference-benchmark/blob/main/lifecycle_qualification.py"],
   ["provenance evidence", "qualification provenance"],
   ["manifest source link", "https://github.com/WaffleBits/triton-inference-benchmark#create-a-content-addressed-qualification-manifest"],
+  ["failure-mode drill", "failure-mode drill"],
+  ["resilience artifact", "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/main/artifacts/resilience-drill-evidence.json"],
   ["manifest href", 'href="/WaffleBits/evidence.json"'],
   ["manifest label", "Structured proof, capability, and project records"],
   ["capabilities section", 'id="capabilities"'],
@@ -38,7 +40,7 @@ for (const [name, text] of [
 
 assert.equal(html.includes("WaffleBitsassets"), false, "base path welded onto an asset");
 assert.equal(html.includes("—"), false, "em dash found in rendered page");
-assert.equal((html.match(/class="proof__row"/g) ?? []).length, 13, "proof row count changed");
+assert.equal((html.match(/class="proof__row"/g) ?? []).length, 14, "proof row count changed");
 assert.equal((html.match(/class="capability"/g) ?? []).length, 6, "capability row count changed");
 for (const repository of [
   "secure-gpu-inference-gateway",
@@ -53,7 +55,7 @@ for (const repository of [
 }
 
 assert.equal(manifest.kind, "public-portfolio-evidence");
-assert.equal(manifest.proof.length, 13);
+assert.equal(manifest.proof.length, 14);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 
