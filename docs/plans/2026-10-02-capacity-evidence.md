@@ -79,7 +79,15 @@ The profile checks were reproduced in a clean, ephemeral `node:24-bookworm` sour
 - The unchanged `public/assets/AdnanBerik-Resume.pdf` was inspected with `pypdf`: 4,849 bytes, one page, 3,757 extracted characters, with `ADNAN BERIK`, `TS/SCI`, and `github.com/WaffleBits` present.
 - `git diff --check` passed, and no secret-like or environment files are tracked.
 
-Publication and CI results will be recorded here only from real remote and live-page read-backs.
+## Publication verification
+
+- PR [#60](https://github.com/WaffleBits/WaffleBits/pull/60) merged with squash at commit [`1b29893`](https://github.com/WaffleBits/WaffleBits/commit/1b29893c0565c22ff7f2b7ffc560e5be502e24a2).
+- The pull-request Pages build passed in [run 36999627986](https://github.com/WaffleBits/WaffleBits/actions/runs/36999627986).
+- The post-merge Pages workflow [run 36999683529](https://github.com/WaffleBits/WaffleBits/actions/runs/36999683529) passed both `build` and `deploy`; the GitHub Pages API reports `status: built` for `https://wafflebits.github.io/WaffleBits/`.
+- GitHub contents API read-back on `main` confirmed the scoped source, README, validators, workflow, lockfile, and plan at the merged revision. The remote `src/data/portfolio.ts` and `README.md` both retain the exact public capacity artifact URL.
+- A cache-busting live read returned HTTP 200 for `https://wafflebits.github.io/WaffleBits/` and `/evidence.json`. The page was 31,279 bytes with 15 proof rows, the exact capacity artifact link, correct `/WaffleBits/` asset paths, and no em dash. The live manifest was 18,597 bytes with 15 proof items, 6 capabilities, and 7 projects; its `capacity plan` record points to the exact gateway artifact.
+- GitHub emitted only non-blocking action-runtime and future `ubuntu-latest` migration annotations; the build and deployment conclusions were successful.
+
 
 ## Remaining gap
 
