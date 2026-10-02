@@ -20,7 +20,7 @@ assert.deepEqual(Object.keys(manifest).sort(), [
   "scope",
 ].sort());
 assert.equal(manifest.boundaries.length, 3);
-assert.equal(manifest.proof.length, 14);
+assert.equal(manifest.proof.length, 15);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 
@@ -48,6 +48,17 @@ assert.equal(
 );
 assert.match(resilienceProof.statement, /synthetic gateway drill/i);
 assert.match(resilienceProof.statement, /mitigation, rollback, and recovery thresholds/i);
+
+const capacityProof = manifest.proof.find((item) => item.label === "capacity plan");
+assert.ok(capacityProof, "missing capacity plan proof");
+assert.equal(
+  capacityProof.href,
+  "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/main/artifacts/capacity-plan-evidence.json",
+);
+assert.match(capacityProof.statement, /synthetic capacity artifact/i);
+assert.match(capacityProof.statement, /cost estimates/i);
+assert.match(capacityProof.statement, /policy envelopes/i);
+assert.match(capacityProof.statement, /does not claim production capacity/i);
 
 const capabilityCodes = new Set();
 for (const item of manifest.capabilities) {
