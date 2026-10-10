@@ -20,7 +20,7 @@ assert.deepEqual(Object.keys(manifest).sort(), [
   "scope",
 ].sort());
 assert.equal(manifest.boundaries.length, 3);
-assert.equal(manifest.proof.length, 15);
+assert.equal(manifest.proof.length, 16);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 
@@ -59,6 +59,18 @@ assert.match(capacityProof.statement, /synthetic capacity artifact/i);
 assert.match(capacityProof.statement, /cost estimates/i);
 assert.match(capacityProof.statement, /policy envelopes/i);
 assert.match(capacityProof.statement, /does not claim production capacity/i);
+
+const streamUsageProof = manifest.proof.find((item) => item.label === "stream usage validation");
+assert.ok(streamUsageProof, "missing streaming usage validation proof");
+assert.equal(
+  streamUsageProof.href,
+  "https://github.com/WaffleBits/triton-inference-benchmark/blob/main/tests/test_openai_streaming.py",
+);
+assert.match(streamUsageProof.statement, /boolean, negative, fractional, and string/i);
+assert.match(streamUsageProof.statement, /malformed from missing usage/i);
+assert.match(streamUsageProof.statement, /unless every successful stream has a valid count/i);
+assert.match(streamUsageProof.statement, /not treated as tokens/i);
+assert.match(streamUsageProof.statement, /not a production measurement/i);
 
 const capabilityCodes = new Set();
 for (const item of manifest.capabilities) {
