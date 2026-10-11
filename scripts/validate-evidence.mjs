@@ -20,7 +20,7 @@ assert.deepEqual(Object.keys(manifest).sort(), [
   "scope",
 ].sort());
 assert.equal(manifest.boundaries.length, 3);
-assert.equal(manifest.proof.length, 16);
+assert.equal(manifest.proof.length, 17);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 
@@ -71,6 +71,19 @@ assert.match(streamUsageProof.statement, /malformed from missing usage/i);
 assert.match(streamUsageProof.statement, /unless every successful stream has a valid count/i);
 assert.match(streamUsageProof.statement, /not treated as tokens/i);
 assert.match(streamUsageProof.statement, /not a production measurement/i);
+
+const lifecycleCancellationProof = manifest.proof.find((item) => item.label === "lifecycle cancellation");
+assert.ok(lifecycleCancellationProof, "missing lifecycle cancellation proof");
+assert.equal(
+  lifecycleCancellationProof.href,
+  "https://github.com/WaffleBits/triton-inference-benchmark/blob/main/tests/run_lifecycle_signal_fixture.py",
+);
+assert.match(lifecycleCancellationProof.statement, /SIGINT and SIGTERM/i);
+assert.match(lifecycleCancellationProof.statement, /benchmark-child and service-group cleanup/i);
+assert.match(lifecycleCancellationProof.statement, /exit status 130\/143/i);
+assert.match(lifecycleCancellationProof.statement, /no success report/i);
+assert.match(lifecycleCancellationProof.statement, /single-host process-cleanup evidence/i);
+assert.match(lifecycleCancellationProof.statement, /not remote cancellation or production recovery/i);
 
 const capabilityCodes = new Set();
 for (const item of manifest.capabilities) {
