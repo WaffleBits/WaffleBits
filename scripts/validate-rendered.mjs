@@ -24,7 +24,10 @@ for (const [name, text] of [
   ["lifecycle link", "https://github.com/WaffleBits/triton-inference-benchmark/blob/main/lifecycle_qualification.py"],
   ["lifecycle cancellation", "lifecycle cancellation"],
   ["cancellation fixture", "https://github.com/WaffleBits/triton-inference-benchmark/blob/main/tests/run_lifecycle_signal_fixture.py"],
-  ["cancellation evidence boundary", "single-host process-cleanup evidence, not remote cancellation or production recovery"],
+  ["cancellation evidence boundary", "single-host process-cleanup evidence; remote cancellation is covered by a separate authenticated loopback protocol test, not production-network evidence"],
+  ["remote-agent cancellation", "remote-agent cancellation"],
+  ["remote cancellation fixture", "https://github.com/WaffleBits/triton-inference-benchmark/blob/main/tests/run_remote_agent_cancellation_fixture.py"],
+  ["remote cancellation boundary", "not interrupted-work recovery or production-network behavior"],
   ["provenance evidence", "qualification provenance"],
   ["manifest source link", "https://github.com/WaffleBits/triton-inference-benchmark#create-a-content-addressed-qualification-manifest"],
   ["failure-mode drill", "failure-mode drill"],
@@ -48,7 +51,7 @@ for (const [name, text] of [
 
 assert.equal(html.includes("WaffleBitsassets"), false, "base path welded onto an asset");
 assert.equal(html.includes("—"), false, "em dash found in rendered page");
-assert.equal((html.match(/class="proof__row"/g) ?? []).length, 17, "proof row count changed");
+assert.equal((html.match(/class="proof__row"/g) ?? []).length, 18, "proof row count changed");
 assert.equal((html.match(/class="capability"/g) ?? []).length, 6, "capability row count changed");
 for (const repository of [
   "secure-gpu-inference-gateway",
@@ -63,7 +66,7 @@ for (const repository of [
 }
 
 assert.equal(manifest.kind, "public-portfolio-evidence");
-assert.equal(manifest.proof.length, 17);
+assert.equal(manifest.proof.length, 18);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 

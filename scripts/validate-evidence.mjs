@@ -20,7 +20,7 @@ assert.deepEqual(Object.keys(manifest).sort(), [
   "scope",
 ].sort());
 assert.equal(manifest.boundaries.length, 3);
-assert.equal(manifest.proof.length, 17);
+assert.equal(manifest.proof.length, 18);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 
@@ -83,7 +83,23 @@ assert.match(lifecycleCancellationProof.statement, /benchmark-child and service-
 assert.match(lifecycleCancellationProof.statement, /exit status 130\/143/i);
 assert.match(lifecycleCancellationProof.statement, /no success report/i);
 assert.match(lifecycleCancellationProof.statement, /single-host process-cleanup evidence/i);
-assert.match(lifecycleCancellationProof.statement, /not remote cancellation or production recovery/i);
+assert.match(
+  lifecycleCancellationProof.statement,
+  /remote cancellation is covered by a separate authenticated loopback protocol test/i,
+);
+
+const remoteCancellationProof = manifest.proof.find((item) => item.label === "remote-agent cancellation");
+assert.ok(remoteCancellationProof, "missing remote-agent cancellation proof");
+assert.equal(
+  remoteCancellationProof.href,
+  "https://github.com/WaffleBits/triton-inference-benchmark/blob/main/tests/run_remote_agent_cancellation_fixture.py",
+);
+assert.match(remoteCancellationProof.statement, /two authenticated loopback agents/i);
+assert.match(remoteCancellationProof.statement, /both exact runs are cancelled/i);
+assert.match(remoteCancellationProof.statement, /agent children exit/i);
+assert.match(remoteCancellationProof.statement, /exit status 130\/143/i);
+assert.match(remoteCancellationProof.statement, /no success aggregate/i);
+assert.match(remoteCancellationProof.statement, /not interrupted-work recovery or production-network behavior/i);
 
 const capabilityCodes = new Set();
 for (const item of manifest.capabilities) {
