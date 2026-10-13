@@ -51,7 +51,7 @@ The profile already surfaced local SIGINT/SIGTERM lifecycle cleanup but did not 
 - Resume: `python3 scripts/build_resume.py` regenerated the PDF at 4,899 bytes. `pypdf` extracted 3,879 characters from exactly one page and confirmed the loopback cancellation, agent-child cleanup, exit 130/143, no-success-aggregate, and recovery/production boundary wording.
 - Profile: in a clean ephemeral source copy under `node:24-bookworm` (`node v24.18.0`, npm 11.16.0), `npm ci` installed 267 packages; `npm audit --audit-level=high` reported 0 vulnerabilities; `npm run check` reported 0 errors, warnings, or hints; `WB_BASE=/WaffleBits npm run build` passed. `npm run test:evidence` validated 18 proof items, 6 capabilities, and 7 projects; `npm run test:rendered` passed with 33,393-byte rendered HTML. Additional artifact checks confirmed 18 proof rows and the exact source link and evidence boundary.
 - Runtime: Astro preview returned HTTP 200 for `/WaffleBits/` and `/WaffleBits/evidence.json`; the served manifest contained 18 proof items and the page included the remote-cancellation link.
-- Publication: not yet attempted. The current change set has not been committed or pushed; PR/Pages verification remains after final diff review.
+- Pull request: #65 was opened against `main` at `176c786cf036889fb5958ef9b43663bb4069196f`; its Pages build [run 38388547199](https://github.com/WaffleBits/WaffleBits/actions/runs/38388547199) passed and the deploy job was skipped for the pull-request event. This is the pre-merge record; post-merge deployment and live read-back are verified separately.
 
 ## Remaining evidence boundary
 
