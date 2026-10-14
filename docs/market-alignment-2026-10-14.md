@@ -60,9 +60,10 @@ The two CI gates were added to the existing Pages workflow immediately after `np
 - `astro preview`: page and `/evidence.json` both returned HTTP 200; runtime assertions confirmed 18 proof rows, 18 manifest proof items, 6 capabilities, 7 projects, and the remote-cancellation proof link.
 - `git diff --check`: passed. The only intended source change is the Pages workflow; this report records the market evidence and verification. No credential-like filenames are tracked.
 
-### GitHub publication
+### Pull-request validation
 
-_Pending branch push, pull-request Pages checks, merge, and post-merge live/deployment read-back._
+- PR [#66](https://github.com/WaffleBits/WaffleBits/pull/66) was opened from `feat/ci-quality-gates-20261014`. At implementation commit `09613af43ca839fc1f0de8635aaf9a2a36efa3b`, Pages run [38554085178](https://github.com/WaffleBits/WaffleBits/actions/runs/38554085178) passed. GitHub's job-step read-back shows both `Audit dependency tree` and `Check Astro diagnostics`, plus the build, artifact, evidence, and rendered-contract validations, all succeeded.
+- The deploy job was skipped for the pull-request event by the workflow's `if: github.event_name != 'pull_request'` condition. Deployment and live read-back are separate post-merge checks.
 
 ## Remaining gap
 
