@@ -112,6 +112,11 @@ jobs:
       - name: Validate rendered profile contract
         run: npm run test:rendered
 
+      - name: Smoke-test preview HTTP routes
+        run: npm run test:preview
+        env:
+          WB_BASE: /WaffleBits
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
