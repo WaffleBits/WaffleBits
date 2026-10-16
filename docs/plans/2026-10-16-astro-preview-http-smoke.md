@@ -54,4 +54,13 @@ All requested local checks passed in a disposable source copy with Docker `node:
 
 ## Publication results
 
-Pending PR, CI, and post-merge Pages deployment verification.
+- PR [#67](https://github.com/WaffleBits/WaffleBits/pull/67) merged by squash at [`55861a0`](https://github.com/WaffleBits/WaffleBits/commit/55861a0c065097a7489affca84fd0c94cbe93096).
+- The PR Pages workflow [run 38891512882](https://github.com/WaffleBits/WaffleBits/actions/runs/38891512882) passed its build. GitHub's step read-back confirms the new `Smoke-test preview HTTP routes` check passed; the deploy job was correctly skipped for the pull-request event.
+- Post-merge Pages run [38891610997](https://github.com/WaffleBits/WaffleBits/actions/runs/38891610997) passed both build and deploy, including the preview HTTP smoke step.
+- GitHub Contents API read-back on `main` confirmed `.github/workflows/pages.yml`, `package.json`, `scripts/smoke-preview.mjs`, and this plan at the merged revision.
+- Cache-busted live reads after deployment returned HTTP 200 for the portfolio page (33,481 bytes, `text/html`) and `/WaffleBits/evidence.json` (21,326 bytes, `application/json`). Runtime assertions confirmed 18 proof items, 6 capabilities, 7 projects, and the remote-agent cancellation proof link.
+- GitHub reported non-blocking action-runtime deprecation and upcoming `ubuntu-latest` migration annotations; build and deployment conclusions were successful.
+
+## Remaining boundary
+
+This adds HTTP-level validation for the static profile build. It does not demonstrate large-scale CI, production distributed-service operation, production ownership, or organizational scope; those are not inferred from this test or the sampled job listings.
