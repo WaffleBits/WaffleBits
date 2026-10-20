@@ -66,7 +66,11 @@ Add a short release-gate evidence panel to the existing scheduler section of the
 
 ### Pull request and publication
 
-Pending.
+- PR [#69](https://github.com/WaffleBits/WaffleBits/pull/69) merged by squash at [`8b32722`](https://github.com/WaffleBits/WaffleBits/commit/8b32722b9fb102d84b58caec7d86611929a771fa).
+- The first PR Actions run [39412614273](https://github.com/WaffleBits/WaffleBits/actions/runs/39412614273) failed at `npm audit` because npm's advisory endpoint returned HTTP 503. Re-running the failed job without code changes passed: audit, Astro diagnostics, build, all output validators, preview HTTP smoke, and artifact upload succeeded. The PR deploy job was skipped as expected.
+- Post-merge Pages run [39412892085](https://github.com/WaffleBits/WaffleBits/actions/runs/39412892085) passed both build and deploy, including the rendered contract and preview HTTP smoke. GitHub emitted non-blocking notices about Node 20 action runtimes and the upcoming `ubuntu-latest` image migration.
+- GitHub Contents API read-back on `main` confirmed the page, rendered validator, and dated evidence plan at the merge revision.
+- Cache-busted live reads after deployment returned HTTP 200 for the portfolio page (34,331 bytes, `text/html`) and `/WaffleBits/evidence.json` (21,326 bytes, `application/json`). Runtime assertions confirmed the exact scope boundary, all three release-gate links, and manifest counts of 18 proof items, 6 capabilities, and 7 projects.
 
 ## Remaining boundary
 
