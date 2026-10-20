@@ -228,6 +228,16 @@ const code = limiterCode
           <p class="trace__eq">Identical fingerprints, so a failing run replays exactly.</p>
         </div>
 
+        <div class="evid">
+          <span class="proj__tag">Release gate · synthetic decision fixtures</span>
+          <p>The release gate returns a promote, hold, or rollback decision from baseline/candidate evidence. These checked fixtures are synthetic; no model deployment or rollback is executed.</p>
+          <div class="lks">
+            <a class="lk" href="https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/docs/RELEASE_VALIDATION.md" target="_blank" rel="noreferrer">Decision contract ↗</a>
+            <a class="lk" href="https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/fixtures/release_gate_safe.json" target="_blank" rel="noreferrer">Safe fixture ↗</a>
+            <a class="lk" href="https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/fixtures/release_gate_bad.json" target="_blank" rel="noreferrer">Rollback fixture ↗</a>
+          </div>
+        </div>
+
         <div class="proj__foot">
           <a class="lk" href="https://github.com/WaffleBits/deterministic-inference-scheduler" target="_blank" rel="noreferrer">Repository ↗</a>
           <span class="proj__stack">Rust</span>
