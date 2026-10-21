@@ -41,6 +41,10 @@ for (const [name, text] of [
   ["stream usage validation", "stream usage validation"],
   ["stream token boundary", "Text chunks and output bytes are not treated as tokens"],
   ["stream usage test", "https://github.com/WaffleBits/triton-inference-benchmark/blob/main/tests/test_openai_streaming.py"],
+  ["generated scheduler invariants", "generated scheduler invariants"],
+  ["scheduler property-test scope", "128 bounded generated property cases"],
+  ["scheduler property-test source", "https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/tests/scheduler.rs"],
+  ["scheduler synthetic boundary", "not production traces or performance evidence"],
   ["manifest href", 'href="/WaffleBits/evidence.json"'],
   ["manifest label", "Structured proof, capability, and project records"],
   ["capabilities section", 'id="capabilities"'],
@@ -55,7 +59,7 @@ for (const [name, text] of [
 
 assert.equal(html.includes("WaffleBitsassets"), false, "base path welded onto an asset");
 assert.equal(html.includes("—"), false, "em dash found in rendered page");
-assert.equal((html.match(/class="proof__row"/g) ?? []).length, 18, "proof row count changed");
+assert.equal((html.match(/class="proof__row"/g) ?? []).length, 19, "proof row count changed");
 assert.equal((html.match(/class="capability"/g) ?? []).length, 6, "capability row count changed");
 for (const repository of [
   "secure-gpu-inference-gateway",
@@ -70,7 +74,7 @@ for (const repository of [
 }
 
 assert.equal(manifest.kind, "public-portfolio-evidence");
-assert.equal(manifest.proof.length, 18);
+assert.equal(manifest.proof.length, 19);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 

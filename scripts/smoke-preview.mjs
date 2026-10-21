@@ -124,6 +124,9 @@ const smoke = async () => {
   const page = await pageResponse.text();
   assert.match(page, /Adnan Berik/);
   assert.ok(page.includes(`href="${manifestPath}"`), `page does not link to ${manifestPath}`);
+  assert.ok(page.includes("generated scheduler invariants"), "page omits the generated scheduler proof");
+  assert.ok(page.includes("https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/tests/scheduler.rs"), "page omits the scheduler test source");
+  assert.ok(page.includes("not production traces or performance evidence"), "page omits the synthetic evidence boundary");
 
   const manifestResponse = await fetch(`${origin}${manifestPath}`, { signal: AbortSignal.timeout(5000) });
   assert.equal(manifestResponse.status, 200, `manifest route ${manifestPath} returned HTTP ${manifestResponse.status}`);
@@ -132,10 +135,19 @@ const smoke = async () => {
   assert.equal(manifest.schema_version, 1);
   assert.equal(manifest.kind, "public-portfolio-evidence");
   assert.equal(manifest.generated_from, "src/data/portfolio.ts");
-  assert.equal(manifest.proof.length, 18);
+  assert.equal(manifest.proof.length, 19);
   assert.equal(manifest.capabilities.length, 6);
   assert.equal(manifest.projects.length, 7);
   assert.ok(manifest.proof.some((item) => item.label === "remote-agent cancellation"));
+  const schedulerPropertyProof = manifest.proof.find((item) => item.label === "generated scheduler invariants");
+  assert.ok(schedulerPropertyProof, "manifest omits the generated scheduler proof");
+  assert.equal(
+    schedulerPropertyProof.href,
+    "https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/tests/scheduler.rs",
+  );
+  assert.match(schedulerPropertyProof.statement, /128 bounded generated property cases/i);
+  assert.match(schedulerPropertyProof.statement, /synthetic workloads/i);
+  assert.match(schedulerPropertyProof.statement, /not production traces or performance evidence/i);
 
   console.log(
     `preview HTTP smoke passed: ${pagePath} and ${manifestPath} returned 200; ` +
