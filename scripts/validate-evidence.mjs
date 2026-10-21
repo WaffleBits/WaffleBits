@@ -20,7 +20,7 @@ assert.deepEqual(Object.keys(manifest).sort(), [
   "scope",
 ].sort());
 assert.equal(manifest.boundaries.length, 3);
-assert.equal(manifest.proof.length, 18);
+assert.equal(manifest.proof.length, 19);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 
@@ -71,6 +71,16 @@ assert.match(streamUsageProof.statement, /malformed from missing usage/i);
 assert.match(streamUsageProof.statement, /unless every successful stream has a valid count/i);
 assert.match(streamUsageProof.statement, /not treated as tokens/i);
 assert.match(streamUsageProof.statement, /not a production measurement/i);
+
+const schedulerPropertiesProof = manifest.proof.find((item) => item.label === "generated scheduler invariants");
+assert.ok(schedulerPropertiesProof, "missing generated scheduler invariant proof");
+assert.equal(
+  schedulerPropertiesProof.href,
+  "https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/tests/scheduler.rs",
+);
+assert.match(schedulerPropertiesProof.statement, /128 bounded generated property cases/i);
+assert.match(schedulerPropertiesProof.statement, /synthetic workloads/i);
+assert.match(schedulerPropertiesProof.statement, /not production traces or performance evidence/i);
 
 const lifecycleCancellationProof = manifest.proof.find((item) => item.label === "lifecycle cancellation");
 assert.ok(lifecycleCancellationProof, "missing lifecycle cancellation proof");
