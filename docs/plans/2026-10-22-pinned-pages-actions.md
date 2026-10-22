@@ -61,4 +61,11 @@ The profile's existing Pages workflow already runs dependency audit, Astro diagn
 
 ## Pull request and publication results
 
-Pending branch/PR CI and post-merge deployment verification.
+- PR [#73](https://github.com/WaffleBits/WaffleBits/pull/73) merged at `ff9c29421fbf257711578074fa29b6dad8fc7f7c` on 2026-10-22 11:07:03 UTC. Its Pages PR run [39768088635](https://github.com/WaffleBits/WaffleBits/actions/runs/39768088635) passed the build job, including the new pinned-action check, audit, Astro diagnostics, build, evidence/render validation, and preview HTTP smoke. The deploy job was skipped for the pull-request event as configured.
+- Post-merge Pages run [39768172105](https://github.com/WaffleBits/WaffleBits/actions/runs/39768172105) passed both build and deployment. API read-back from `main` confirmed all five action references are full commit SHAs.
+- Cache-busted live requests returned HTTP 200 for the [profile](https://wafflebits.github.io/WaffleBits/) and [evidence manifest](https://wafflebits.github.io/WaffleBits/evidence.json). The live page contains the profile title and 19 proof rows; the manifest contains 19 proof items, 6 capabilities, and 7 projects.
+- GitHub emitted non-blocking notices that checkout/setup-node's pinned v4 commits declare the deprecated Node 20 action runtime (the runner forced Node 24), and that `ubuntu-latest` is migrating to Ubuntu 26. The workflow completed successfully; these notices are retained as maintenance items rather than obscured.
+
+## Remaining gap
+
+This change hardens only the profile repository's small Pages workflow. It does not establish high-volume/remote build execution, production-scale CI ownership, or large-scale service operation. The two v4 actions' Node 20 runtime notices should be reviewed before GitHub removes compatibility; no action-version upgrade was included in this bounded pinning change.
