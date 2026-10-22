@@ -10,7 +10,8 @@
     "check": "astro check",
     "test:evidence": "node scripts/validate-evidence.mjs",
     "test:rendered": "node scripts/validate-rendered.mjs",
-    "test:preview": "node scripts/smoke-preview.mjs"
+    "test:preview": "node scripts/smoke-preview.mjs",
+    "test:workflow-pins": "node scripts/validate-workflow-pins.mjs"
   },
   "dependencies": {
     "astro": "^7.1.6"
