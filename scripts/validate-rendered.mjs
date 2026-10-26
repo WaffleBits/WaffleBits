@@ -45,6 +45,9 @@ for (const [name, text] of [
   ["scheduler property-test scope", "128 bounded generated property cases"],
   ["scheduler property-test source", "https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/tests/scheduler.rs"],
   ["scheduler synthetic boundary", "not production traces or performance evidence"],
+  ["scheduler priority aging", "priority-aging admission"],
+  ["scheduler aging behavior", "admits an older low-priority request at tick 4"],
+  ["scheduler aging evidence boundary", "not production fairness, production traffic, or a performance result"],
   ["manifest href", 'href="/WaffleBits/evidence.json"'],
   ["manifest label", "Structured proof, capability, and project records"],
   ["capabilities section", 'id="capabilities"'],
@@ -59,7 +62,7 @@ for (const [name, text] of [
 
 assert.equal(html.includes("WaffleBitsassets"), false, "base path welded onto an asset");
 assert.equal(html.includes("—"), false, "em dash found in rendered page");
-assert.equal((html.match(/class="proof__row"/g) ?? []).length, 19, "proof row count changed");
+assert.equal((html.match(/class="proof__row"/g) ?? []).length, 20, "proof row count changed");
 assert.equal((html.match(/class="capability"/g) ?? []).length, 6, "capability row count changed");
 for (const repository of [
   "secure-gpu-inference-gateway",
@@ -74,7 +77,7 @@ for (const repository of [
 }
 
 assert.equal(manifest.kind, "public-portfolio-evidence");
-assert.equal(manifest.proof.length, 19);
+assert.equal(manifest.proof.length, 20);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 
