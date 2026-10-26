@@ -20,7 +20,7 @@ assert.deepEqual(Object.keys(manifest).sort(), [
   "scope",
 ].sort());
 assert.equal(manifest.boundaries.length, 3);
-assert.equal(manifest.proof.length, 19);
+assert.equal(manifest.proof.length, 20);
 assert.equal(manifest.capabilities.length, 6);
 assert.equal(manifest.projects.length, 7);
 
@@ -81,6 +81,17 @@ assert.equal(
 assert.match(schedulerPropertiesProof.statement, /128 bounded generated property cases/i);
 assert.match(schedulerPropertiesProof.statement, /synthetic workloads/i);
 assert.match(schedulerPropertiesProof.statement, /not production traces or performance evidence/i);
+
+const schedulerPriorityAgingProof = manifest.proof.find((item) => item.label === "priority-aging admission");
+assert.ok(schedulerPriorityAgingProof, "missing scheduler priority-aging admission proof");
+assert.equal(
+  schedulerPriorityAgingProof.href,
+  "https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/tests/scheduler.rs",
+);
+assert.match(schedulerPriorityAgingProof.statement, /32-tick default/i);
+assert.match(schedulerPriorityAgingProof.statement, /admits an older low-priority request at tick 4/i);
+assert.match(schedulerPriorityAgingProof.statement, /synthetic replay behavior/i);
+assert.match(schedulerPriorityAgingProof.statement, /not production fairness, production traffic, or a performance result/i);
 
 const lifecycleCancellationProof = manifest.proof.find((item) => item.label === "lifecycle cancellation");
 assert.ok(lifecycleCancellationProof, "missing lifecycle cancellation proof");
