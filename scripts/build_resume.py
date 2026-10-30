@@ -70,7 +70,7 @@ story = [
     ]),
     Paragraph("Inference Runtime &amp; GPU Performance (Rust, Triton, Python)", styles["roleline"]),
     *bullets([
-        "Implemented deterministic Rust continuous batching and paged KV-cache scheduling with replay fingerprints, release gates, and 128-case generated tests for replay, lifecycle/accounting, and capacity invariants on synthetic workloads.",
+        "Built a deterministic Rust batching/KV-cache scheduler with replay gates, 128 generated property cases, and configurable priority aging. A synthetic test admits an older low-priority request at tick 4 during continuing arrivals (<link href=\"https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/tests/scheduler.rs\">test</link>).",
         "Developed correctness-gated Triton RMSNorm, SwiGLU, attention, KV-movement, and INT4 kernels; published raw RTX 5070 Ti measurements up to 2.2x faster than torch.compile for the primary kernel set.",
         "Built authenticated agent coordination with HMAC state and opt-in TLS/CA trust. CI rejects bad credentials/CA and recovers eight requests across two HTTPS agents without duplicates. Local fixtures verify service cleanup; a separate authenticated two-agent loopback test checks SIGINT/SIGTERM cancellation, agent-child cleanup, exit 130/143, and no success aggregate. Loopback is not interrupted-work recovery or production-network evidence; readiness is not model cold start.",
     ]),
