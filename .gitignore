@@ -10,3 +10,6 @@ node_modules/
 # os
 .DS_Store
 .claude/
+
+# Working notes live outside this repository
+docs/
