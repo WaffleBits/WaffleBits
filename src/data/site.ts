@@ -41,29 +41,31 @@ export const gates = [
   ["07", "Record", "audit event and trace span for every outcome, including denials"],
 ];
 
-/* End-to-end benchmark. Permalinked to the measurement commit so the
-   links survive a merge or a deleted branch. Wording states the null
-   result: the differences sat inside run-to-run variance, so no
-   overhead or speedup figure is claimed. */
+/* End-to-end benchmark. The vLLM result is a null result: the differences
+   sat inside run-to-run variance, so no figure is claimed for that path. The
+   null-backend run isolates the gateway and gives it a number of its own. */
 export const measurement = {
   label: "End-to-end measurement",
   body:
-    "Benchmarked against direct vLLM on the same host: Qwen2.5-3B on an RTX 5070 Ti, driven by vLLM's own serving client with paired seeds and three repetitions. 3,000 requests, no failures. Gateway throughput tracked direct within run-to-run variance, so no overhead or speedup figure is claimed.",
-  method: "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/e15b9f0/bench/README.md",
-  results: "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/e15b9f0/bench/results/20260803T212059Z-rtx5070ti-qwen25-3b-vllm026/report.md",
+    "Benchmarked against direct vLLM on the same host: Qwen2.5-3B on an RTX 5070 Ti, driven by vLLM's own serving client with paired seeds and three repetitions. 3,000 requests, no failures. Gateway throughput tracked direct within run-to-run variance, so no overhead or speedup figure is claimed for that path. Against a backend that does no work, the full control path adds 4.7 ms at p50 with the in-memory limiter and 5.5 ms with Redis, on one worker.",
+  method: "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/main/bench/README.md",
+  results: "https://github.com/WaffleBits/secure-gpu-inference-gateway/blob/main/bench/results/README.md",
 };
 
-export const limiterCode = `local current = redis.call("INCRBY", KEYS[1], ARGV[1])
-if current == tonumber(ARGV[1]) then
+export const limiterCode = `local cost = tonumber(ARGV[1])
+local limit = tonumber(ARGV[3])
+local current = tonumber(redis.call("GET", KEYS[1]) or "0")
+if current + cost > limit then
+  return {0, current, limit}
+end
+current = redis.call("INCRBY", KEYS[1], cost)
+if current == cost then
   redis.call("PEXPIRE", KEYS[1], ARGV[2])
 end
-if current > tonumber(ARGV[3]) then
-  return {0, current, tonumber(ARGV[3])}
-end
-return {1, current, tonumber(ARGV[3])}`;
+return {1, current, limit}`;
 
 export const limiterNote =
-  "Separate read, increment and expire calls can race across gateway replicas. The Lua script makes the fixed-window counter atomic, sets expiry only on the call that opens the window, and returns the decision with the updated counter. The principal id is SHA-256 hashed into the key rather than stored.";
+  "Separate read, increment and expire calls can race across gateway replicas. The Lua script makes the fixed-window check atomic, counts a request only when it fits, and sets expiry on the call that opens the window. The principal id is SHA-256 hashed into the key rather than stored.";
 
 /* Everything not given a full section. */
 export const index = [
