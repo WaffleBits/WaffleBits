@@ -1,6 +1,6 @@
 # Adnan Berik
 
-Platform Security and AI Infrastructure Engineer. TS/SCI cleared, USAF cyber defense operations background.
+U.S. Air Force cyber defense, TS/SCI cleared. Independently, I build and benchmark security and AI infrastructure software.
 
 I build the security and platform layer around model serving. My work covers authenticated inference paths, policy and audit controls, release-gate tooling, and the observability that makes serving behavior measurable. I like deterministic systems that can be tested under pressure and explained line by line.
 

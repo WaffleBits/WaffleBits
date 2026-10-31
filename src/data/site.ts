@@ -17,28 +17,28 @@ export const measured = [
   {
     n: "2.2",
     unit: "×",
-    what: "faster than compiled PyTorch",
-    how: "Fused Triton RMSNorm, RTX 5070 Ti, validated against an FP32 reference",
+    what: "faster than compiled PyTorch, at best",
+    how: "Fused Triton RMSNorm on an RTX 5070 Ti, 1.25× at the largest shape, validated against an FP32 reference",
     href: "https://github.com/WaffleBits/triton-kernel-lab#readme",
   },
   {
-    n: "312",
-    unit: "K/s",
-    what: "orders matched, p50 1.7 microseconds",
-    how: "C++20 matching core, Ryzen 9800X3D, checked against a Python oracle",
+    n: "5.1",
+    unit: "M/s",
+    what: "orders matched, p50 150 ns",
+    how: "C++20 core on a Ryzen 9800X3D under WSL, final state matched against a Python engine",
     href: "https://github.com/WaffleBits/market-microstructure-engine#readme",
   },
 ];
 
 /* The gateway request path. Short technical labels, no narration. */
 export const gates = [
-  ["01", "Identity", "caller authenticated, model allowlist checked"],
-  ["02", "Policy", "token and request budgets, rate limit, reason for access"],
-  ["03", "Route", "batched, dispatched, path recorded with the response"],
-  ["04", "Execute", "memory and capacity budgets, replayable"],
-  ["05", "Measure", "latency, cost and failures to Prometheus"],
-  ["06", "Record", "who asked, what ran, what it cost"],
-  ["07", "Gate", "promote, hold or roll back on regression"],
+  ["01", "Identity", "bearer JWT checked for issuer, audience, signature and expiry"],
+  ["02", "Policy", "role allowed for this model, reason required where policy says so"],
+  ["03", "Rate limit", "requests per minute, per caller and model"],
+  ["04", "Budget", "estimated input tokens per minute, per caller and model"],
+  ["05", "Backend", "mock by default, or an OpenAI-compatible endpoint"],
+  ["06", "Measure", "Prometheus metrics for outcomes, tokens and latency"],
+  ["07", "Record", "audit event and trace span for every outcome, including denials"],
 ];
 
 /* End-to-end benchmark. Permalinked to the measurement commit so the
@@ -69,8 +69,8 @@ export const limiterNote =
 export const index = [
   {
     title: "Market Microstructure Engine",
-    line: "Limit order book with price-time priority. C++20 core, Python model checking every fill.",
-    fig: "312K orders/s",
+    line: "Limit order book with price-time priority. C++20 core, with a Python engine checking final-state parity.",
+    fig: "5.1M orders/s",
     stack: "C++20, Python",
     href: "https://github.com/WaffleBits/market-microstructure-engine",
   },

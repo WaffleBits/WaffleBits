@@ -106,7 +106,7 @@ const code = limiterCode
         <div class="dgwrap">
         <svg class="dg" viewBox="0 0 900 236" role="img" aria-labelledby="dgt dgd">
           <title id="dgt">Gateway architecture</title>
-          <desc id="dgd">A caller reaches the control plane, which applies identity, policy, budget and routing and writes an audit record, then forwards to the model servers while exporting metrics.</desc>
+          <desc id="dgd">A caller reaches the control plane, which applies identity, policy, rate limits and token budgets, writes an audit record, then forwards to the model backend while exporting metrics.</desc>
           <g class="dg-l">
             <path d="M96 93 H210" />
             <path d="M650 93 H760" />
@@ -127,10 +127,10 @@ const code = limiterCode
             <text x="48" y="97" text-anchor="middle">CALLER</text>
             <text x="326" y="70" text-anchor="middle">IDENTITY</text>
             <text x="534" y="70" text-anchor="middle">POLICY</text>
-            <text x="326" y="110" text-anchor="middle">BUDGET</text>
-            <text x="534" y="110" text-anchor="middle">ROUTE</text>
+            <text x="326" y="110" text-anchor="middle">RATE LIMIT</text>
+            <text x="534" y="110" text-anchor="middle">BUDGET</text>
             <text x="430" y="150" text-anchor="middle" class="on">AUDIT RECORD</text>
-            <text x="830" y="97" text-anchor="middle">MODEL SERVERS</text>
+            <text x="830" y="97" text-anchor="middle">MODEL BACKEND</text>
             <text x="830" y="215" text-anchor="middle">METRICS</text>
           </g>
         </svg>
@@ -178,20 +178,25 @@ const code = limiterCode
         <div class="kern">
           <div>
             <span class="kern__n">2.2<i>×</i></span>
-            <span class="kern__cap">RMSNorm · RTX 5070 Ti</span>
+            <span class="kern__cap">Best case · RMSNorm</span>
           </div>
           <div>
             <div class="bars">
-              <div>
-                <p class="bar__t"><span>torch.compile baseline</span><b>1.00×</b></p>
-                <div class="bar__r"><span class="bar__f" style="--w:45%"></span></div>
-              </div>
               <div class="bar--key">
-                <p class="bar__t"><span>fused Triton kernel</span><b>up to 2.2×</b></p>
+                <p class="bar__t"><span>128 x 1024</span><b>2.21×</b></p>
                 <div class="bar__r"><span class="bar__f" style="--w:100%"></span></div>
+              </div>
+              <div>
+                <p class="bar__t"><span>512 x 4096</span><b>1.74×</b></p>
+                <div class="bar__r"><span class="bar__f" style="--w:79%"></span></div>
+              </div>
+              <div>
+                <p class="bar__t"><span>2048 x 4096</span><b>1.25×</b></p>
+                <div class="bar__r"><span class="bar__f" style="--w:57%"></span></div>
               </div>
             </div>
             <p class="kern__note">
+              p50 speedup over torch.compile, FP16, RTX 5070 Ti.
               Every output validated against an FP32 reference, cache flushed between runs.
               Full latency distributions and a regression gate are in the repository.
             </p>

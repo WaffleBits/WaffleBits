@@ -13,7 +13,7 @@ export const identity = {
   clearance: "TS/SCI",
   location: "Hampton, VA",
   open: "New York, NY / Washington, D.C.",
-  role: "Platform Security & AI Infrastructure Engineer",
+  role: "Platform security and AI infrastructure",
   tagline: "I protect and run the systems that serve AI models.",
   summary:
     "By day I do cyber defense for the US Air Force (TS/SCI clearance). On my own time I build the software layer that keeps AI model serving secure, measured, and reliable.",
@@ -149,11 +149,11 @@ export const caseFiles: CaseFile[] = [
   {
     id: "CF-07", roles: "mission ai", title: "Market Microstructure Engine",
     tags: ["C++", "Low Latency"],
-    plain: "A stock-exchange matching engine built for speed and correctness: 300,000+ orders per second measured, with a Python model double-checking every answer the C++ core gives.",
+    plain: "A stock-exchange matching engine built for speed and correctness: 5.1M orders per second measured in C++20, with a Python engine checking that both finish in the same state.",
     problem: "Matching logic is unforgiving: a single ordering bug corrupts every downstream fill.",
     system: "Python and C++20 matching engines covering price-time priority, partial fills, market orders, and cancellations.",
-    evidence: "Measured benchmark committed to the repo (312K orders/s, p50 1.7 microseconds on a Ryzen 9800X3D), cross-language parity checks, and native tests.",
-    impact: "A benchmarkable, provably-consistent deterministic core with an independent oracle guarding it.",
+    evidence: "Measured benchmarks committed to the repo (C++20 at 5.07M orders/s and p50 150 ns on a Ryzen 9800X3D under WSL), cross-language parity checks, and native tests.",
+    impact: "A benchmarkable deterministic core with an independent engine checking its final state.",
     url: "https://github.com/WaffleBits/market-microstructure-engine",
   },
 ];
@@ -169,7 +169,7 @@ export const proof: Proof[] = [
     plain: "Real RTX 5070 Ti results: my kernels vs PyTorch, chart and raw data in the repo.",
     href: "https://github.com/WaffleBits/triton-kernel-lab#readme" },
   { label: "matching-engine benchmark", kind: "measured",
-    plain: "312,000 orders per second, measured and committed with the machine specs.",
+    plain: "5.1M orders per second in C++20, measured and committed with the machine specs.",
     href: "https://github.com/WaffleBits/market-microstructure-engine#readme" },
   { label: "replayable test runs", kind: "deterministic",
     plain: "Scheduler traces that replay exactly, so any failure can be reproduced.",
@@ -236,7 +236,7 @@ export const serviceRecord: ServiceEntry[] = [
   {
     span: "2023 / PRESENT", org: "United States Air Force",
     unit: "ACC :: Langley AFB, VA",
-    role: "Cyber Defense Operations Specialist (TS/SCI)",
+    role: "Mission Assurance Technician (Cyber Defense Operations, 1D751B)",
     lines: [
       "Help run 24/7 cyber defense for 26 wings across 15 bases, roughly 27,000 users.",
       "Built a tracking tool that fused 216,000 data points into 4 live dashboards, cutting threat resolution from 5 days to 2.",
