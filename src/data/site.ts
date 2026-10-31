@@ -10,7 +10,7 @@ export const role = "Platform security and AI infrastructure";
 export const openTo = "New York · Washington, D.C.";
 
 export const intro =
-  "Cyber defense operations for the U.S. Air Force, TS/SCI cleared. Independently, I build and benchmark infrastructure around AI model serving.";
+  "Cyber defense operations for the U.S. Air Force, TS/SCI cleared. Independently, I build and run software, from a 35,225-player game network to AI serving infrastructure.";
 
 /* Two measured results, both reproducible from the repositories. */
 export const measured = [
@@ -70,6 +70,13 @@ export const limiterNote =
 /* Everything not given a full section. */
 export const index = [
   {
+    title: "Cloud Detection Lab",
+    line: "AWS detections as tested code: CloudTrail and EventBridge in Terraform, an attack simulator and a runbook.",
+    fig: "9 detections",
+    stack: "Terraform, Python",
+    href: "https://github.com/WaffleBits/cloud-detection-lab",
+  },
+  {
     title: "Market Microstructure Engine",
     line: "Limit order book with price-time priority. C++20 core, with a Python engine checking final-state parity.",
     fig: "5.1M orders/s",
@@ -85,8 +92,8 @@ export const index = [
   },
   {
     title: "Inference Load Benchmark",
-    line: "A single-host synthetic CI fixture runs two authenticated TLS 1.2+ HTTPS agents with an explicit CA, then recovers completed shards after response loss/restart; the privacy-safe trend report compares ordered saved runs with explicit p95-latency, throughput, success-rate, and retry-amplification gates. A shell-free lifecycle qualifier measures process-launch to selected HTTP-200 readiness before benchmark work; this is not model cold-start time or a production measurement. A content-addressed qualification manifest re-derives the report and verifies ordered input bytes without serializing paths, prompts, endpoints, credentials, or raw telemetry. Target traffic remains eight requests with zero duplicates. Partial, multi-host, and production recovery are not claimed.",
-    fig: "2 HTTPS agents / 8 requests / 0 duplicates",
+    line: "Load generator for LLM serving, with authenticated TLS agents, restart recovery and regression gates.",
+    fig: "0 duplicates",
     stack: "Python",
     href: "https://github.com/WaffleBits/triton-inference-benchmark",
   },

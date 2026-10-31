@@ -1,12 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
-import { identity, serviceRecord, awards, certifications, education, proof, capability } from "../data/portfolio";
+import { identity, serviceRecord, awards, certifications, education } from "../data/portfolio";
 import { role, intro, openTo, measured, gates, limiterCode, limiterNote, measurement, index } from "../data/site";
 import { asset } from "../lib/url";
 
 const resume = asset("assets/AdnanBerik-Resume.pdf");
-const evidenceManifest = asset("evidence.json");
 const usaf = serviceRecord[0];
 
 /* The independent track is described here rather than pulled from the
@@ -16,8 +15,8 @@ const independent = {
   role: "Independent engineering",
   org: "Remote",
   lines: [
-    "AI serving infrastructure: gateway, scheduler, GPU kernels, benchmarks.",
-    "Linux game-server infrastructure for a community of about 29,000 players. Monitoring, backups, performance tuning.",
+    "Founder and operator of wafflesonne.com since 2021: a Minecraft network with 35,225 unique players, custom Java plugins and about 700 members on Discord.",
+    "Security and AI serving infrastructure: gateway, scheduler, GPU kernels, benchmarks, AWS detections."
   ],
 };
 
@@ -167,7 +166,37 @@ const code = limiterCode
         </div>
       </article>
 
-      <!-- 2. kernels: the number is the layout -->
+      <!-- 2. wafflesonne: the only software here with real users -->
+      <article class="proj" data-in>
+        <div class="proj__top">
+          <h3 class="h3">wafflesonne.com</h3>
+          <span class="proj__tag">Live service since 2021</span>
+          <p class="proj__line">
+            A Minecraft network I founded and run: 35,225 unique players, about 700 on Discord,
+            custom Java plugins, all on one 12 GB virtual machine.
+          </p>
+        </div>
+
+        <div class="evid">
+          <span class="proj__tag">Measured from live traffic</span>
+          <p>
+            Weekly tournaments kept moving and once stopped for three weeks. Live samples showed
+            the top twelve time slots differ by 0.42 players, which is noise. The fix separates the
+            estimate from the promise: the plugin commits to one time on disk and stops chasing it.
+          </p>
+          <div class="lks">
+            <a class="lk" href="https://github.com/WaffleBits/wafflesonne-tournament/blob/main/docs/DESIGN.md" target="_blank" rel="noreferrer">Design ↗</a>
+            <a class="lk" href="https://github.com/WaffleBits/wafflesonne-tournament/blob/main/docs/platform.md" target="_blank" rel="noreferrer">Platform and incidents ↗</a>
+          </div>
+        </div>
+
+        <div class="proj__foot">
+          <a class="lk" href="https://github.com/WaffleBits/wafflesonne-tournament" target="_blank" rel="noreferrer">Repository ↗</a>
+          <span class="proj__stack">Java 21, Paper, Velocity, MariaDB, SQLite</span>
+        </div>
+      </article>
+
+      <!-- 3. kernels: the number is the layout -->
       <article class="proj" data-in>
         <div class="proj__top">
           <h3 class="h3">Triton Kernel Lab</h3>
@@ -210,7 +239,7 @@ const code = limiterCode
         </div>
       </article>
 
-      <!-- 3. scheduler: the trace runs the full width -->
+      <!-- 4. scheduler: the trace runs the full width -->
       <article class="proj" data-in>
         <div class="proj__top">
           <h3 class="h3">Deterministic Inference Scheduler</h3>
@@ -235,7 +264,7 @@ const code = limiterCode
 
         <div class="evid">
           <span class="proj__tag">Release gate · synthetic decision fixtures</span>
-          <p>The release gate returns a promote, hold, or rollback decision from baseline/candidate evidence. These checked fixtures are synthetic; no model deployment or rollback is executed.</p>
+          <p>The release gate returns promote, hold, or rollback from baseline and candidate evidence, tested on synthetic fixtures.</p>
           <div class="lks">
             <a class="lk" href="https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/docs/RELEASE_VALIDATION.md" target="_blank" rel="noreferrer">Decision contract ↗</a>
             <a class="lk" href="https://github.com/WaffleBits/deterministic-inference-scheduler/blob/main/fixtures/release_gate_safe.json" target="_blank" rel="noreferrer">Safe fixture ↗</a>
@@ -264,81 +293,6 @@ const code = limiterCode
             <span class="irow__l">{p.line}</span>
           </a>
         ))}
-      </div>
-    </section>
-
-    <!-- ===================== VERIFICATION INDEX ===================== -->
-    <section id="evidence" class="band">
-      <div class="wrap bay">
-        <div class="lead" data-in>
-          <h2 class="h2">Verification index</h2>
-          <span class="rule" aria-hidden="true"></span>
-          <span class="aside">public artifacts</span>
-        </div>
-        <p class="evidence__intro" data-in>
-          The shortest path from a claim to something a reviewer can inspect.
-          Each row links to the existing public code, artifact, or live demo;
-          the category describes the evidence boundary rather than implying production scale.
-        </p>
-        <div class="evidence__tools" data-in>
-          <span>Structured proof, capability, and project records</span>
-          <a class="lk" href={evidenceManifest}>Evidence JSON ↗</a>
-        </div>
-        <div class="proof" data-in>
-          {proof.map((item) => (
-            <a class="proof__row" href={item.href} target="_blank" rel="noreferrer">
-              <span class="proof__kind">{item.kind}</span>
-              <span class="proof__body">
-                <strong>{item.label}</strong>
-                <span>{item.plain}</span>
-              </span>
-              <span class="proof__go" aria-hidden="true">↗</span>
-            </a>
-          ))}
-        </div>
-        <p class="evidence__note" data-in>
-          Synthetic fixtures, projections, and controlled local measurements stay labelled as such.
-          Production-scale operation is not claimed where the public artifact does not demonstrate it.
-        </p>
-      </div>
-    </section>
-
-    <!-- ===================== CAPABILITIES ===================== -->
-    <section id="capabilities" class="band">
-      <div class="wrap bay">
-        <div class="lead" data-in>
-          <h2 class="h2">Capabilities</h2>
-          <span class="rule" aria-hidden="true"></span>
-          <span class="aside">systems → evidence</span>
-        </div>
-        <p class="capabilities__intro" data-in>
-          The recurring systems surface behind the projects above. Each row names
-          the boundary in plain language, then points to the existing work or
-          evidence that a reviewer can inspect.
-        </p>
-        <div class="capabilities" data-in>
-          {capability.map((item) => (
-            <a
-              class="capability"
-              href={item.href}
-              target={item.external ? "_blank" : undefined}
-              rel={item.external ? "noreferrer" : undefined}
-              aria-label={`${item.title}: ${item.link}`}
-            >
-              <span class="capability__code">{item.code}</span>
-              <span class="capability__copy">
-                <strong>{item.title}</strong>
-                <span>{item.plain}</span>
-              </span>
-              <span class="capability__items">{item.items}</span>
-              <span class="capability__go">{item.link} ↗</span>
-            </a>
-          ))}
-        </div>
-        <p class="capabilities__note" data-in>
-          This is a map to public artifacts and stated work history, not a claim
-          of production scale or enterprise adoption.
-        </p>
       </div>
     </section>
 
