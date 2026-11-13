@@ -4,7 +4,7 @@ U.S. Air Force cyber defense, TS/SCI cleared. Independently, I build software, r
 
 **Running in production:** [wafflesonne.com](https://github.com/WaffleBits/wafflesonne-tournament), a Minecraft network I founded, with 35,225 unique players since August 2020
 
-**Security and backend:** [inference gateway](https://github.com/WaffleBits/secure-gpu-inference-gateway), [cloud detection lab](https://github.com/WaffleBits/cloud-detection-lab)
+**Security and backend:** [inference gateway](https://github.com/WaffleBits/secure-gpu-inference-gateway), [cloud detection lab](https://github.com/WaffleBits/cloud-detection-lab), [vulnerability prioritization](https://github.com/WaffleBits/vuln-prioritization-engine)
 
 **Software systems:** [inference scheduler](https://github.com/WaffleBits/deterministic-inference-scheduler), [load benchmark](https://github.com/WaffleBits/triton-inference-benchmark), [readiness dashboard](https://wafflebits.github.io/readiness-control-tower/)
 
